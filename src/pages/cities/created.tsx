@@ -1,6 +1,6 @@
-import { Card } from "../../components/Card";
-import { CardAvaliation } from "../../components/CardAvaliation";
-import CardCategory from "../../components/CardCategory";
+import { Card } from "../../components/card/CardCity";
+import { CardAvaliation } from "../../components/card/CardAvaliation";
+import CardCategory from "../../components/card/CardCategory";
 
 export default function Created() {
   return (

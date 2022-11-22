@@ -49,8 +49,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         password
       })
 
-      console.log(response.data)
-
       setCookie(undefined, 'caparao.token', response.data, {
         maxAge: 60 * 60 * 24 * 30,
         path: '/'
@@ -75,7 +73,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       // console.log(token)
       // The signed-in user info.
      setUser(result.user);
-      console.log(result.user)
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;

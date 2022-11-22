@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import { useContext, useEffect, useState } from "react";
-import { Card } from "../../components/Card";
+import { useEffect, useState } from "react";
+
+import { CardCity } from "../../components/card/CardCity";
 import Header from "../../components/Header";
 import Nav from "../../components/Nav";
 import { useAuth } from "../../contexts/AuthContext";
@@ -28,7 +29,6 @@ export default function Cities() {
             Authorization: `Bearer ${cookies['caparao.token']}`
           }
         })
-        console.log(response.data)
         setCities(response.data)
       } catch (error) {
         if (error.response.status === 401) {
@@ -48,7 +48,7 @@ export default function Cities() {
         <span className="border-[1px] text-shape_secondary w-[1344px]" />
         <div className="w-full mt-12 ml-28 h-[862px] xl:28 flex flex-wrap mt-px-28 gap-x-8 gap-y-8">
           {cities.map(city => (
-            <Card key={city.id} name={city.name} route="city" />
+            <CardCity key={city.id} name={city.name} cityId={city.id} countPlaces={0} />
           ))}
         </div>
       </main>

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Header from '../../components/Header'
 import Nav from '../../components/Nav'
-import CardCategory from '../../components/CardCategory'
+import CardCategory from '../../components/card/CardCategory'
 import { FaStar } from 'react-icons/fa'
 import { RiWhatsappFill } from 'react-icons/ri'
 import { IconsHandleCard } from '../../components/IconsHandleCard'
@@ -11,7 +11,7 @@ import { FiArrowLeft, FiEdit3, FiTrash } from 'react-icons/fi'
 import Link from 'next/link'
 import { BsArrowLeft } from 'react-icons/bs'
 
-export default function City() {
+export default function Place() {
   const router = useRouter()
   
   function handleGoBack() {

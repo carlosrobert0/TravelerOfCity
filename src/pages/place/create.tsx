@@ -1,9 +1,8 @@
 import { BsArrowLeft } from 'react-icons/bs'
-
-import Nav from '../../components/Nav'
 import { useRouter } from 'next/router'
 
-import CardCategoryRadioBox from '../../components/CardCategoryRadioBox'
+import Nav from '../../components/Nav'
+import CardCategoryRadioBox from '../../components/card/CardCategoryRadioBox'
 import { Map } from '../Map'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
@@ -52,10 +51,8 @@ export default function Create() {
         category_id: '6fc32598-5e90-46f7-8cac-2719cd3e2da2',
         address_id
       })
-      console.log('awui')
     } catch (error) {
       console.log(error)
-      console.log('ersa')
     }
   }
 

@@ -1,19 +1,21 @@
+import { useEffect, useState } from 'react'
+import { BsArrowLeft } from 'react-icons/bs'
+import { FiAlertCircle, FiCamera, FiEdit3, FiTrash } from 'react-icons/fi'
+
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import Nav from '../../components/Nav'
-import CardCategory from '../../components/CardCategory'
-import { Card } from '../../components/Card'
-import { FiAlertCircle, FiCamera, FiEdit3, FiTrash } from 'react-icons/fi'
-import { IconsHandleCard } from '../../components/IconsHandleCard'
-import { BsArrowLeft } from 'react-icons/bs'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+
+import Nav from '../../components/Nav'
+import { CardCity } from '../../components/card/CardCity'
+import CardCategory from '../../components/card/CardCategory'
 import { api } from '../../services/api'
 
 export default function City() {
   const [places, setPlaces] = useState(null)
   const router = useRouter()
   const { id } = router.query
+  const { cityId } = router.query
   function handleGoBack() {
     router.back()
   }
@@ -45,7 +47,7 @@ export default function City() {
             <a className="bg-success w-full h-[48px] flex items-center justify-center font-heebo font-medium text-base leading-[26px] rounded-lg text-shape">+ Adicionar um local</a>
           </Link>
         </header>
-        <span className="border-[1px] text-shape_secondary w-[1344px]" />
+        <span className="border text-shape_secondary w-[1344px]" />
         <div className="w-full h-[862px] flex-1">
           <Image src="/imgBanner.png" objectFit="cover" width={1440} height={340} />
 
@@ -120,8 +122,8 @@ export default function City() {
             </div>
             <div>
               <div className="gap-8 flex flex-wrap">
-                {places ? places.map((place: any) => (
-                  <Card name={place.name} avaliation="4,7" route="place" />
+                {places ? places.filter((place: any) => place.city_id === cityId).map((place: any) => (
+                  <CardCity key={place.id} name={place.name} countPlaces={places.lenght} cityId="city" />
                 )) : ''}
               </div>
             </div>
