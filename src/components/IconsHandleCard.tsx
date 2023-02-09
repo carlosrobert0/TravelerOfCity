@@ -1,14 +1,23 @@
-import { FiEdit3, FiTrash } from "react-icons/fi";
+import { useRouter } from 'next/router'
+import { FiEdit3, FiTrash } from 'react-icons/fi'
 
-export function IconsHandleCard() {
-  return (
-    <>
-      <button className="w-10 h-10 rounded-l-xl text-text bg-shape absolute top-4 right-14 mr-1 border-[1px] border-shape_secondary flex items-center justify-center">
-        <FiEdit3 size={20} />
-      </button>
-      <button className="w-10 h-10 rounded-r-xl text-text bg-shape absolute top-4 right-4 border-[1px] border-shape_secondary flex items-center justify-center">
-        <FiTrash size={20} />
-      </button>
-    </>
-  )
+export function IconsHandleCard({ id }) {
+    const router = useRouter()
+
+    return (
+        <>
+            <button
+                onClick={() => router.push(`cities/edit/${id}`)}
+                className="absolute top-4 right-14 mr-1 flex h-10 w-10 items-center justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text">
+                <FiEdit3 size={20} />
+            </button>
+            <button
+                onClick={() => router.push(`/cities/delete/${id}`)}
+                className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text">
+                <FiTrash
+                    size={20}
+                />
+            </button>
+        </>
+    )
 }

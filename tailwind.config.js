@@ -28,7 +28,8 @@ module.exports = {
         orange_light: '#FFA585',
         yellow: '#EFB866',
         
-        background: '#F5F8FA'
+        background: '#F5F8FA',
+        background_dark: '#120e0e',
       },
     },
   },

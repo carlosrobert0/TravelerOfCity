@@ -1,18 +1,24 @@
-import { useRouter } from "next/router"
+import { useRouter } from 'next/router'
 
 export default function Header() {
-  const router = useRouter()
+    const router = useRouter()
+    function handleCreateCity() {
+        router.push('/cities/create')
+    }
 
-  function handleCreateCity() {
-    router.push('/cities/create')
-  }
-
-  return (
-    <header className="w-full h-[96px] flex flex-row items-center justify-start bg-shape">
-      <>
-        <h1 className="font-barlow font-semibold w-[128px] text-4xl leading-10 text-title my-6 ml-28">Cidades</h1>
-        <button onClick={handleCreateCity} className="bg-success w-[214px] h-[48px] items-center font-heebo font-medium text-base leading-[26px] rounded-lg text-shape ml-[778px]">+ Adicionar um perfil</button>
-      </>
-    </header>
-  )
+    return (
+        <header className="flex h-[96px] w-full flex-row items-center justify-start bg-shape">
+            <>
+                <h1 className="my-6 ml-28 w-[128px] font-barlow text-4xl font-semibold leading-10 text-title">
+                    Cidades
+                </h1>
+                <button
+                    onClick={handleCreateCity}
+                    className="ml-[778px] h-[48px] w-[214px] items-center rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape"
+                >
+                    + Adicionar um perfil
+                </button>
+            </>
+        </header>
+    )
 }

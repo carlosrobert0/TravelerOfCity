@@ -1,57 +1,109 @@
-import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
-import { useEffect, useState } from "react";
+import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
+import { useEffect, useState } from 'react'
 
-import { CardCity } from "../../components/card/CardCity";
-import Header from "../../components/Header";
-import Nav from "../../components/Nav";
-import { useAuth } from "../../contexts/AuthContext";
-import { api } from "../../services/api";
+import Header from '../../components/Header'
+import Nav from '../../components/Nav'
+import { CardCity } from '../../components/card/CardCity'
+import { useAuth } from '../../contexts/AuthContext'
+import { api } from '../../services/api'
 
 interface CityData {
-  id: string;
-  name: string;
-  imagem?: string;
-  description?: string;
+    id: string
+    name: string
+    image?: string
+    description?: string
+}
+
+interface PlaceData {
+    id: string
+    name: string
+    image: string
+    description: string
+    category_id: string
+    address_id: string
+    city_id: string
 }
 
 export default function Cities() {
-  const [cities, setCities] = useState<CityData[]>([] as CityData[])
-  const cookies = parseCookies()
-  const router = useRouter()
-  const { signOutApplication } = useAuth()
+    const [cities, setCities] = useState<CityData[]>([])
+    const [places, setPlaces] = useState<PlaceData[]>([])
 
-  useEffect(() => {
-    async function getCities() {
-      try {
-        const response = await api.get('cities', {
-          headers: {
-            Authorization: `Bearer ${cookies['caparao.token']}`
-          }
-        })
-        setCities(response.data)
-      } catch (error) {
-        if (error.response.status === 401) {
-          signOutApplication(router)
+    const cookies = parseCookies()
+
+    const router = useRouter()
+
+    const { signOutApplication } = useAuth()
+
+    async function getPlaces() {
+        try {
+            const response = await api.get('places', {
+                headers: {
+                    Authorization: `Bearer ${cookies['caparao.token']}`,
+                },
+            })
+            setPlaces(response.data)
+        } catch (error) {
+            if (error.response.status === 401) {
+                signOutApplication(router)
+            }
         }
-      }
     }
-    getCities()
-  }, [])
 
-  return (
-    <div className="w-full h-[820px] flex justify-between max-h-[820px] overflow-x-hidden overflow-hidden">
-      <Nav />
+    async function getCities() {
+        try {
+            const response = await api.get('cities', {
+                headers: {
+                    Authorization: `Bearer ${cookies['caparao.token']}`,
+                },
+            })
+            setCities(response.data)
+        } catch (error) {
+            if (error.response.status === 401) {
+                signOutApplication(router)
+            }
+        }
+    }
 
-      <main className="flex flex-col w-full ml-24 overflow-x-hidden overflow-y-scroll">
-        <Header />
-        <span className="border-[1px] text-shape_secondary w-[1344px]" />
-        <div className="w-full mt-12 ml-28 h-[862px] xl:28 flex flex-wrap mt-px-28 gap-x-8 gap-y-8">
-          {cities.map(city => (
-            <CardCity key={city.id} name={city.name} cityId={city.id} countPlaces={0} />
-          ))}
+    useEffect(() => {
+        getCities()
+        getPlaces()
+
+        return () => {
+            getCities(), getPlaces()
+        }
+    }, [])
+
+    function countPlacesToCityId(city_id: string) {
+        const filteredArrayToCityId = places.filter(
+            (place: PlaceData) => place.city_id === city_id
+        )
+        return filteredArrayToCityId.length
+    }
+
+    useEffect(() => {
+        console.log(cities)
+    }, [cities])
+
+    return (
+        <div className="flex h-[820px] max-h-[820px] w-full justify-between overflow-hidden overflow-x-hidden">
+            <Nav />
+
+            <main className="ml-24 flex w-full flex-col overflow-x-hidden overflow-y-scroll">
+                <Header />
+                <hr className="w-full bg-shape_secondary" />
+                <div className="xl:28 mt-px-28 mt-12 ml-28 flex h-[862px] w-full flex-wrap gap-x-8 gap-y-8">
+                    {cities.map((city) => (
+                        <CardCity
+                            key={city.id}
+                            name={city.name}
+                            image={`/caparao.jpg`}
+                            id={city.id}
+                            countPlaces={countPlacesToCityId(city.id)}
+                        />
+                    ))}
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  )
+    )
 }
