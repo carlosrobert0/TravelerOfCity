@@ -77,15 +77,6 @@ export default function City() {
     }
   }
 
-  async function onDeleteCity(cityId: string) {
-    try {
-        await api.delete(`cities/${cityId}`)
-        router.back()
-    } catch (error) {
-        console.log(error)
-    }
-}
-
   return (
     <div className="flex h-[2000px] w-full justify-between overflow-hidden overflow-x-hidden">
       <Nav />
@@ -99,11 +90,13 @@ export default function City() {
             className="my-6 w-[128px] font-barlow text-4xl font-semibold leading-10 text-complement"
           />
           <div className="ml-[700px] mr-6 flex gap-1">
-            <button className="top-4 right-16 flex h-10 w-10 items-center justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text">
+            <button 
+              onClick={() => router.push(`/cities/edit/${city?.id}`)}
+              className="top-4 right-16 flex h-10 w-10 items-center justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text">
               <FiEdit3 size={20} />
             </button>
             <button 
-              onClick={() => onDeleteCity(city?.id as string)}
+              onClick={() => router.push(`/cities/delete/${id}`)}
               className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text">
               <FiTrash size={20} />
             </button>

@@ -43,7 +43,7 @@ export default function Delete() {
     async function handleDeleteCity() {
         try {
             await api.delete(`cities/${id}`)
-            router.back()
+            router.push('/cities')
         } catch (error) {
             console.log(error)
         }
@@ -120,7 +120,7 @@ export default function Delete() {
                             >
                                 Não
                             </button>
-                            <button 
+                            <button
                                 onClick={handleDeleteCity}
                                 className="mt-10 flex h-[48px] w-[100px] items-center justify-center rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-white">
                                 Sim
