@@ -18,7 +18,9 @@ export function CardCity({ id, name, image, countPlaces }: CardCityProps) {
     }
 
     return (
-        <div className="relative h-[266px] w-64 overflow-hidden rounded-2xl border border-shape_secondary bg-shape">
+        <div className="relative h-[266px] w-64 overflow-hidden rounded-2xl 
+            border border-shape_secondary bg-shape"
+        >
             <Image
                 src={image}
                 width="254px"

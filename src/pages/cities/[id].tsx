@@ -92,17 +92,23 @@ export default function City() {
           <div className="ml-[700px] mr-6 flex gap-1">
             <button 
               onClick={() => router.push(`/cities/edit/${city?.id}`)}
-              className="top-4 right-16 flex h-10 w-10 items-center justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text">
+              className="top-4 right-16 flex h-10 w-10 items-center justify-center 
+                rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text"
+            >
               <FiEdit3 size={20} />
             </button>
             <button 
               onClick={() => router.push(`/cities/delete/${id}`)}
-              className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text">
+              className="top-4 right-4 flex h-10 w-10 items-center justify-center 
+                rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
+              >
               <FiTrash size={20} />
             </button>
           </div>
           <Link href={`/place/create/${city?.id}`}>
-            <a className="flex h-[48px] w-[216px] items-center justify-center rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape">
+            <a className="flex h-[48px] w-[216px] items-center justify-center 
+              rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape"
+            >
               + Adicionar um local
             </a>
           </Link>
@@ -150,34 +156,49 @@ export default function City() {
                 category_id="78aad295-e3d4-475d-930e-39b268fae11d"
                 image="/caparao.jpg"
               />
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed border-shape_secondary bg-shape" />
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed border-shape_secondary bg-shape" />
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed border-shape_secondary bg-shape" />
+              <button className="h-[307px] w-64 rounded-2xl border border-dashed
+               border-shape_secondary bg-shape" />
+              <button className="h-[307px] w-64 rounded-2xl border border-dashed
+               border-shape_secondary bg-shape" />
+              <button className="h-[307px] w-64 rounded-2xl border border-dashed
+               border-shape_secondary bg-shape" />
             </div>
           </section>
 
           {
             hasProminence ? (
-              <section className="relative mb-20 mt-20 ml-28 flex h-[286px] w-[1120px] items-center justify-center overflow-hidden rounded-2xl border-[2px] border-dashed border-shape_secondary bg-shape">
+              <section className="relative mb-20 mt-20 ml-28 flex h-[286px] 
+                w-[1120px] items-center justify-center overflow-hidden rounded-2xl 
+                border-[2px] border-dashed border-shape_secondary bg-shape"
+              >
                 <h1 className="text-center font-heebo text-base leading-[26px] text-brand-orange">
                   Crie um destaque arrastando um card aqui
                 </h1>
               </section>
             ) : (
-              <section className="w-[1120px] h-[286px] overflow-hidden mb-20 mt-20 bg-shape border-[1px] border-shape_secondary rounded-2xl flex justify-between ml-28 relative">
+              <section className="w-[1120px] h-[286px] overflow-hidden mb-20 
+                mt-20 bg-shape border-[1px] border-shape_secondary rounded-2xl flex justify-between ml-28 relative"
+              >
                 <div className="flex flex-col w-[560px] h-[194px] mt-[43px] ml-16 mr-[60px] justify-between">
                   <div className="flex justify-between items-center">
-                    <span className="w-[119px] gap-2 flex rounded-2xl h-8 bg-brand-orange text-shape items-center justify-center">
+                    <span className="w-[119px] gap-2 flex rounded-2xl h-8 bg-brand-orange text-shape 
+                      items-center justify-center"
+                    >
                       <FiAlertCircle size={20} />
                       <h6 className="font-barlow font-semibold text-sm leading-4">Destaque</h6>
                     </span>
                     <div className="w-[200px] flex h-[26px] gap-6">
                       <FiCamera size={24} color="#F25D27" />
-                      <h4 className="font-barlow font-medium text-base leading-[26px] text-text">Pontos turísticos</h4>
+                      <h4 className="font-barlow font-medium text-base leading-[26px] text-text">
+                        Pontos turísticos
+                      </h4>
                     </div>
                   </div>
-                  <h1 className="font-barlow font-semibold text-4xl leading-9 text-title mt-8 mb-4">Praia dos Ingleses</h1>
-                  <h4 className="font-heebo font-regular text-base leading-[26px] text-text">Uma parte do paraíso na terra. Frequentemente com águas
+                  <h1 className="font-barlow font-semibold text-4xl leading-9 text-title mt-8 mb-4">
+                    Praia dos Ingleses
+                  </h1>
+                  <h4 className="font-heebo font-regular text-base leading-[26px] text-text">
+                    Uma parte do paraíso na terra. Frequentemente com águas
                     claras em tons verdes e azuis. Um dos locais mais preferidos
                     por turistas e viajantes.
                   </h4>

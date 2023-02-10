@@ -41,19 +41,6 @@ export default function Edit() {
 
   async function handleEditCity({ name, image, description }: CityFormData) {
     openModal()
-    // try {
-    //   const { data } = await api.post('city', {
-    //     name,
-    //     image: image[0].name,
-    //     description
-    //   })
-
-    //   console.log(image)
-    //   setImagePreview(image)
-    //   router.push(`/place/edit/${data.id}`)
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
 
   function handleGoBack() {
@@ -72,7 +59,8 @@ export default function Edit() {
     <>
       <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
         <Nav />
-        <main className="absolute ml-24 flex w-full flex-col items-center justify-around overflow-x-hidden overflow-y-scroll">
+        <main className="absolute ml-24 flex w-full flex-col items-center 
+        justify-around overflow-x-hidden overflow-y-scroll">
           <header
             className={`flex h-[96px] w-full items-center justify-between bg-shape px-28`}
           >
@@ -89,7 +77,8 @@ export default function Edit() {
           </header>
           <span className="w-[1443px] border-[1px] text-shape_secondary" />
           <div className="mb-28 mt-4 flex h-full w-[800px] flex-col rounded-2xl bg-shape">
-            <div className="flex h-[143px] w-[766px] items-center justify-start rounded-r-2xl bg-gradient-to-r from-[#FEF7F5] to-[#FFF]">
+            <div className="flex h-[143px] w-[766px] items-center justify-start 
+            rounded-r-2xl bg-gradient-to-r from-[#FEF7F5] to-[#FFF]">
               <h1 className="ml-10 font-barlow text-4xl font-semibold leading-[34px] text-brand-orange">
                 Editar cidade
               </h1>
@@ -110,7 +99,8 @@ export default function Edit() {
                 <input
                   {...register('name')}
                   value={`${city?.name}`}
-                  className="h-[56px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary bg-background pl-6 text-left font-heebo text-lg text-title"
+                  className="h-[56px] w-[672px] rounded-[10px] border-[1px] 
+                  border-shape_secondary bg-background pl-6 text-left font-heebo text-lg text-title"
                 />
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
@@ -120,13 +110,19 @@ export default function Edit() {
                 {imagePreview ? (
                   <img
                     src={imagePreview[0].name}
-                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
+                    flex-col items-center justify-center rounded-lg border-2 border-dashed 
+                    border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 
+                    dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                   />
                 ) : (
                   <div className="flex w-full items-center justify-center">
                     <label
                       htmlFor="dropzone-file"
-                      className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                      className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
+                      flex-col items-center justify-center rounded-lg border-2 border-dashed 
+                      border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 
+                      dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                     >
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
@@ -149,7 +145,8 @@ export default function Edit() {
                   Descrição da cidade
                 </label>
                 <textarea
-                  className="h-[202px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary bg-background pl-6 pt-[15px] text-left font-heebo text-lg text-title"
+                  className="h-[202px] w-[672px] rounded-[10px] border-[1px] 
+                  border-shape_secondary bg-background pl-6 pt-[15px] text-left font-heebo text-lg text-title"
                   {...register('description')}
                   value={`${city?.description}`}
                   />
@@ -166,7 +163,8 @@ export default function Edit() {
                   </div>
                   <button
                     type="submit"
-                    className="h-[48px] w-[188px] rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-shape"
+                    className="h-[48px] w-[188px] rounded-[10px] bg-success 
+                    font-heebo text-base font-medium leading-[26px] text-shape"
                   >
                     Salvar alterações
                   </button>
@@ -202,7 +200,9 @@ export default function Edit() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="relative flex h-[406px] w-[380px] transform flex-col items-center justify-between transition-all">
+                <Dialog.Panel className="relative flex h-[406px] w-[380px] 
+                  transform flex-col items-center justify-between transition-all"
+                >
                   <svg
                     width="380"
                     height="380"
@@ -259,7 +259,9 @@ export default function Edit() {
                       </svg>
                     </div>
 
-                    <h1 className=" mt-12 w-[261px] text-center font-heebo text-[54px] font-medium leading-[64px] text-shape">
+                    <h1 className=" mt-12 w-[261px] text-center font-heebo 
+                      text-[54px] font-medium leading-[64px] text-shape"
+                    >
                       Alterações salvas!
                     </h1>
                   </div>

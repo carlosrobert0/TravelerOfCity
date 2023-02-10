@@ -78,12 +78,16 @@ export default function Place() {
                         className="w-[128px] font-barlow text-4xl font-semibold leading-10 text-complement"
                     />
                     <div className="ml-[308px] mr-6 flex gap-1">
-                        <button className="top-4 right-16 flex h-10 w-10 items-center justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text">
+                        <button className="top-4 right-16 flex h-10 w-10 items-center 
+                            justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text"
+                        >
                             <FiEdit3 size={20} />
                         </button>
                         <button 
                             onClick={() => onDeletePlace(place?.id as string)}
-                            className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text">
+                            className="top-4 right-4 flex h-10 w-10 items-center justify-center 
+                                ounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
+                        >
                             <FiTrash size={20} />
                         </button>
                     </div>
@@ -108,7 +112,9 @@ export default function Place() {
                         </h2>
                         <span className="mt-4 mb-8 h-[1px] w-[448px] bg-shape_secondary" />
                         <div className="flex w-[448px] flex-wrap gap-2">
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                                rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Domingo
                                 </h6>
@@ -116,7 +122,9 @@ export default function Place() {
                                     Fechado
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start 
+                                justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Segunda
                                 </h6>
@@ -124,7 +132,9 @@ export default function Place() {
                                     Fechado
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start 
+                                justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Terça
                                 </h6>
@@ -132,7 +142,9 @@ export default function Place() {
                                     Fechado
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                                rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Quarta
                                 </h6>
@@ -140,7 +152,9 @@ export default function Place() {
                                     8h-19h
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                                rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Quinta
                                 </h6>
@@ -148,7 +162,9 @@ export default function Place() {
                                     Fechado
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col items-start 
+                                justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Sexta
                                 </h6>
@@ -156,7 +172,10 @@ export default function Place() {
                                     8h-19h
                                 </h6>
                             </div>
-                            <div className="flex h-[84px] w-[104px] flex-col items-start justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4">
+                            <div className="flex h-[84px] w-[104px] flex-col 
+                                items-start justify-center rounded-[10px] border-[1px] 
+                              border-shape_secondary bg-shape p-4"
+                            >
                                 <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
                                     Sábado
                                 </h6>

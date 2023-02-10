@@ -127,7 +127,9 @@ export default function Created() {
             </h2>
             <button
               onClick={() => router.push(`/cities`)}
-              className="mt-10 flex h-[48px] w-[100px] items-center justify-center rounded-[10px] bg-brand-orange font-heebo text-base font-medium leading-[26px] text-white">
+              className="mt-10 flex h-[48px] w-[100px] items-center justify-center 
+              rounded-[10px] bg-brand-orange font-heebo text-base font-medium leading-[26px] text-white"
+            >
               Okay
             </button>
           </div>
@@ -137,7 +139,7 @@ export default function Created() {
           <CardCity
             name={`${city?.name}`}
             id={`${city?.id}`}
-            image_url="/caparao.jpg"
+            image="/caparao.jpg"
             countPlaces={`${city?.places?.length}`}
           />
           <CardPlace

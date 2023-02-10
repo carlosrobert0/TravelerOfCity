@@ -113,11 +113,16 @@ export default function Login() {
                                     name="email"
                                     type="email"
                                     placeholder="E-mail"
-                                    className="font-regular peer h-[72px] w-full rounded-t-md border-[1px] border-shape_secondary pt-5 pl-[24px] font-heebo text-base text-text placeholder-transparent"
+                                    className="font-regular peer h-[72px] w-full rounded-t-md border-[1px] 
+                                    border-shape_secondary pt-5 pl-[24px] font-heebo text-base text-text 
+                                    placeholder-transparent"
                                 />
                                 <label
                                     htmlFor="email"
-                                    className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                                    className="font-regular absolute top-3 pl-[24px] font-heebo text-sm 
+                                    text-complement transition-all peer-placeholder-shown:top-6 
+                                    peer-placeholder-shown:text-base peer-placeholder-shown:text-complement 
+                                    peer-focus:top-3 peer-focus:text-sm"
                                 >
                                     E-mail
                                 </label>
@@ -131,12 +136,17 @@ export default function Login() {
                                     name="password"
                                     type={passwordVisible ? 'text' : 'password'}
                                     placeholder="Senha"
-                                    className="font-regular peer h-[72px] w-full rounded-b-md border-[1px] border-t-0 border-shape_secondary pt-5 pl-[24px] align-top font-heebo text-base text-text placeholder-transparent"
+                                    className="font-regular peer h-[72px] w-full rounded-b-md border-[1px] 
+                                    border-t-0 border-shape_secondary pt-5 pl-[24px] align-top font-heebo 
+                                    text-base text-text placeholder-transparent"
                                     tabIndex={0}
                                 />
                                 <label
                                     htmlFor="password"
-                                    className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                                    className="font-regular absolute top-3 pl-[24px] font-heebo 
+                                    text-sm text-complement transition-all peer-placeholder-shown:top-6 
+                                    peer-placeholder-shown:text-base peer-placeholder-shown:text-complement 
+                                    peer-focus:top-3 peer-focus:text-sm"
                                 >
                                     Senha
                                 </label>
@@ -167,7 +177,9 @@ export default function Login() {
                                         id="check"
                                         name="check"
                                         type="checkbox"
-                                        className="h-6 w-6 cursor-pointer appearance-none rounded-lg border-[1px] border-shape_secondary bg-shape checked:border-none checked:bg-success"
+                                        className="h-6 w-6 cursor-pointer appearance-none 
+                                        rounded-lg border-[1px] border-shape_secondary bg-shape 
+                                        checked:border-none checked:bg-success"
                                     />
                                     <BsCheckLg
                                         color="#FFF"
@@ -189,7 +201,8 @@ export default function Login() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className={`mt-8 h-[72px] w-full rounded-md bg-brand-orange font-heebo text-lg font-medium text-shape disabled:opacity-50`}
+                            className={`mt-8 h-[72px] w-full rounded-md bg-brand-orange 
+                            font-heebo text-lg font-medium text-shape disabled:opacity-50`}
                         >
                             {isLoading
                                 ? 'Carregando ...'

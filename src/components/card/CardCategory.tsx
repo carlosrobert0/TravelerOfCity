@@ -13,7 +13,8 @@ export default function CardCategory({
 }: CardCategoryProps) {
   return (
     <div
-      className={`flex h-[268px] w-[160px] flex-col justify-between rounded-[20px] border-[1px] border-shape_secondary bg-shape ${count === 0 && 'opacity-40'} relative`}
+      className={`flex h-[268px] w-[160px] flex-col justify-between rounded-[20px] 
+      border-[1px] border-shape_secondary bg-shape ${count === 0 && 'opacity-40'} relative`}
     >
       {renderIcon(icon, 40, 'mt-8 ml-8')}
       <hr className="absolute top-[104px] w-[160px] bg-shape_secondary" />

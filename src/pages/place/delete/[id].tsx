@@ -107,7 +107,9 @@ export default function Delete() {
                             </svg>
                         </div>
 
-                        <h1 className="mt-[61px] text-center font-heebo text-[54px] font-medium leading-[58px] text-shape">
+                        <h1 className="mt-[61px] text-center font-heebo text-[54px] 
+                    font-medium leading-[58px] text-shape"
+                        >
                             Excluir cidade
                         </h1>
                         <h2 className="mt-6 text-center font-heebo text-base leading-[26px] text-complement">
@@ -116,13 +118,18 @@ export default function Delete() {
                         <div className="flex gap-2">
                             <button
                                 onClick={() => router.back()}
-                                className="mt-10 flex h-[48px] w-[100px] items-center justify-center rounded-[10px] bg-attention font-heebo text-base font-medium leading-[26px] text-white"
+                                className="mt-10 flex h-[48px] w-[100px] items-center 
+                                justify-center rounded-[10px] bg-attention font-heebo text-base font-medium 
+                                leading-[26px] text-white"
                             >
                                 Não
                             </button>
-                            <button 
+                            <button
                                 onClick={handleDeleteCity}
-                                className="mt-10 flex h-[48px] w-[100px] items-center justify-center rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-white">
+                                className="mt-10 flex h-[48px] w-[100px] items-center 
+                                justify-center rounded-[10px] bg-success font-heebo 
+                                text-base font-medium leading-[26px] text-white"
+                            >
                                 Sim
                             </button>
                         </div>

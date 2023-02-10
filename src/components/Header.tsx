@@ -14,7 +14,8 @@ export default function Header() {
                 </h1>
                 <button
                     onClick={handleCreateCity}
-                    className="ml-[778px] h-[48px] w-[214px] items-center rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape"
+                    className="ml-[778px] h-[48px] w-[214px] items-center 
+                    rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape"
                 >
                     + Adicionar um perfil
                 </button>

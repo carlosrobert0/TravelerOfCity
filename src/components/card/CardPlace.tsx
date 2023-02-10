@@ -43,7 +43,9 @@ export function CardPlace({
 
 	return (
 		<>
-			<div className="relative h-[307px] w-64 overflow-y-visible rounded-2xl border border-shape_secondary bg-shape">
+			<div className="relative h-[307px] w-64 overflow-y-visible rounded-2xl 
+				border border-shape_secondary bg-shape"
+			>
 				<Image
 					src="/imgPlace.png"
 					width="256px"
@@ -54,7 +56,8 @@ export function CardPlace({
 
 				<div className="flex h-[147px] flex-col items-start">
 					<h1
-						className="ml-6 mt-3 mb-6 cursor-pointer font-barlow text-xl font-semibold leading-[30px] text-title"
+						className="ml-6 mt-3 mb-6 cursor-pointer font-barlow text-xl 
+						font-semibold leading-[30px] text-title"
 						onClick={() => handlePlace(name)}
 					>
 						{name}
@@ -71,7 +74,9 @@ export function CardPlace({
 				</div>
 				<IconsHandleCard id={place_id}/>
 
-				<div className="absolute left-6 top-[-16px] flex h-[82px] w-14 flex-col items-center justify-center gap-[5px] rounded-[10px] bg-brand-orange">
+				<div className="absolute left-6 top-[-16px] flex h-[82px] w-14 flex-col 
+					items-center justify-center gap-[5px] rounded-[10px] bg-brand-orange"
+				>
 					<svg
 						width="20"
 						height="20"

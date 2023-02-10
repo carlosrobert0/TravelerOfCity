@@ -62,7 +62,8 @@ export default function Create() {
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
       <Nav />
-      <main className="absolute ml-24 flex w-full flex-col items-center justify-around overflow-x-hidden overflow-y-scroll">
+      <main className="absolute ml-24 flex w-full flex-col items-center justify-around 
+      overflow-x-hidden overflow-y-scroll">
         <header
           className={`flex h-[96px] w-full items-center justify-between bg-shape px-28`}
         >
@@ -113,7 +114,8 @@ export default function Create() {
               </label>
               <input
                 {...register('name')}
-                className="h-[56px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4 text-left font-heebo text-lg"
+                className="h-[56px] w-[672px] rounded-[10px] border-[1px] 
+                border-shape_secondary bg-background p-4 text-left font-heebo text-lg"
               />
 
               <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
@@ -129,7 +131,9 @@ export default function Create() {
                   <div className="flex gap-1 absolute top-4 right-4">
                     <button
                       onClick={() => setImagePreview(null)}
-                      className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded border-[1px] border-shape_secondary bg-background text-text">
+                      className="top-4 right-4 flex h-10 w-10 items-center justify-center 
+                        rounded border-[1px] border-shape_secondary bg-background text-text"
+                    >
                       <FiTrash size={20} />
                     </button>
                   </div>
@@ -138,7 +142,10 @@ export default function Create() {
                 <div className="flex w-full items-center justify-center">
                   <label
                     htmlFor="dropzone-file"
-                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer bg-background flex-col items-center justify-center rounded-lg border-2 border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
+                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer
+                  bg-background flex-col items-center justify-center rounded-lg border-2 
+                  border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary 
+                  dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
@@ -162,7 +169,8 @@ export default function Create() {
                 Descrição da cidade
               </label>
               <textarea
-                className="h-[202px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4 text-left font-heebo  text-lg"
+                className="h-[202px] w-[672px] rounded-[10px] border-[1px]
+              border-shape_secondary bg-background p-4 text-left font-heebo  text-lg"
                 {...register('description')}
               />
               <div className="mt-[56px] mb-[139px] flex h-[44px] w-full items-center justify-between">

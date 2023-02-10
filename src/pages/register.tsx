@@ -97,11 +97,14 @@ export default function Register() {
                   name="name"
                   type="text"
                   placeholder="Nome"
-                  className="font-regular peer h-[72px] w-full rounded-t-md border-[1px] border-shape_secondary pt-5 pl-[24px] font-heebo text-base text-text placeholder-transparent"
+                  className="font-regular peer h-[72px] w-full rounded-t-md border-[1px] 
+                  border-shape_secondary pt-5 pl-[24px] font-heebo text-base text-text placeholder-transparent"
                 />
                 <label
                   htmlFor="name"
-                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm 
+                  text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base 
+                  peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
                 >
                   Nome
                 </label>
@@ -114,11 +117,16 @@ export default function Register() {
                   name="email"
                   type="email"
                   placeholder="E-mail"
-                  className="font-regular peer h-[72px] w-full border-[1px] border-t-0 border-shape_secondary pt-5 pl-[24px] font-heebo text-base text-text placeholder-transparent"
+                  className="font-regular peer h-[72px] w-full border-[1px] border-t-0 
+                  border-shape_secondary pt-5 pl-[24px] font-heebo text-base 
+                  text-text placeholder-transparent"
                 />
                 <label
                   htmlFor="email"
-                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm 
+                  text-complement transition-all peer-placeholder-shown:top-6 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-complement 
+                  peer-focus:top-3 peer-focus:text-sm"
                 >
                   E-mail
                 </label>
@@ -131,11 +139,16 @@ export default function Register() {
                   name="password"
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="Senha"
-                  className="font-regular peer h-[72px] w-full border-[1px] border-t-0 border-shape_secondary pt-5 pl-[24px] align-top font-heebo text-base text-text placeholder-transparent"
+                  className="font-regular peer h-[72px] w-full border-[1px] border-t-0 
+                  border-shape_secondary pt-5 pl-[24px] align-top font-heebo text-base 
+                  text-text placeholder-transparent"
                 />
                 <label
                   htmlFor="password"
-                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm 
+                  text-complement transition-all peer-placeholder-shown:top-6 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-complement 
+                  peer-focus:top-3 peer-focus:text-sm"
                 >
                   Senha
                 </label>
@@ -163,11 +176,16 @@ export default function Register() {
                   name="passwordConfirm"
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="Confirmar senha"
-                  className="font-regular peer h-[72px] w-full rounded-b-md border-[1px] border-t-0 border-shape_secondary pt-5 pl-[24px] align-top font-heebo text-base text-text placeholder-transparent"
+                  className="font-regular peer h-[72px] w-full rounded-b-md border-[1px] 
+                  border-t-0 border-shape_secondary pt-5 pl-[24px] align-top font-heebo 
+                  text-base text-text placeholder-transparent"
                 />
                 <label
                   htmlFor="passwordConfirm"
-                  className="font-regular absolute top-3 pl-[24px] font-heebo text-sm text-complement transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-complement peer-focus:top-3 peer-focus:text-sm"
+                  className="font-regular absolute top-3 pl-[24px] font-heebo 
+                  text-sm text-complement transition-all peer-placeholder-shown:top-6 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-complement 
+                  peer-focus:top-3 peer-focus:text-sm"
                 >
                   Confirmar senha
                 </label>
@@ -192,7 +210,8 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className={`mt-8 h-[72px] w-full rounded-md bg-brand-orange font-heebo text-lg font-medium text-shape disabled:opacity-50`}
+              className={`mt-8 h-[72px] w-full rounded-md bg-brand-orange 
+              font-heebo text-lg font-medium text-shape disabled:opacity-50`}
             >
               {loading ? 'Carregando ...' : 'Cadastrar'}
             </button>

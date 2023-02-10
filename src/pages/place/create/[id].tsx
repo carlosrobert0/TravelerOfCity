@@ -103,7 +103,9 @@ export default function Create() {
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
       <Nav />
-      <main className="absolute ml-24 flex w-full flex-col items-center justify-around overflow-x-hidden overflow-y-scroll">
+      <main className="absolute ml-24 flex w-full flex-col items-center justify-around 
+        overflow-x-hidden overflow-y-scroll"
+      >
         <header
           className={`flex h-[96px] w-full items-center justify-between bg-shape px-28`}
         >
@@ -177,7 +179,8 @@ export default function Create() {
               <div className="flex w-full items-center justify-center">
                 <label
                   htmlFor="dropzone-file"
-                  className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer bg-background flex-col items-center justify-center rounded-lg border-2 border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
+                  className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
+                  bg-background flex-col items-center justify-center rounded-lg border-2 border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
@@ -202,7 +205,8 @@ export default function Create() {
             </label>
 
             <textarea
-              className="h-[202px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4 text-left font-heebo  text-lg"
+              className="h-[202px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary 
+              bg-background p-4 text-left font-heebo  text-lg"
               {...register('description')}
             />
 
@@ -262,7 +266,8 @@ export default function Create() {
                         type="text"
                         {...register('zip_code')}
                         placeholder="-"
-                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] 
+                        border-shape_secondary bg-background p-4"
                       />
                     </label>
 
@@ -274,7 +279,8 @@ export default function Create() {
                         type="text"
                         {...register('zip_code')}
                         placeholder="-"
-                        className="h-[56px] w-[104px] placeholder-title rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                        className="h-[56px] w-[104px] placeholder-title rounded-[10px] border-[1px] 
+                        border-shape_secondary bg-background p-4"
                       />
                     </label>
 
@@ -286,7 +292,8 @@ export default function Create() {
                         type="text"
                         {...register('zip_code')}
                         placeholder="-"
-                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title 
+                        border-[1px] border-shape_secondary bg-background p-4"
                       />
                     </label>
                   </div>
@@ -321,7 +328,8 @@ export default function Create() {
                   <input
                     type="text"
                     {...register('zip_code')}
-                    className="h-[56px] w-[168px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                    className="h-[56px] w-[168px] rounded-[10px] border-[1px] 
+                    border-shape_secondary bg-background p-4"
                   />
                 </label>
                 <label className="flex flex-col">
@@ -331,7 +339,8 @@ export default function Create() {
                   <input
                     type="text"
                     {...register('street')}
-                    className="h-[56px] w-[488px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                    className="h-[56px] w-[488px] rounded-[10px] border-[1px] 
+                    border-shape_secondary bg-background p-4"
                   />
                 </label>
                 <label className="flex flex-col">
@@ -341,7 +350,8 @@ export default function Create() {
                   <input
                     type="text"
                     {...register('neighborhood')}
-                    className="h-[56px] w-[488px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                    className="h-[56px] w-[488px] rounded-[10px] border-[1px] 
+                    border-shape_secondary bg-background p-4"
                   />
                 </label>
                 <label className="flex flex-col">
@@ -351,7 +361,8 @@ export default function Create() {
                   <input
                     type="text"
                     {...register('number')}
-                    className="h-[56px] w-[168px] rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                    className="h-[56px] w-[168px] rounded-[10px] border-[1px] 
+                    border-shape_secondary bg-background p-4"
                   />
                 </label>
               </div>
@@ -391,7 +402,8 @@ export default function Create() {
                   </span>
                 </div>
                 <button
-                  className="flex h-12 w-[191px] items-center justify-center rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-white"
+                  className="flex h-12 w-[191px] items-center justify-center 
+                  rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-white"
                   type="submit"
                 >
                   Concluir cadastro
