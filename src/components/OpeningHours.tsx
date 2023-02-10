@@ -8,19 +8,33 @@ export function OpeningHours({ weekDay }: OpeningHoursProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="w-full flex gap-6 items-center">
-      <h2 className="font-medium font-heebo text-base leading-[26px] text-text">{weekDay}</h2>
+    <div className="w-full flex gap-6 items-center mb-6 justify-between">
+      <div className="flex-1 flex gap-6 items-center justify-between">
+        <h2 className="font-medium font-heebo text-base leading-[26px] text-text">
+          {weekDay}
+        </h2>
 
-      <div className="flex">
-        <button 
-          className="bg-background w-[140px] h-[56px] border border-shape_secondary rounded-l-lg"
-        >Aberto</button>
-        <button
-          className="bg-background w-[140px] h-[56px] border border-shape_secondary rounded-r-lg"
-        >Fechado</button>
+        <div className="flex">
+          <button
+            onClick={() => setIsOpen(true)}
+            className={`
+              ${isOpen && 'text-success font-medium'} bg-background w-[133px] h-[56px] 
+              border border-shape_secondary rounded-l-lg text-text text-sm 
+              leading-6 font-roboto
+            `}
+          >Aberto</button>
+          <button
+            onClick={() => setIsOpen(false)}
+            className={`
+              ${!isOpen ? 'text-brand-orange bg-orange_light font-medium' : 'bg-background'} 
+              w-[133px] h-[56px] border border-shape_secondary rounded-r-lg text-text text-sm 
+              leading-6 font-roboto
+            `}
+          >Fechado</button>
+        </div>
       </div>
 
-      <div className="flex  gap-4">
+      <div className={`flex gap-4 ${!isOpen && 'opacity-50'}`}>
         <label className="flex gap-3 items-center">
           <h4 className="font-regular font-heebo text-sm leading-[22px] text-text">
             Das
@@ -28,7 +42,10 @@ export function OpeningHours({ weekDay }: OpeningHoursProps) {
           <input
             type="text"
             placeholder="-"
-            className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+            disabled={!isOpen}
+            className={`h-[56px] w-[104px] rounded-[10px] placeholder-title 
+              border-[1px] border-shape_secondary bg-background p-4
+              ${!isOpen && 'cursor-not-allowed'}`}
           />
         </label>
 
@@ -39,7 +56,10 @@ export function OpeningHours({ weekDay }: OpeningHoursProps) {
           <input
             type="text"
             placeholder="-"
-            className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+            disabled={!isOpen}
+            className={`h-[56px] w-[104px] rounded-[10px] placeholder-title 
+              border-[1px] border-shape_secondary bg-background p-4
+              ${!isOpen && 'cursor-not-allowed'}`}
           />
         </label>
       </div>
