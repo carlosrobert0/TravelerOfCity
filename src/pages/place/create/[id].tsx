@@ -5,6 +5,7 @@ import { BsArrowLeft } from 'react-icons/bs'
 import { FiCamera, FiTrash } from 'react-icons/fi'
 
 import Nav from '../../../components/Nav'
+import { OpeningHours } from '../../../components/OpeningHours'
 import { api } from '../../../services/api'
 
 interface PlaceData extends AddressData {
@@ -22,6 +23,17 @@ interface AddressData {
   neighborhood: string
   number: number | null
 }
+
+const weekDays = [
+  "Domingo",
+  "Segunda",
+  "Terça",
+  "Quarta",
+  "Quinta",
+  "Sexta",
+  "Sábado"
+]
+
 export default function Create() {
   const router = useRouter()
   const { id } = router.query
@@ -30,13 +42,11 @@ export default function Create() {
 
   const { register, handleSubmit, getValues, watch } = useForm()
 
-  const imageWatch = watch('image')
+  const categoryWatch = watch('category_id')
 
   function handleGoBack() {
     router.back()
   }
-
-  const categoryId = useRef()
 
   async function handleCreateSubmit(place: PlaceData) {
     let addressId: any
@@ -56,7 +66,7 @@ export default function Create() {
         address_id: addressId,
         city_id: id,
       })
- 
+
       router.push({
         pathname: `/cities/created/${id}`,
         query: {
@@ -77,7 +87,8 @@ export default function Create() {
 
   useEffect(() => {
     getCategories()
-  }, [])
+    console.log(categoryWatch)
+  }, [categoryWatch])
 
   function handleImage(e: any) {
     const reader = new FileReader()
@@ -235,6 +246,68 @@ export default function Create() {
               </div>
             </div>
 
+            {
+              categoryWatch?.startsWith("34") ? (
+                <div className="mt-16 flex flex-col">
+                  <h2 className="font-barlow text-2xl font-medium leading-[30px] text-title">
+                    Próximo acontecimento
+                  </h2>
+                  <span className="mt-6 mb-10 w-full border-[1px] bg-shape_secondary" />
+                  <div className="flex gap-6">
+                    <label className="flex gap-4 items-center">
+                      <h4 className="font-regular font-heebo text-sm leading-[22px] text-text">
+                        De
+                      </h4>
+                      <input
+                        type="text"
+                        {...register('zip_code')}
+                        placeholder="-"
+                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+                      />
+                    </label>
+
+                    <label className="flex gap-4 items-center">
+                      <h4 className="font-regular font-heebo text-sm leading-[22px] text-text">
+                        Até
+                      </h4>
+                      <input
+                        type="text"
+                        {...register('zip_code')}
+                        placeholder="-"
+                        className="h-[56px] w-[104px] placeholder-title rounded-[10px] border-[1px] border-shape_secondary bg-background p-4"
+                      />
+                    </label>
+
+                    <label className="flex gap-4 items-center">
+                      <h4 className="font-regular font-heebo text-sm leading-[22px] text-text">
+                        Ano
+                      </h4>
+                      <input
+                        type="text"
+                        {...register('zip_code')}
+                        placeholder="-"
+                        className="h-[56px] w-[104px] rounded-[10px] placeholder-title border-[1px] border-shape_secondary bg-background p-4"
+                      />
+                    </label>
+                  </div>
+                </div>
+              ) : categoryWatch?.startsWith("78") ? (
+                <div className="mt-16 flex flex-col">
+                  <h2 className="font-barlow text-2xl font-medium leading-[30px] text-title">
+                    Atendimento
+                  </h2>
+                  <span className="mt-6 mb-10 w-full border-[1px] bg-shape_secondary" />
+                  {
+                    weekDays.map((weekDay, i) => {
+                      return (
+                        <OpeningHours key={`${i}-${weekDay}`} weekDay={weekDay} />
+                      )
+                    })
+                  }
+                </div>
+              ) : null
+            }
+
             <div className="mt-16 flex h-[525px] w-[672px] flex-col">
               <h2 className="font-barlow text-2xl font-medium leading-[30px] text-title">
                 Endereço
@@ -325,6 +398,7 @@ export default function Create() {
                 </button>
               </div>
             </div>
+
           </form>
         </div>
       </main >
