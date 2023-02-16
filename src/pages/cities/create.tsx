@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle, FiEdit3, FiTrash } from 'react-icons/fi'
+import { v4 } from 'uuid'
 
 import Header from '../../components/Header'
+import { ImageUploader } from '../../components/ImageUploader'
 import Nav from '../../components/Nav'
 import { api } from '../../services/api'
+import { ImageData } from '../place/create/[id]'
 
 export interface CityFormData {
   id?: string
@@ -16,21 +19,22 @@ export interface CityFormData {
 }
 
 export default function Create() {
-  const [imagePreview, setImagePreview] = useState(null)
+  const [imageData, setImageData] = useState<ImageData>({
+    id: '',
+    name: '',
+    data: ''
+  })
+
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
-  const imageWatch = watch('image')
 
-  function handleImage(e: any) {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImagePreview(reader.result)
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+  const handleImageChange = (imageBase64: string) => {
+    setImageData({
+      id: v4(),
+      name: v4(),
+      data: imageBase64,
+    });
+  };
 
   async function handleCreateCity({
     name,
@@ -40,11 +44,9 @@ export default function Create() {
     try {
       const { data } = await api.post('city', {
         name,
-        image: imagePreview,
+        image: imageData?.data,
         description,
       })
-
-      setImagePreview(image)
       router.push(`/place/create/${data.id}`)
     } catch (error) {
       console.log(error)
@@ -54,10 +56,6 @@ export default function Create() {
   function handleGoBack() {
     router.back()
   }
-
-  useEffect(() => {
-    console.log(imagePreview)
-  }, [imagePreview])
 
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
@@ -122,48 +120,7 @@ export default function Create() {
                 Foto da cidade
               </label>
 
-              {imagePreview ? (
-                <div className="w-full relative">
-                  <img
-                    src={imagePreview}
-                    className="flex h-64 w-full flex-col object-cover rounded-lg"
-                  />
-                  <div className="flex gap-1 absolute top-4 right-4">
-                    <button
-                      onClick={() => setImagePreview(null)}
-                      className="top-4 right-4 flex h-10 w-10 items-center justify-center 
-                        rounded border-[1px] border-shape_secondary bg-background text-text"
-                    >
-                      <FiTrash size={20} />
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex w-full items-center justify-center">
-                  <label
-                    htmlFor="dropzone-file"
-                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer
-                  bg-background flex-col items-center justify-center rounded-lg border-2 
-                  border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary 
-                  dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
-                  >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-heebo text-base text-brand-orange">
-                          + Adicionar uma foto
-                        </span>
-                      </p>
-                    </div>
-                    <input
-                      id="dropzone-file"
-                      type="file"
-                      {...register('image')}
-                      className="hidden"
-                      onChange={handleImage}
-                    />
-                  </label>
-                </div>
-              )}
+              <ImageUploader onImageChange={handleImageChange}/>
 
               <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                 Descrição da cidade

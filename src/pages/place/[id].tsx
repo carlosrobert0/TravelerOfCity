@@ -3,14 +3,10 @@ import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FaStar } from 'react-icons/fa'
-import { FiArrowLeft, FiEdit3, FiTrash } from 'react-icons/fi'
-import { RiWhatsappFill } from 'react-icons/ri'
+import { FiEdit3, FiTrash } from 'react-icons/fi'
 
 import { Comment } from '../../components/Comment'
-import Header from '../../components/Header'
-import { IconsHandleCard } from '../../components/IconsHandleCard'
 import Nav from '../../components/Nav'
-import CardCategory from '../../components/card/CardCategory'
 import { useEffect, useState } from 'react'
 import { api } from '../../services/api'
 import { parseCookies } from 'nookies'
@@ -23,7 +19,7 @@ export default function Place() {
     function handleGoBack() {
         router.back()
     }
-    
+
     const cookies = parseCookies()
 
     async function getPlace() {
@@ -33,7 +29,6 @@ export default function Place() {
                     Authorization: `Bearer ${cookies['caparao.token']}`,
                 },
             })
-            console.log(response.data)
             setPlace(response.data)
         } catch (error) {
             if (error.response.status === 401) {
@@ -56,13 +51,9 @@ export default function Place() {
 
         return () => {
             getPlace()
-          }
+        }
     }, [])
 
-
-    useEffect(() => {
-        console.log(place)
-    }, [])
     return (
         <div className="relative flex h-[1828px] w-full justify-between overflow-hidden">
             <Nav />
@@ -83,10 +74,10 @@ export default function Place() {
                         >
                             <FiEdit3 size={20} />
                         </button>
-                        <button 
+                        <button
                             onClick={() => onDeletePlace(place?.id as string)}
                             className="top-4 right-4 flex h-10 w-10 items-center justify-center 
-                                ounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
+                                rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
                         >
                             <FiTrash size={20} />
                         </button>
@@ -247,7 +238,7 @@ export default function Place() {
                                 height={164}
                             />
                             <h4 className="font-regular w-[295px] font-heebo text-base leading-[26px] text-text">
-                                {`${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood}`}<br/>
+                                {`${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood}`}<br />
                                 {`${place?.address?.zip_code}`}
                             </h4>
                         </div>
@@ -287,7 +278,7 @@ export default function Place() {
 
             <div>
                 <Image
-                    src="/imgPlace.png"
+                    src={place?.image}
                     objectFit="cover"
                     width={704}
                     height={821}

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiCamera, FiTrash } from 'react-icons/fi'
 import { ImageUploader } from '../../../components/ImageUploader'
-import { v4 as uuidv4, v4 } from 'uuid'
+import { v4 } from 'uuid'
 
 import Nav from '../../../components/Nav'
 import { OpeningHours } from '../../../components/OpeningHours'
@@ -26,7 +26,7 @@ interface AddressData {
   number: number | null
 }
 
-interface ImageData {
+export interface ImageData {
   id: string
   name: string
   data: string
@@ -53,8 +53,6 @@ export default function Create() {
   })
 
   const { register, handleSubmit, getValues, watch } = useForm()
-
-  const categoryWatch = watch('category_id')
 
   function handleGoBack() {
     router.back()
@@ -103,9 +101,9 @@ export default function Create() {
 
   const handleImageChange = (imageBase64: string) => {
     setImageData({
-      id: v4(), 
-      name: v4(), 
-      data: imageBase64, 
+      id: v4(),
+      name: v4(),
+      data: imageBase64,
     });
   };
 

@@ -4,10 +4,13 @@ import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle, FiEdit3, FiTrash } from 'react-icons/fi'
+import { v4 } from 'uuid'
 
 import Header from '../../../components/Header'
+import { ImageUploader } from '../../../components/ImageUploader'
 import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
+import { ImageData } from '../../place/create/[id]'
 
 export interface CityFormData {
   id?: string
@@ -17,8 +20,14 @@ export interface CityFormData {
 }
 
 export default function Edit() {
-  const [imagePreview, setImagePreview] = useState(null)
   const [city, setCity] = useState<any>()
+  
+  const [imageData, setImageData] = useState<ImageData>({
+    id: '',
+    name: '',
+    data: ''
+  })
+  
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
   const { id } = router.query as any
@@ -60,12 +69,16 @@ export default function Edit() {
     router.back()
   }
 
+  const handleImageChange = (imageBase64: string) => {
+    setImageData({
+      id: v4(),
+      name: v4(),
+      data: imageBase64,
+    });
+  };
+  
   useEffect(() => {
     getCity(id)
-
-    return () => {
-      getCity(id)
-    }
   }, [])
 
   return (
@@ -122,39 +135,7 @@ export default function Edit() {
                   Foto da cidade
                 </label>
 
-                {imagePreview ? (
-                  <img
-                    src={imagePreview[0].name}
-                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
-                    flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300
-                  bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700
-                  dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  />
-                ) : (
-                  <div className="flex w-full items-center justify-center">
-                    <label
-                      htmlFor="dropzone-file"
-                      className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
-                      flex-col items-center justify-center rounded-lg border-2 
-                      border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 
-                      dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                    >
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span className="font-heebo text-base text-brand-orange">
-                            + Adicionar uma foto
-                          </span>
-                        </p>
-                      </div>
-                      <input
-                        id="dropzone-file"
-                        type="file"
-                        className="hidden"
-                        {...register('image')}
-                      />
-                    </label>
-                  </div>
-                )}
+                <ImageUploader onImageChange={handleImageChange} imageData={city?.image} />
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Descrição da cidade

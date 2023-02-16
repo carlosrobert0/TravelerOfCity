@@ -97,7 +97,7 @@ export default function Cities() {
                         <CardCity
                             key={city.id}
                             name={city.name}
-                            image={`/caparao.jpg`}
+                            image={city?.image}
                             id={city.id}
                             countPlaces={countPlacesToCityId(city.id)}
                         />

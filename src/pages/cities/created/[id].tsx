@@ -145,7 +145,7 @@ export default function Created() {
           <CardPlace
             name={`${place?.name}`}
             avaliation="4.5"
-            image="/imgPlace.jpg"
+            image={place?.image}
             category_id={`${categoryId}`}
           />
         </div>
