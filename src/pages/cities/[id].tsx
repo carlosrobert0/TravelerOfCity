@@ -78,7 +78,7 @@ export default function City() {
   }
 
   return (
-    <div className="flex h-[2000px] w-full justify-between overflow-hidden overflow-x-hidden">
+    <div className="flex h-[2000px] w-screen justify-between overflow-hidden overflow-x-hidden">
       <Nav />
 
       <main className="relative ml-24 flex w-full flex-col overflow-x-hidden overflow-y-scroll">

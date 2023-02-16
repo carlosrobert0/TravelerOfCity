@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiCamera, FiTrash } from 'react-icons/fi'
+import { ImageUploader } from '../../../components/ImageUploader'
+import { v4 as uuidv4, v4 } from 'uuid'
 
 import Nav from '../../../components/Nav'
 import { OpeningHours } from '../../../components/OpeningHours'
@@ -24,6 +26,12 @@ interface AddressData {
   number: number | null
 }
 
+interface ImageData {
+  id: string
+  name: string
+  data: string
+}
+
 const weekDays = [
   "Domingo",
   "Segunda",
@@ -38,7 +46,11 @@ export default function Create() {
   const router = useRouter()
   const { id } = router.query
   const [categories, setCategories] = useState([])
-  const [imagePreview, setImagePreview] = useState(null)
+  const [imageData, setImageData] = useState<ImageData>({
+    id: '',
+    name: '',
+    data: ''
+  })
 
   const { register, handleSubmit, getValues, watch } = useForm()
 
@@ -62,7 +74,7 @@ export default function Create() {
     try {
       const response = await api.post('/place', {
         ...place,
-        image: place.image[0].name,
+        image: imageData.data,
         address_id: addressId,
         city_id: id,
       })
@@ -87,18 +99,15 @@ export default function Create() {
 
   useEffect(() => {
     getCategories()
-    console.log(categoryWatch)
-  }, [categoryWatch])
+  }, [])
 
-  function handleImage(e: any) {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImagePreview(reader.result)
-      }
-    }
-    reader.readAsDataURL(e.target.files[0])
-  }
+  const handleImageChange = (imageBase64: string) => {
+    setImageData({
+      id: v4(), 
+      name: v4(), 
+      data: imageBase64, 
+    });
+  };
 
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
@@ -162,43 +171,7 @@ export default function Create() {
               Foto do local
             </label>
 
-            {imagePreview ? (
-              <div className="relative w-full">
-                <img
-                  src={imagePreview}
-                  className="flex h-64 w-full flex-col object-none rounded-lg"
-                />
-                <div className="flex gap-1 absolute top-4 right-4">
-                  <button
-                    onClick={() => setImagePreview(null)}
-                    className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded border-[1px] border-shape_secondary bg-background text-text">
-                    <FiTrash size={20} />
-                  </button>
-                </div>
-              </div>) : (
-              <div className="flex w-full items-center justify-center">
-                <label
-                  htmlFor="dropzone-file"
-                  className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
-                  bg-background flex-col items-center justify-center rounded-lg border-2 border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-heebo text-base text-brand-orange">
-                        + Adicionar uma foto
-                      </span>
-                    </p>
-                  </div>
-                  <input
-                    id="dropzone-file"
-                    type="file"
-                    {...register('image')}
-                    className="hidden"
-                    onChange={handleImage}
-                  />
-                </label>
-              </div>
-            )}
+            <ImageUploader onImageChange={handleImageChange} />
 
             <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
               Descrição do local
@@ -250,7 +223,7 @@ export default function Create() {
               </div>
             </div>
 
-            {
+            {/* {
               categoryWatch?.startsWith("34") ? (
                 <div className="mt-16 flex flex-col">
                   <h2 className="font-barlow text-2xl font-medium leading-[30px] text-title">
@@ -313,7 +286,7 @@ export default function Create() {
                   }
                 </div>
               ) : null
-            }
+            } */}
 
             <div className="mt-16 flex h-[525px] w-[672px] flex-col">
               <h2 className="font-barlow text-2xl font-medium leading-[30px] text-title">
