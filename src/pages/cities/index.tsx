@@ -80,11 +80,7 @@ export default function Cities() {
         )
         return filteredArrayToCityId.length
     }
-
-    useEffect(() => {
-        console.log(cities)
-    }, [cities])
-
+    
     return (
         <div className="flex h-[820px] max-h-[820px] w-full justify-between overflow-hidden overflow-x-hidden">
             <Nav />
@@ -93,15 +89,18 @@ export default function Cities() {
                 <Header />
                 <hr className="w-full bg-shape_secondary" />
                 <div className="xl:28 mt-px-28 mt-12 ml-28 flex h-[862px] w-full flex-wrap gap-x-8 gap-y-8">
-                    {cities.map((city) => (
-                        <CardCity
-                            key={city.id}
-                            name={city.name}
-                            image={city?.image}
-                            id={city.id}
-                            countPlaces={countPlacesToCityId(city.id)}
-                        />
-                    ))}
+                    {cities.map((city) => {
+                        return (
+                            <CardCity
+                                key={city.id}
+                                name={city.name}
+                                image="/caparao.jpg"
+                                id={city.id}
+                                countPlaces={countPlacesToCityId(city.id)}
+                            />
+                        )
+                    }
+                    )}
                 </div>
             </main>
         </div>

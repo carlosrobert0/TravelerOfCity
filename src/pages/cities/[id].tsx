@@ -116,7 +116,7 @@ export default function City() {
         <hr className="w-[1344px] border bg-shape_secondary" />
         <div className="h-[862px] w-full flex-1">
           <Image
-            src={city?.image}
+            src="/caparao.jpg"
             objectFit="cover"
             width={1440}
             height={340}
