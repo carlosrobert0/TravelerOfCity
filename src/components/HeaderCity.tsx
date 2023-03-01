@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export default function Header() {
+export default function HeaderCity() {
     const router = useRouter()
     function handleCreateCity() {
         router.push('/cities/create')

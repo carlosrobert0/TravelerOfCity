@@ -3,9 +3,8 @@ import { useRouter } from 'next/router'
 import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
-import { FiAlertCircle, FiEdit3, FiTrash } from 'react-icons/fi'
+import { FiAlertCircle } from 'react-icons/fi'
 
-import Header from '../../../components/Header'
 import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
 

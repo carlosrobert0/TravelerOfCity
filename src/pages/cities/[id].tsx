@@ -5,16 +5,14 @@ import { useEffect, useState } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle, FiCamera, FiEdit3, FiTrash } from 'react-icons/fi'
 
-import Nav from '../../components/Nav'
-import CardCategory from '../../components/card/CardCategory'
-import { CardCity } from '../../components/card/CardCity'
+import CardCountPlacesByCategory from '../../components/card/CardCountPlacesByCategory'
 import { CardPlace } from '../../components/card/CardPlace'
-import { api } from '../../services/api'
-import { CityFormData } from './create'
 import { IconsHandleCard } from '../../components/IconsHandleCard'
-import { renderIcon } from '../../utils/renderIcon'
+import Nav from '../../components/Nav'
 import { NavCategories } from '../../components/NavCategories'
+import { api } from '../../services/api'
 import { renderIconNameByCategoryName } from '../../utils/renderIconNameByCategoryName'
+import { CityFormData } from './create'
 
 export default function City() {
   const [city, setCity] = useState<CityFormData | null>()
@@ -136,7 +134,7 @@ export default function City() {
             </div>
             <div className="flex gap-4">
               {categories.map((category: any) => (
-                <CardCategory
+                <CardCountPlacesByCategory
                   count={getCountPlacesByCategoryName(category?.name)}
                   title={category?.name}
                   icon={renderIconNameByCategoryName(category?.name)}
@@ -204,7 +202,7 @@ export default function City() {
                   </h4>
                 </div>
                 <Image src="/imgDestaque.png" objectFit="cover" width="650px" height="286px" className="ml-10" />
-                <IconsHandleCard id={city?.id}/>
+                <IconsHandleCard id={city?.id} module="cities" />
               </section>
             )
           }
