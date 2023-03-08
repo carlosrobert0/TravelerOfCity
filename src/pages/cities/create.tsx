@@ -37,7 +37,6 @@ export default function Create() {
 
   async function handleCreateCity({
     name,
-    image,
     description,
   }: CityFormData) {
     try {

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CardCategory } from '../../components/card/CardCategory'
 
 import HeaderCategory from '../../components/HeaderCategory'
@@ -8,14 +8,6 @@ import Nav from '../../components/Nav'
 import { useAuth } from '../../contexts/AuthContext'
 import { api } from '../../services/api'
 import { renderIconNameByCategoryName } from '../../utils/renderIconNameByCategoryName'
-
-interface CityData {
-    id: string
-    name: string
-    image?: string
-    description?: string
-}
-
 interface PlaceData {
     id: string
     name: string
@@ -26,24 +18,29 @@ interface PlaceData {
     city_id: string
 }
 
-export default function Categories() {
-    const [cities, setCities] = useState<CityData[]>([])
-    const [places, setPlaces] = useState<PlaceData[]>([])
+interface CategoryData {
+    id: string
+    name: string
+    places: PlaceData[]
+}
 
+export default function Categories() {
+    const [categories, setCategories] = useState<CategoryData[]>([])
+    
     const cookies = parseCookies()
 
     const router = useRouter()
 
     const { signOutApplication } = useAuth()
 
-    async function getPlaces() {
+    async function getCategories() {
         try {
-            const response = await api.get('places', {
+            const response = await api.get('categories', {
                 headers: {
                     Authorization: `Bearer ${cookies['caparao.token']}`,
                 },
             })
-            setPlaces(response.data)
+            setCategories(response.data)
         } catch (error) {
             if (error.response.status === 401) {
                 signOutApplication(router)
@@ -51,36 +48,9 @@ export default function Categories() {
         }
     }
 
-    async function getCities() {
-        try {
-            const response = await api.get('cities', {
-                headers: {
-                    Authorization: `Bearer ${cookies['caparao.token']}`,
-                },
-            })
-            setCities(response.data)
-        } catch (error) {
-            if (error.response.status === 401) {
-                signOutApplication(router)
-            }
-        }
-    }
-
-    // useEffect(() => {
-    //     getCities()
-    //     getPlaces()
-
-    //     return () => {
-    //         getCities(), getPlaces()
-    //     }
-    // }, [])
-
-    // function countPlacesToCityId(city_id: string) {
-    //     const filteredArrayToCityId = places.filter(
-    //         (place: PlaceData) => place.city_id === city_id
-    //     )
-    //     return filteredArrayToCityId.length
-    // }
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     return (
         <div className="flex h-[820px] max-h-[820px] w-full justify-between overflow-hidden overflow-x-hidden">

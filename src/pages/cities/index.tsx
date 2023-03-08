@@ -68,10 +68,6 @@ export default function Cities() {
     useEffect(() => {
         getCities()
         getPlaces()
-
-        return () => {
-            getCities(), getPlaces()
-        }
     }, [])
 
     function countPlacesToCityId(city_id: string) {

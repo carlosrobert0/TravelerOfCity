@@ -5,15 +5,16 @@ import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle } from 'react-icons/fi'
 import { v4 } from 'uuid'
+import { ImageUploader } from '../../components/ImageUploader'
 
 import Nav from '../../components/Nav'
+import { api } from '../../services/api'
 import { ImageData } from '../place/create/[id]'
 
-export interface CityFormData {
+export interface CategoryFormData {
   id?: string
   name: string
   image?: string | any
-  description: string
 }
 
 export default function Create() {
@@ -32,7 +33,7 @@ export default function Create() {
     setIsOpen(true)
   }
 
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit } = useForm()
   const router = useRouter()
 
   const handleImageChange = (imageBase64: string) => {
@@ -43,8 +44,19 @@ export default function Create() {
     });
   };
 
-  async function handleCreateCategory(){
-    openModal()
+  async function handleCreateCategory({
+    name,
+    image
+  }: CategoryFormData) {
+    try {
+      await api.post('category', {
+        name,
+        image: imageData?.data
+      })
+      openModal()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function handleGoBack() {
@@ -90,27 +102,8 @@ export default function Create() {
                     <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                       Ícone
                     </label>
-                    <div className="flex w-full items-center justify-center">
-                      <label
-                        htmlFor="dropzone-file"
-                        className="dark:hover:bg-bray-800 flex w-full cursor-pointer 
-          bg-background flex-col items-center justify-center rounded-lg border-2 border-dashed border-shape-secondary hover:bg-background dark:border-shape-secondary dark:bg-background dark:hover:border-gray-500 dark:hover:bg-background"
-                      >
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6 w-[120px] h-[120px]">
-                          <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-heebo text-base text-brand-orange">
-                              +
-                            </span>
-                          </p>
-                        </div>
-                        <input
-                          id="dropzone-file"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
+                    
+                    <ImageUploader onImageChange={handleImageChange} hasIcon/>
                   </div>
 
                   <div>
