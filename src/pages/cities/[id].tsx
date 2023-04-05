@@ -53,7 +53,7 @@ export default function City() {
   }, [])
 
   const placesByCityId = places.filter((place: any) => place.city_id === id)
-  
+
   const placesTuristicsPoints = placesByCityId.filter((place: any) => place.category_id === "34646883-4bc0-4c8c-9536-f513c1165cf9")
   const placesEvents = placesByCityId.filter((place: any) => place.category_id === "4aa4b365-c6bd-4d41-bde4-b5054dd52b69")
   const placesFood = placesByCityId.filter((place: any) => place.category_id === "78aad295-e3d4-475d-930e-39b268fae11d")
@@ -88,18 +88,18 @@ export default function City() {
             className="my-6 w-[128px] font-barlow text-4xl font-semibold leading-10 text-complement"
           />
           <div className="ml-[700px] mr-6 flex gap-1">
-            <button 
+            <button
               onClick={() => router.push(`/cities/edit/${city?.id}`)}
               className="top-4 right-16 flex h-10 w-10 items-center justify-center 
                 rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text"
             >
               <FiEdit3 size={20} />
             </button>
-            <button 
+            <button
               onClick={() => router.push(`/cities/delete/${id}`)}
               className="top-4 right-4 flex h-10 w-10 items-center justify-center 
                 rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
-              >
+            >
               <FiTrash size={20} />
             </button>
           </div>
@@ -202,7 +202,9 @@ export default function City() {
                   </h4>
                 </div>
                 <Image src="/imgDestaque.png" objectFit="cover" width="650px" height="286px" className="ml-10" />
-                <IconsHandleCard id={city?.id} module="cities" />
+                <div className="absolute top-4 right-4">
+                  <IconsHandleCard id={city?.id} module="cities" />
+                </div>
               </section>
             )
           }

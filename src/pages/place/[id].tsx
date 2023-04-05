@@ -5,11 +5,11 @@ import { BsArrowLeft } from 'react-icons/bs'
 import { FaStar } from 'react-icons/fa'
 import { FiEdit3, FiTrash } from 'react-icons/fi'
 
+import { parseCookies } from 'nookies'
+import { useEffect, useState } from 'react'
 import { Comment } from '../../components/Comment'
 import Nav from '../../components/Nav'
-import { useEffect, useState } from 'react'
 import { api } from '../../services/api'
-import { parseCookies } from 'nookies'
 
 export default function Place() {
     const [place, setPlace] = useState<any>()
@@ -58,7 +58,7 @@ export default function Place() {
         <div className="relative flex h-[1828px] w-full justify-between overflow-hidden">
             <Nav />
 
-            <main className="relative ml-24 flex w-[688px] flex-col">
+            <main className="relative ml-24 flex w-[698px] flex-col">
                 <header
                     className={
                         'flex h-[96px] w-full items-center bg-shape px-28'
@@ -83,7 +83,7 @@ export default function Place() {
                         </button>
                     </div>
                 </header>
-                <span className="w-[688px] border-[1px] text-shape_secondary" />
+                <hr className="border-[1px] text-shape_secondary" />
                 <section className="ml-28 mt-[65px] flex h-[1588px] w-[453px] flex-col">
                     <div className="flex flex-col gap-8">
                         <Link href="/place/places">
@@ -276,10 +276,11 @@ export default function Place() {
                 </section>
             </main>
 
-            <div>
+            <div className="flex-1">
                 <Image
-                    src={place?.image}
+                    src={"/caparao.jpg"}
                     objectFit="cover"
+                    sizes='fill'
                     width={704}
                     height={821}
                 />

@@ -72,9 +72,11 @@ export function CardPlace({
 						{renderIcon('coffee', 24, 'ml-8')}
 					</div>
 				</div>
-				<IconsHandleCard id={place_id}/>
+				<div className="absolute top-4 right-4">
+					<IconsHandleCard module="place" id={place_id} />
+				</div>
 
-				<div className="absolute left-6 top-[-16px] flex h-[82px] w-14 flex-col 
+				<div className="absolute left-6 -top-4 flex h-[82px] w-14 flex-col 
 					items-center justify-center gap-[5px] rounded-[10px] bg-brand-orange"
 				>
 					<svg

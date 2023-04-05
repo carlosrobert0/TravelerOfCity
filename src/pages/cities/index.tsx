@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
-
 import { CardCity } from '../../components/card/CardCity'
 import HeaderCity from '../../components/HeaderCity'
 import Nav from '../../components/Nav'
@@ -90,7 +89,7 @@ export default function Cities() {
                             <CardCity
                                 key={city.id}
                                 name={city.name}
-                                image="/caparao.jpg"
+                                image={'/caparao.jpg'}
                                 id={city.id}
                                 countPlaces={countPlacesToCityId(city.id)}
                             />

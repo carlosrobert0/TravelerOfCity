@@ -39,7 +39,9 @@ export function CardCity({ id, name, image, countPlaces }: CardCityProps) {
                     {countPlaces} {countPlaces > 1 ? 'Locais' : 'Local'}
                 </h4>
             </div>
-            <IconsHandleCard id={id}/>
+            <div className="absolute top-4 right-4">
+                <IconsHandleCard module="cities" id={id}/>
+            </div>
         </div>
     )
 }
