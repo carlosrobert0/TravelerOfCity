@@ -2,7 +2,7 @@ import { renderIcon } from '../../utils/renderIcon'
 
 interface CardCountPlacesByCategoryProps {
   icon: string
-  count: number
+  count: number | string
   title: string
 }
 

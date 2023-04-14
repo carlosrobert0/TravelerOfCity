@@ -25,7 +25,6 @@ export default function Created() {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
       })
-      console.log(response.data)
       setPlace(response.data)
     } catch (error) {
       if (error.response.status === 401) {
@@ -126,7 +125,7 @@ export default function Created() {
               Continue sempre adicionando locais incríveis.
             </h2>
             <button
-              onClick={() => router.push(`/cities`)}
+              onClick={() => router.push(`/cities/${cityId}`)}
               className="mt-10 flex h-[48px] w-[100px] items-center justify-center 
               rounded-[10px] bg-brand-orange font-heebo text-base font-medium leading-[26px] text-white"
             >

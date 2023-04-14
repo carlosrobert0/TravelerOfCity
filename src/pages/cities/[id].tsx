@@ -23,7 +23,6 @@ export default function City() {
   const [hasProminence, setHasProminence] = useState(false)
 
   const { id } = router.query
-  const { cityId } = router.query
 
   function handleGoBack() {
     router.back()
@@ -54,21 +53,30 @@ export default function City() {
 
   const placesByCityId = places.filter((place: any) => place.city_id === id)
 
-  const placesTuristicsPoints = placesByCityId.filter((place: any) => place.category_id === "34646883-4bc0-4c8c-9536-f513c1165cf9")
-  const placesEvents = placesByCityId.filter((place: any) => place.category_id === "4aa4b365-c6bd-4d41-bde4-b5054dd52b69")
-  const placesFood = placesByCityId.filter((place: any) => place.category_id === "78aad295-e3d4-475d-930e-39b268fae11d")
+  const placesTuristicsPoints = placesByCityId.filter((place: any) => place.category_id === "90f0e4c3-5d55-4b45-b1cd-effbfb515860")
+  const placesEvents = placesByCityId.filter((place: any) => place.category_id === "6f811e72-39bc-41e3-98aa-e180d73762d1")
+  const placesFood = placesByCityId.filter((place: any) => place.category_id === "6467006b-2c17-4800-9e7e-5dfcb8e27ad9")
 
   function getCountPlacesByCategoryName(categoryName: string) {
     switch (categoryName) {
       case 'Eventos Organizados':
-        return placesTuristicsPoints.length
-        break;
-      case 'Comidas e Bebidas':
-        return placesFood.length
-        break;
+        if (placesTuristicsPoints.length > 0 && placesTuristicsPoints.length < 9) {
+          return `0${placesTuristicsPoints.length}`
+        } else {
+          return placesTuristicsPoints.length
+        }
+      case 'Comida e Bebida':
+        if (placesFood.length > 0 && placesFood.length < 9) {
+          return `0${placesFood.length}`
+        } else {
+          return placesFood.length
+        }
       case 'Pontos Turísticos':
-        return placesEvents.length
-        break;
+        if (placesEvents.length > 0 && placesEvents.length < 9) {
+          return `0${placesEvents.length}`
+        } else {
+          return placesEvents.length
+        }
       default:
         ''
         break;
@@ -148,14 +156,24 @@ export default function City() {
               Top avaliados
             </h3>
             <div className="flex justify-start gap-8">
-              <CardPlace
-                name="Morro da Canoa"
-                avaliation="5,5"
-                category_id="78aad295-e3d4-475d-930e-39b268fae11d"
-                image="/caparao.jpg"
-              />
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed
-               border-shape_secondary bg-shape" />
+              {
+                placesByCityId.map((placeByCityId: any) => {
+                  return (
+                    <CardPlace
+                      key={placeByCityId.id}
+                      name={placeByCityId.name}
+                      avaliation="5,5"
+                      category_id={
+                        placeByCityId.category_id
+                      }
+                      place_id={
+                        placeByCityId.id
+                      }
+                      image="/caparao.jpg"
+                    />
+                  )
+                })
+              }
               <button className="h-[307px] w-64 rounded-2xl border border-dashed
                border-shape_secondary bg-shape" />
               <button className="h-[307px] w-64 rounded-2xl border border-dashed
