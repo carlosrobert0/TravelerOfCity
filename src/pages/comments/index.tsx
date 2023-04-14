@@ -1,5 +1,8 @@
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
+import { useAuth } from "../../contexts/AuthContext";
 import { api } from "../../services/api";
 
 interface CommentData {
@@ -12,8 +15,22 @@ interface CommentData {
   place_id: string
 }
 
+interface CityData {
+  id: string
+  name: string
+  image?: string
+  description?: string
+}
+
 export default function Comments() {
   const [comments, setComments] = useState<CommentData[]>([])
+  const [cities, setCities] = useState<CityData[]>([])
+
+  const router = useRouter()
+
+  const cookies = parseCookies()
+
+  const { signOutApplication } = useAuth()
 
   async function getComments() {
     try {
@@ -24,8 +41,29 @@ export default function Comments() {
     }
   }
 
+  async function getCities() {
+    try {
+      const response = await api.get('cities', {
+        headers: {
+          Authorization: `Bearer ${cookies['caparao.token']}`,
+        },
+      })
+      setCities(response.data)
+    } catch (error) {
+      if (error.response.status === 401) {
+        signOutApplication(router)
+      }
+    }
+  }
+
+  function renderCityName(city_id: string) {
+    const city = cities.filter(c => c.id === city_id)
+    return city[0]?.name
+  }
+
   useEffect(() => {
     getComments()
+    getCities()
   }, [])
 
   return (
@@ -104,7 +142,9 @@ export default function Comments() {
               <td>
                 <div className="flex flex-col">
                   <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">CIDADE</h4>
-                  <h3 className="font-heebo font-medium text-base leading-6 text-text">{comment.city_id}</h3>
+                  <h3 className="font-heebo font-medium text-base leading-6 text-text">
+                    {renderCityName(comment.city_id)}
+                  </h3>
                 </div>
               </td>
               <td>

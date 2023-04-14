@@ -60,21 +60,13 @@ export default function Categories() {
                 <HeaderCategory />
                 <hr className="w-full bg-shape_secondary" />
                 <div className="xl:28 mt-px-28 mt-12 ml-28 flex h-[862px] w-full flex-wrap gap-x-8 gap-y-8">
-                    <CardCategory
+                    {categories.map(category => (
+                        <CardCategory
                         count={1198}
-                        title="Pontos Turísticos"
-                        icon={renderIconNameByCategoryName("Pontos Turísticos")}
+                        title={category.name}
+                        icon={renderIconNameByCategoryName(`${category.name}`)}
                     />
-                    <CardCategory
-                        count={817}
-                        title="Comida e Bebida"
-                        icon={renderIconNameByCategoryName("Comida e Bebida")}
-                    />
-                    <CardCategory
-                        count={88}
-                        title="Eventos Organizados"
-                        icon={renderIconNameByCategoryName("Eventos Organizados")}
-                    />
+                    ))}
                 </div>
             </main>
         </div>
