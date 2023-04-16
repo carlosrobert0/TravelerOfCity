@@ -19,6 +19,7 @@ export default function HeaderCategory() {
             </div>
             <button
                 onClick={handleCreateCategory}
+                disabled
                 className="h-[48px] w-[214px] items-center 
                     rounded-lg bg-success font-heebo text-base font-medium leading-[26px] text-shape"
             >
