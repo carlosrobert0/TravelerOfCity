@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
-  FormEvent,
-  useContext,
-  useEffect,
-  useState
+    FormEvent,
+    useContext,
+    useEffect,
+    useState
 } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsCheckLg } from 'react-icons/bs'
@@ -97,7 +97,9 @@ export default function Login() {
             </article>
             <aside className="flex w-full max-w-[736px] flex-col items-start justify-between px-[160px]">
                 <div className="absolute top-9 text-complement">
-                    <FiArrowLeft size={24} />
+                    <Link href="/">
+                        <FiArrowLeft size={24} />
+                    </Link>
                 </div>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="mt-40 flex w-[416px] flex-col items-start justify-between">

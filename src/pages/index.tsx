@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { CardCity } from "../components/card/CardCity"
 import { api } from "../services/api"
@@ -57,7 +58,9 @@ export default function Home() {
         <div className="bg-background w-full px-[160px] h-full max-h-[820px] overflow-hidden">
             <header className="flex justify-between mt-6">
                 <img src="/traveler.svg" alt="" />
-                <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">Acceso restrito</button>
+                <Link href="/login">
+                    <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">Acceso restrito</button>
+                </Link>
             </header>
             <main className="flex flex-row gap-[150px]">
                 <aside className="mt-[138px] flex flex-col gap-10">
@@ -67,7 +70,9 @@ export default function Home() {
                     <h3 className="w-[329px] font-heebo font-normal text-[20px] leading-[30px] text-text">
                         Descubra locais incríveis para se visitar em cidades maravilhosas de Minas Gerais.
                     </h3>
-                    <button className="w-[329px] mt-2 h-[72px] bg-brand-orange rounded-[10px] font-heebo font-medium text-shape text-lg leading-[26px]">Descobrir todos os lugares</button>
+                    <Link href="/cities/list">
+                        <button className="w-[329px] mt-2 h-[72px] bg-brand-orange rounded-[10px] font-heebo font-medium text-shape text-lg leading-[26px]">Descobrir todos os lugares</button>
+                    </Link>
                 </aside>
                 <article className="flex gap-8 mt-4 w-full">
                     <div className="flex gap-8 flex-col">

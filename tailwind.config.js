@@ -29,6 +29,7 @@ module.exports = {
         yellow: '#EFB866',
         
         background: '#F5F8FA',
+        background_secondary: '#DCE2E6',
         background_dark: '#120e0e',
       },
     },
