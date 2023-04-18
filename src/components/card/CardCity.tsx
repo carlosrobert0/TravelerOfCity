@@ -8,9 +8,10 @@ interface CardCityProps {
     name: string
     image: string
     countPlaces: number | string
+    onlyReading?: boolean
 }
 
-export function CardCity({ id, name, image, countPlaces }: CardCityProps) {
+export function CardCity({ id, name, image, countPlaces, onlyReading = false }: CardCityProps) {
     const router = useRouter()
 
     function handleCity(id: string) {
@@ -18,13 +19,13 @@ export function CardCity({ id, name, image, countPlaces }: CardCityProps) {
     }
 
     return (
-        <div className="relative h-[266px] w-64 overflow-hidden rounded-2xl 
-            border border-shape_secondary bg-shape"
+        <div className={`relative ${onlyReading ? 'h-[316px] w-[304px]' : 'h-[266px] w-64'} overflow-hidden rounded-2xl 
+            border border-shape_secondary bg-shape`}
         >
             <Image
                 src={image}
-                width="254px"
-                height="159px"
+                width={`${onlyReading ? '335px' : '254px'}`}
+                height={`${onlyReading ? '222px' : '159px'}`}
                 objectFit="cover"
             />
 
@@ -39,9 +40,12 @@ export function CardCity({ id, name, image, countPlaces }: CardCityProps) {
                     {countPlaces} {countPlaces > 1 ? 'Locais' : 'Local'}
                 </h4>
             </div>
-            <div className="absolute top-4 right-4">
-                <IconsHandleCard module="cities" id={id}/>
-            </div>
+            {
+                !onlyReading &&
+                <div className="absolute top-4 right-4">
+                    <IconsHandleCard module="cities" id={id} />
+                </div>
+            }
         </div>
     )
 }
