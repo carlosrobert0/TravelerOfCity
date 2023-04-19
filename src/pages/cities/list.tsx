@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { FiSearch, FiX } from 'react-icons/fi'
+import { FiChevronDown, FiSearch, FiX } from 'react-icons/fi'
+import { CardCity } from "../../components/card/CardCity"
 import { api } from "../../services/api"
 
 interface CityData {
@@ -55,8 +56,8 @@ export default function ListCities() {
     return filteredArrayToCityId.length
   }
   return (
-    <div className="bg-background w-full h-full max-h-[820px] overflow-hidden">
-      <header className="flex justify-around items-center h-24 bg-shape">
+    <div className="bg-background w-full h-full">
+      <header className="flex justify-between items-center h-24 bg-shape px-[160px]">
         <img src="/traveler.svg" alt="" width={126} height={26} />
         <div className="relative flex items-center">
           <div className="absolute inset-y-0 left-0 flex items-center pl-[18px]">
@@ -81,19 +82,38 @@ export default function ListCities() {
           <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">Acceso restrito</button>
         </Link>
       </header>
-      <main className="flex flex-row gap-[150px]">
-        {/* {
-          cities.map(city => (
-            <CardCity
-              key={city.id}
-              name={city.name}
-              image={'/caparao.jpg'}
-              id={city.id}
-              countPlaces={countPlacesToCityId(city.id)}
-              onlyReading
-            />
-          ))
-        } */}
+      <hr className="border-shape_secondary" />
+      <main className="flex flex-col mt-10 px-[160px] gap-10">
+        <div className="flex justify-between items-center">
+          <h2 className="font-barlow font-semibold text-title text-4xl leading-[46px]">Selecione uma cidade</h2>
+          <ul className="flex gap-8">
+            <li>
+              Todas
+            </li>
+            <li>
+              Mais acessados
+            </li>
+            <li className="flex items-center gap-[10px]">
+              <p>A - Z</p>
+              <FiChevronDown size={10} color="#F25D27" />
+            </li>
+          </ul>
+        </div>
+        <div className="w-full max-w-[1120px] flex flex-wrap gap-8 m-auto">
+          {
+            cities.map(city => (
+              <CardCity
+                key={city.id}
+                name={city.name}
+                image={'/caparao.jpg'}
+                id={city.id}
+                countPlaces={countPlacesToCityId(city.id)}
+                onlyReading
+                listCities
+              />
+            ))
+          }
+        </div>
       </main>
     </div>
   )
