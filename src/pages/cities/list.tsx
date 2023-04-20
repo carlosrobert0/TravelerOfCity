@@ -25,6 +25,7 @@ export default function ListCities() {
   const [cities, setCities] = useState<CityData[]>([])
   const [places, setPlaces] = useState<PlaceData[]>([])
   const [search, setSearch] = useState('')
+  const [filteredCities, setFilteredCities] = useState<CityData[]>([])
 
   async function getCities() {
     try {
@@ -44,10 +45,24 @@ export default function ListCities() {
     }
   }
 
+  function filterCities() {
+    const filteredCitiesArray =
+      search === '' ? cities :
+        cities.filter(city =>
+          city.name.toLowerCase().includes(search.toLowerCase())
+        )
+
+    setFilteredCities(filteredCitiesArray)
+  }
+
   useEffect(() => {
     getCities()
     getPlaces()
   }, [])
+
+  useEffect(() => {
+    filterCities()
+  }, [search])
 
   function countPlacesToCityId(city_id: string) {
     const filteredArrayToCityId = places.filter(
@@ -83,37 +98,48 @@ export default function ListCities() {
         </Link>
       </header>
       <hr className="border-shape_secondary" />
-      <main className="flex flex-col mt-10 px-[160px] gap-10">
-        <div className="flex justify-between items-center">
-          <h2 className="font-barlow font-semibold text-title text-4xl leading-[46px]">Selecione uma cidade</h2>
-          <ul className="flex gap-8">
-            <li>
-              Todas
-            </li>
-            <li>
-              Mais acessados
-            </li>
-            <li className="flex items-center gap-[10px]">
-              <p>A - Z</p>
-              <FiChevronDown size={10} color="#F25D27" />
-            </li>
-          </ul>
-        </div>
-        <div className="w-full max-w-[1120px] flex flex-wrap gap-8 m-auto">
-          {
-            cities.map(city => (
-              <CardCity
-                key={city.id}
-                name={city.name}
-                image={'/caparao.jpg'}
-                id={city.id}
-                countPlaces={countPlacesToCityId(city.id)}
-                onlyReading
-                listCities
-              />
-            ))
-          }
-        </div>
+      <main className={`flex flex-col mt-10 px-[160px] gap-10 ${filteredCities.length <= 0 && 'items-center'}`}>
+        {
+          filteredCities.length > 0 ? (
+            <>
+              <div className="flex justify-between items-center">
+                <h2 className="font-barlow font-semibold text-title text-4xl leading-[46px]">Selecione uma cidade</h2>
+                <ul className="flex gap-8">
+                  <li>
+                    Todas
+                  </li>
+                  <li>
+                    Mais acessados
+                  </li>
+                  <li className="flex items-center gap-[10px]">
+                    <p>A - Z</p>
+                    <FiChevronDown size={10} color="#F25D27" />
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full max-w-[1120px] flex flex-wrap gap-8 m-auto">
+                {
+                  filteredCities.map(city => (
+                    <CardCity
+                      key={city.id}
+                      name={city.name}
+                      image={'/caparao.jpg'}
+                      id={city.id}
+                      countPlaces={countPlacesToCityId(city.id)}
+                      onlyReading
+                      listCities
+                    />
+                  ))
+                }
+              </div>
+            </>
+          ) : (
+            <div className="mt-[268px] flex flex-col items-center gap-8">
+              <img src="/withoutResult.svg" alt="" width={80} height={80} />
+              <h3 className="font-heebo font-medium text-2xl leading-[34px] text-text text-center">Sem resultados. <br /> Tente uma nova busca</h3>
+            </div>
+          )
+        }
       </main>
     </div>
   )
