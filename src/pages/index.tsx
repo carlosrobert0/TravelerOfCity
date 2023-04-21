@@ -59,7 +59,9 @@ export default function Home() {
             <header className="flex justify-between mt-6">
                 <img src="/traveler.svg" alt="" />
                 <Link href="/login">
-                    <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">Acceso restrito</button>
+                    <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">
+                        Acesso restrito
+                    </button>
                 </Link>
             </header>
             <main className="flex flex-row gap-[150px]">

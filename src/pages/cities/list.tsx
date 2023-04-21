@@ -94,7 +94,9 @@ export default function ListCities() {
           }
         </div>
         <Link href="/login">
-          <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">Acceso restrito</button>
+          <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">
+            Acesso restrito
+          </button>
         </Link>
       </header>
       <hr className="border-shape_secondary" />
@@ -128,6 +130,7 @@ export default function ListCities() {
                       countPlaces={countPlacesToCityId(city.id)}
                       onlyReading
                       listCities
+                      module={`/cities/city/${city.id}`}
                     />
                   ))
                 }

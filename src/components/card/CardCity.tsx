@@ -10,13 +10,14 @@ interface CardCityProps {
     countPlaces: number | string
     onlyReading?: boolean
     listCities?: boolean
+    module?: string
 }
 
-export function CardCity({ id, name, image, countPlaces, onlyReading = false, listCities = false }: CardCityProps) {
+export function CardCity({ id, name, image, countPlaces, onlyReading = false, listCities = false, module = '/cities/' }: CardCityProps) {
     const router = useRouter()
 
     function handleCity(id: string) {
-        router.push(`/cities/${id}`)
+        router.push(`${module}${id}`)
     }
 
     return (
