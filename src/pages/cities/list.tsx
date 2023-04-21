@@ -51,7 +51,7 @@ export default function ListCities() {
 
   useEffect(() => {
     filterCities()
-  }, [search])
+  }, [search, cities])
 
   return (
     <div className="bg-background w-full h-full">
