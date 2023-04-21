@@ -51,36 +51,6 @@ export default function CityRead() {
 
   const placesByCityId = places.filter((place: any) => place.city_id === id)
 
-  const placesTuristicsPoints = placesByCityId.filter((place: any) => place.category_id === "90f0e4c3-5d55-4b45-b1cd-effbfb515860")
-  const placesEvents = placesByCityId.filter((place: any) => place.category_id === "6f811e72-39bc-41e3-98aa-e180d73762d1")
-  const placesFood = placesByCityId.filter((place: any) => place.category_id === "6467006b-2c17-4800-9e7e-5dfcb8e27ad9")
-
-  function getCountPlacesByCategoryName(categoryName: string) {
-    switch (categoryName) {
-      case 'Eventos Organizados':
-        if (placesTuristicsPoints.length > 0 && placesTuristicsPoints.length < 9) {
-          return `0${placesTuristicsPoints.length}`
-        } else {
-          return placesTuristicsPoints.length
-        }
-      case 'Comida e Bebida':
-        if (placesFood.length > 0 && placesFood.length < 9) {
-          return `0${placesFood.length}`
-        } else {
-          return placesFood.length
-        }
-      case 'Pontos Turísticos':
-        if (placesEvents.length > 0 && placesEvents.length < 9) {
-          return `0${placesEvents.length}`
-        } else {
-          return placesEvents.length
-        }
-      default:
-        ''
-        break;
-    }
-  }
-
   return (
     <div className="flex flex-col">
       <header className="flex justify-between items-center h-24 bg-shape px-[160px]">
@@ -117,13 +87,18 @@ export default function CityRead() {
             </h3>
           </div>
           <div className="flex gap-4">
-            {categories.map((category: any) => (
-              <CardCountPlacesByCategory
-                count={getCountPlacesByCategoryName(category?.name)}
-                title={category?.name}
-                icon={renderIconNameByCategoryName(category?.name)}
-              />
-            ))}
+            {categories.map((category: any) => {
+              const places = category.Places.filter((place: any) => place.city_id === id);
+              const count = places.length;
+              return (
+                <CardCountPlacesByCategory
+                  key={category.id}
+                  count={(count > 0 && count < 9) ? `0${count}` : `${count}`}
+                  title={category.name}
+                  icon={renderIconNameByCategoryName(category.name)}
+                />
+              )
+            })}
           </div>
         </section>
 
@@ -133,7 +108,7 @@ export default function CityRead() {
           </h3>
           <div className="flex justify-start gap-8">
             {
-              placesByCityId.map((placeByCityId: any) => {
+              placesByCityId.slice(0, 4).map((placeByCityId: any) => {
                 return (
                   <CardPlace
                     key={placeByCityId.id}
@@ -151,10 +126,6 @@ export default function CityRead() {
                 )
               })
             }
-            <button className="h-[307px] w-64 rounded-2xl border border-dashed
-               border-shape_secondary bg-shape" />
-            <button className="h-[307px] w-64 rounded-2xl border border-dashed
-               border-shape_secondary bg-shape" />
           </div>
         </section>
 

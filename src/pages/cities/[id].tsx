@@ -143,6 +143,7 @@ export default function City() {
             <div className="flex gap-4">
               {categories.map((category: any) => (
                 <CardCountPlacesByCategory
+                  key={category.id}
                   count={getCountPlacesByCategoryName(category?.name)}
                   title={category?.name}
                   icon={renderIconNameByCategoryName(category?.name)}

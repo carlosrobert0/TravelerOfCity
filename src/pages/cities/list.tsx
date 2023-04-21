@@ -102,7 +102,7 @@ export default function ListCities() {
                   </li>
                 </ul>
               </div>
-              <div className="w-full max-w-[1120px] flex flex-wrap gap-8 m-auto">
+              <div className="w-full flex flex-wrap gap-8">
                 {
                   filteredCities.map(city => (
                     <CardCity

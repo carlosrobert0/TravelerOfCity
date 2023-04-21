@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
     render() {
@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
                         rel="stylesheet"
                     />
                     <link rel="icon" type="image/png" href="/favicon.png" sizes="16x16" />
-                    <title>Caparao Turismo</title>
                 </Head>
                 <body>
                     <Main />

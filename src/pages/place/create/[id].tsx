@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
-import { FiCamera, FiTrash } from 'react-icons/fi'
-import { ImageUploader } from '../../../components/ImageUploader'
+import { FiCamera } from 'react-icons/fi'
 import { v4 } from 'uuid'
+import { ImageUploader } from '../../../components/ImageUploader'
 
 import Nav from '../../../components/Nav'
-import { OpeningHours } from '../../../components/OpeningHours'
 import { api } from '../../../services/api'
 
 interface PlaceData extends AddressData {
@@ -191,7 +190,7 @@ export default function Create() {
               <div className="flex gap-4">
                 {categories.map((category) => {
                   return (
-                    <div className="flex h-[204px] w-[213px] flex-col justify-around rounded-[10px] border-[1px] border-shape_secondary bg-background">
+                    <div key={category.id} className="flex h-[204px] w-[213px] flex-col justify-around rounded-[10px] border-[1px] border-shape_secondary bg-background">
                       <div className="flex justify-between px-[22px]">
                         <FiCamera
                           size={40}
