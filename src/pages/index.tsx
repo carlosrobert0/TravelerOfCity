@@ -8,6 +8,7 @@ interface CityData {
     name: string
     image?: string
     description?: string
+    places?: PlaceData[]
 }
 
 interface PlaceData {
@@ -22,8 +23,6 @@ interface PlaceData {
 
 export default function Home() {
     const [cities, setCities] = useState<CityData[]>([])
-    const [places, setPlaces] = useState<PlaceData[]>([])
-
 
     async function getCities() {
         try {
@@ -32,28 +31,12 @@ export default function Home() {
         } catch (error) {
             console.log(error)
         }
-    }
+    }        
 
-    async function getPlaces() {
-        try {
-            const response = await api.get('places')
-            setPlaces(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
+    useEffect(() => {   
         getCities()
-        getPlaces()
     }, [])
 
-    function countPlacesToCityId(city_id: string) {
-        const filteredArrayToCityId = places.filter(
-            (place: PlaceData) => place.city_id === city_id
-        )
-        return filteredArrayToCityId.length
-    }
     return (
         <div className="bg-background w-full px-[160px] h-full max-h-[820px] overflow-hidden">
             <header className="flex justify-between mt-6">
@@ -85,7 +68,7 @@ export default function Home() {
                                     name={city.name}
                                     image={'/caparao.jpg'}
                                     id={city.id}
-                                    countPlaces={countPlacesToCityId(city.id)}
+                                    countPlaces={city.places.length}
                                     onlyReading
                                 />
                             ))
@@ -99,7 +82,7 @@ export default function Home() {
                                     name={city.name}
                                     image={'/caparao.jpg'}
                                     id={city.id}
-                                    countPlaces={countPlacesToCityId(city.id)}
+                                    countPlaces={city.places.length}
                                     onlyReading
                                 />
                             ))

@@ -1,7 +1,7 @@
 export function NavCategories() {
   return (
     <>
-      <nav className="flex h-[38px] w-[654px] items-start gap-8">
+      <nav className="flex h-[38px] w-full items-start gap-8">
         <button className="font-roboto text-base font-bold leading-[26px] text-title underline underline-offset-[20px]">
           Todos
         </button>

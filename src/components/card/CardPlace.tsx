@@ -14,6 +14,7 @@ interface CardPlaceProps {
 	place_id?: string
 	icon?: string
 	avaliation: string
+	onlyReading?: boolean
 }
 
 export function CardPlace({
@@ -24,6 +25,7 @@ export function CardPlace({
 	avaliation,
 	icon,
 	city_id,
+	onlyReading = false
 }: CardPlaceProps) {
 	const router = useRouter()
 	const [categoryName, setCategoryName] = useState('')
@@ -72,9 +74,13 @@ export function CardPlace({
 						{renderIcon('coffee', 24, 'ml-8')}
 					</div>
 				</div>
-				<div className="absolute top-4 right-4">
-					<IconsHandleCard module="place" id={place_id} />
-				</div>
+				{
+					!onlyReading && (
+						<div className="absolute top-4 right-4">
+							<IconsHandleCard module="place" id={place_id} />
+						</div>
+					)
+				}
 
 				<div className="absolute left-6 -top-4 flex h-[82px] w-14 flex-col 
 					items-center justify-center gap-[5px] rounded-[10px] bg-brand-orange"

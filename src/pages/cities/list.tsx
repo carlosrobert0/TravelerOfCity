@@ -4,13 +4,6 @@ import { FiChevronDown, FiSearch, FiX } from 'react-icons/fi'
 import { CardCity } from "../../components/card/CardCity"
 import { api } from "../../services/api"
 
-interface CityData {
-  id: string
-  name: string
-  image?: string
-  description?: string
-}
-
 interface PlaceData {
   id: string
   name: string
@@ -20,10 +13,16 @@ interface PlaceData {
   address_id: string
   city_id: string
 }
+interface CityData {
+  id: string
+  name: string
+  image?: string
+  description?: string
+  places?: PlaceData[]
+}
 
 export default function ListCities() {
   const [cities, setCities] = useState<CityData[]>([])
-  const [places, setPlaces] = useState<PlaceData[]>([])
   const [search, setSearch] = useState('')
   const [filteredCities, setFilteredCities] = useState<CityData[]>([])
 
@@ -31,15 +30,6 @@ export default function ListCities() {
     try {
       const response = await api.get('cities')
       setCities(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function getPlaces() {
-    try {
-      const response = await api.get('places')
-      setPlaces(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -57,19 +47,12 @@ export default function ListCities() {
 
   useEffect(() => {
     getCities()
-    getPlaces()
   }, [])
 
   useEffect(() => {
     filterCities()
   }, [search])
 
-  function countPlacesToCityId(city_id: string) {
-    const filteredArrayToCityId = places.filter(
-      (place: PlaceData) => place.city_id === city_id
-    )
-    return filteredArrayToCityId.length
-  }
   return (
     <div className="bg-background w-full h-full">
       <header className="flex justify-between items-center h-24 bg-shape px-[160px]">
@@ -127,10 +110,10 @@ export default function ListCities() {
                       name={city.name}
                       image={'/caparao.jpg'}
                       id={city.id}
-                      countPlaces={countPlacesToCityId(city.id)}
+                      countPlaces={city.places.length}
                       onlyReading
                       listCities
-                      module={`/cities/city/${city.id}`}
+                      module={`/cities/city/`}
                     />
                   ))
                 }
