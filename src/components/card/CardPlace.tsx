@@ -10,6 +10,7 @@ interface CardPlaceProps {
 	name: string
 	image: string
 	category_id: string
+	category_name?: string
 	city_id?: string
 	place_id?: string
 	icon?: string
@@ -23,6 +24,7 @@ export function CardPlace({
 	category_id,
 	place_id,
 	avaliation,
+	category_name,
 	icon,
 	city_id,
 	onlyReading = false
@@ -74,7 +76,7 @@ export function CardPlace({
 						<h2 className="font-barlow text-base font-medium leading-[26px] text-text">
 							{categoryName}
 						</h2>
-						{renderIcon('coffee', 24, 'ml-8')}
+						{renderIcon(category_name, 24, 'ml-8')}
 					</div>
 				</div>
 				{

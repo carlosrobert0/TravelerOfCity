@@ -114,6 +114,7 @@ export default function CityRead() {
                     key={placeByCityId.id}
                     name={placeByCityId.name}
                     avaliation="5,5"
+                    category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
                     category_id={
                       placeByCityId.category_id
                     }
@@ -189,6 +190,7 @@ export default function CityRead() {
                     key={placeByCityId.id}
                     name={placeByCityId.name}
                     avaliation="5,5"
+                    category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
                     category_id={
                       placeByCityId.category_id
                     }
