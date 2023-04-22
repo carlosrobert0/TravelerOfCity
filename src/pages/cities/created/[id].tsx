@@ -6,6 +6,7 @@ import { CardCity } from '../../../components/card/CardCity'
 import { CardPlace } from '../../../components/card/CardPlace'
 import { useAuth } from '../../../contexts/AuthContext'
 import { api } from '../../../services/api'
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
 
 export default function Created() {
   const [city, setCity] = useState<any>()
@@ -143,6 +144,7 @@ export default function Created() {
           />
           <CardPlace
             name={`${place?.name}`}
+            category_name={renderIconNameByCategoryName(place.category.name)}
             avaliation="4.5"
             image={place?.image}
             category_id={`${categoryId}`}

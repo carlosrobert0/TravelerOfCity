@@ -21,12 +21,12 @@ interface PlaceData {
 interface CategoryData {
     id: string
     name: string
-    places: PlaceData[]
+    Places: PlaceData[]
 }
 
 export default function Categories() {
     const [categories, setCategories] = useState<CategoryData[]>([])
-    
+
     const cookies = parseCookies()
 
     const router = useRouter()
@@ -62,11 +62,11 @@ export default function Categories() {
                 <div className="xl:28 mt-px-28 mt-12 ml-28 flex h-[862px] w-full flex-wrap gap-x-8 gap-y-8">
                     {categories.map(category => (
                         <CardCategory
-                        key={category.id}
-                        count={1198}
-                        title={category.name}
-                        icon={renderIconNameByCategoryName(`${category.name}`)}
-                    />
+                            key={category.id}
+                            count={category.Places.length}
+                            title={category.name}
+                            icon={renderIconNameByCategoryName(`${category.name}`)}
+                        />
                     ))}
                 </div>
             </main>

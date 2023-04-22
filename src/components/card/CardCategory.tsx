@@ -14,7 +14,7 @@ export function CardCategory({ icon, title, count }: CardCategoryProps) {
         <div className="w-10 h-10 rounded-[10px] bg-shape border border-shape_secondary flex items-center justify-center">
           <img src="/adjust.svg" alt="" />
         </div>
-        <IconsHandleCard id="1" module="categories" />
+        <IconsHandleCard id="1" module="categories"/>
       </header>
       <hr className="w-[354px] overflow-visible -ml-8"/>
       <div className="mt-[88px] flex flex-col gap-10">

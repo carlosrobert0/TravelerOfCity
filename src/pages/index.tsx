@@ -69,6 +69,7 @@ export default function Home() {
                                     image={'/caparao.jpg'}
                                     id={city.id}
                                     countPlaces={city.places.length}
+                                    module={`/cities/city/`}
                                     onlyReading
                                 />
                             ))

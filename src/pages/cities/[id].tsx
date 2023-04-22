@@ -136,9 +136,6 @@ export default function City() {
               <h3 className="font-regular mb-8 w-[506px] font-heebo text-xl leading-[30px] text-title">
                 {city?.description}
               </h3>
-              <h6 className="font-regular w-[506px] font-heebo text-base leading-[26px] text-text">
-                {city?.description}
-              </h6>
             </div>
             <div className="flex gap-4">
               {categories.map((category: any) => (
@@ -158,11 +155,12 @@ export default function City() {
             </h3>
             <div className="flex justify-start gap-8">
               {
-                placesByCityId.map((placeByCityId: any) => {
+                placesByCityId.splice(0, 4).map((placeByCityId: any) => {
                   return (
                     <CardPlace
                       key={placeByCityId.id}
                       name={placeByCityId.name}
+                      category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
                       avaliation="5,5"
                       category_id={
                         placeByCityId.category_id
@@ -175,10 +173,6 @@ export default function City() {
                   )
                 })
               }
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed
-               border-shape_secondary bg-shape" />
-              <button className="h-[307px] w-64 rounded-2xl border border-dashed
-               border-shape_secondary bg-shape" />
             </div>
           </section>
 
@@ -228,11 +222,11 @@ export default function City() {
             )
           }
           <section className="ml-28 flex h-[756px] w-full flex-col">
-            <div className="mb-8 flex  items-center justify-between">
+            <div className="mb-12 flex items-end justify-between w-[1120px]">
               <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
                 Conheça todos
               </h1>
-              <div className="mr-52 flex w-[538px] flex-col">
+              <div className="flex flex-col">
                 <NavCategories />
               </div>
             </div>
@@ -244,6 +238,7 @@ export default function City() {
                       <CardPlace
                         key={placeByCityId.id}
                         name={placeByCityId.name}
+                        category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
                         avaliation="5,5"
                         category_id={
                           placeByCityId.category_id
