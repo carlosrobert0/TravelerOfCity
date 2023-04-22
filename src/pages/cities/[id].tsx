@@ -155,7 +155,7 @@ export default function City() {
             </h3>
             <div className="flex justify-start gap-8">
               {
-                placesByCityId.splice(0, 4).map((placeByCityId: any) => {
+                placesByCityId.map((placeByCityId: any) => {
                   return (
                     <CardPlace
                       key={placeByCityId.id}
