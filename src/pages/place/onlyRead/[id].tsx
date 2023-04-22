@@ -7,8 +7,9 @@ import { FiArrowLeft } from 'react-icons/fi'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { Comment } from '../../../components/Comment'
-import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
+import { renderIcon } from '../../../utils/renderIcon'
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
 
 export default function PlaceOnlyRead() {
   const [place, setPlace] = useState<any>()
@@ -55,9 +56,7 @@ export default function PlaceOnlyRead() {
 
   return (
     <div className="relative flex h-[1828px] w-full justify-between overflow-hidden">
-      <Nav />
-
-      <main className="relative ml-24 flex w-[698px] flex-col">
+      <main className="relative flex w-[698px] flex-col">
         <header
           className={
             'flex h-[96px] w-full items-center bg-shape px-28'
@@ -70,7 +69,7 @@ export default function PlaceOnlyRead() {
             </div>
           </div>
         </header>
-        <hr className="border-[1px] text-shape_secondary" />
+        <hr className="border text-shape_secondary" />
         <section className="ml-28 mt-[65px] flex h-[1588px] w-[453px] flex-col">
           <div className="flex flex-col gap-8">
             <Link href="/place/places">
@@ -212,7 +211,7 @@ export default function PlaceOnlyRead() {
           {
             place?.category_id === '6f811e72-39bc-41e3-98aa-e180d73762d1' &&
             <h2 className='font-barlow font-semibold text-2xl leading-[34px] text-title'>
-              Próxima edição em <br/>
+              Próxima edição em <br />
               Dias 14,15 e 16 de agosto de 2020
             </h2>
           }
@@ -273,7 +272,7 @@ export default function PlaceOnlyRead() {
         </section>
       </main>
 
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Image
           src={"/caparao.jpg"}
           objectFit="cover"
@@ -281,6 +280,9 @@ export default function PlaceOnlyRead() {
           width={704}
           height={821}
         />
+        <div className="absolute flex items-center justify-center top-[55px] right-[160px] bg-shape border border-shape_secondary w-16 h-16 rounded-2xl">
+          {renderIcon(renderIconNameByCategoryName(place?.category?.name), 32, '')}
+        </div>
       </div>
     </div>
   )
