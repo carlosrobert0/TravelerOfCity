@@ -31,7 +31,10 @@ export function CardPlace({
 	const [categoryName, setCategoryName] = useState('')
 
 	function handlePlace(name: string) {
-		router.push(`/place/${name}`)
+		onlyReading ?
+			router.push(`/place/onlyRead/${name}`)
+			:
+			router.push(`/place/${name}`)
 	}
 
 	async function getCategoryNameByCategoryId(category_id: string) {
