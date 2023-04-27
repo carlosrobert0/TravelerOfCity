@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FaStar } from 'react-icons/fa'
-import { FiArrowLeft } from 'react-icons/fi'
+import { FiArrowLeft, FiX } from 'react-icons/fi'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { parseCookies } from 'nookies'
@@ -322,11 +322,25 @@ export default function PlaceOnlyRead() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="relative flex h-[660px] w-[736px] 
-          transform flex-col items-center justify-between transition-all bg-shape rounded-[20px]"
+          transform flex-col items-center justify-between transition-all bg-shape_secondary rounded-[20px] mt-16"
                 >
                   <header
-                    className="w-full h-[96px] bg-white overflow-hidden px-10 items-center justify-between"
-                  >oi</header>
+                    className="w-full h-[96px] bg-white overflow-hidden px-10 items-center justify-between flex rounded-t-[20px] border border-b-shape_secondary"
+                  >
+                    <div className='flex gap-[43px]'>
+                      <h2 className='font-barlow font-semibold text-2xl leading-9 text-brand-orange'>Nota 4,5</h2>
+                      <div className='flex gap-[19px] items-center justify-between'>
+                        <img src="/comment.svg" alt="" width={18} height={18} />
+                        <h3 className="font-barlow font-semibold text-text text-base leading-[26px]">23 comentários</h3>
+                      </div>
+                    </div>
+                    <div className='flex gap-6 items-center justify-between'>
+                      <h3 className='font-heebo font-medium text-sm leading-6 text-text'>Adicionar avaliação</h3>
+                      <button onClick={closeModal} className="w-10 h-10 rounded-[10px] bg-shape border border-shape_secondary flex items-center justify-center">
+                        <FiX size={20} color="#AOACB2" />
+                      </button>
+                    </div>
+                  </header>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
