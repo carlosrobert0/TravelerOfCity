@@ -1,17 +1,15 @@
 import {
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    onAuthStateChanged,
+    GoogleAuthProvider, onAuthStateChanged, signInWithPopup,
+    signOut
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { setCookie, destroyCookie } from 'nookies'
+import { destroyCookie, setCookie } from 'nookies'
 import {
     createContext,
     ReactNode,
     useContext,
     useEffect,
-    useState,
+    useState
 } from 'react'
 
 import { api } from '../services/api'
@@ -94,7 +92,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         destroyCookie(undefined, 'caparao.token')
         destroyCookie(undefined, 'caparao.refreshToken')
 
-        router.push('/')
+        router.push('/login')
     }
     const logOut = async () => {
         await signOut(auth)
