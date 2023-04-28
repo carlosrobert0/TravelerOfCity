@@ -144,7 +144,7 @@ export default function Created() {
           />
           <CardPlace
             name={`${place?.name}`}
-            category_name={renderIconNameByCategoryName(place.category.name)}
+            category_name={renderIconNameByCategoryName(place?.category?.name)}
             avaliation="4.5"
             image={place?.image}
             category_id={`${categoryId}`}
