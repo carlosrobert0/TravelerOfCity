@@ -4,7 +4,7 @@ import { FiTrash } from "react-icons/fi";
 interface ImageUploaderProps {
   onImageChange: (imageBase64: string) => void
   hasIcon?: boolean
-  imageData: any
+  imageData?: any
 }
 
 export function ImageUploader({ onImageChange, hasIcon = false }: ImageUploaderProps) {
