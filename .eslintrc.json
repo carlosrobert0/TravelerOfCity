@@ -5,7 +5,10 @@
       "error",
       {
         "ignore": [
-          "clip-path"
+          "clip-path",
+          "stroke-linecap",
+          "stroke-width",
+          "stroke-linejoin"
         ]
       }
     ]
