@@ -1,11 +1,10 @@
-import axios, { AxiosError } from 'axios'
-import { Router } from 'next/router'
-import { destroyCookie, parseCookies } from 'nookies'
+import axios from 'axios'
+import { parseCookies } from 'nookies'
 
 const cookies = parseCookies()
 
 export const api = axios.create({
-    baseURL: 'http://localhost:3333/',
+    baseURL: `${process.env.NEXT_PUBLIC_API}`,
     headers: {
         Authorization: `Bearer ${cookies['caparao.token']}`,
     },
