@@ -26,6 +26,7 @@ module.exports = {
         success_light: '#DCF5DD',
         blue_light: '#DDE9F0',
         orange_light: '#FEF7F5',
+        orange_border: '#F1BEAC',
         yellow: '#EFB866',
         
         background: '#F5F8FA',

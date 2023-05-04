@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { ChangeEvent, Fragment } from "react";
-import { FiX } from "react-icons/fi";
+import { ChangeEvent, Fragment, useState } from "react";
+import { FaStar } from "react-icons/fa";
+import { FiAlertCircle, FiStar, FiX } from "react-icons/fi";
 
 interface DialogAddAvaliation {
   isOpen: boolean;
@@ -8,6 +9,13 @@ interface DialogAddAvaliation {
 }
 
 export function DialogAddAvaliation({ isOpen, onClose }: DialogAddAvaliation) {
+  const [stars, setStars] = useState(0)
+  const [imageData, setImageData] = useState('')
+
+  function handleChange(e: any) {
+    setStars(parseInt(e.target.value));
+  }
+
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
@@ -19,6 +27,7 @@ export function DialogAddAvaliation({ isOpen, onClose }: DialogAddAvaliation) {
 
       reader.onloadend = () => {
         console.log(reader.result as string);
+        setImageData(reader.result as string)
       };
     }
   }
@@ -64,12 +73,25 @@ export function DialogAddAvaliation({ isOpen, onClose }: DialogAddAvaliation) {
                   <div className="flex items-center justify-start">
                     <label
                       htmlFor="dropzone-file"
-                      className="flex cursor-pointer 
-              bg-brand-blue flex-col items-center justify-center rounded-[10px] w-[199px] h-12"
+                      className={`flex cursor-pointer border border-background_secondary
+                    ${imageData === '' ? 'bg-brand-blue' : 'bg-gradient-to-r from-success_light to-background'} flex-col items-center justify-center rounded-[10px] w-[199px] h-12`}
                     >
-                      <p className="font-heebo font-medium text-base leading-[26px] text-white">
-                        Upload da sua foto
-                      </p>
+                      {imageData === '' ?
+                        (
+                          <p className="font-heebo font-medium text-base leading-[26px] text-white">
+                            Upload da sua foto
+                          </p>
+                        ) : (
+                          <div className="flex gap-[52px]">
+                            <p className="font-heebo font-medium text-base leading-[26px] text-success">
+                              Feito!
+                            </p>
+                            <p className="font-heebo text-xs leading-[26px] text-success">
+                              Trocar foto
+                            </p>
+                          </div>
+                        )
+                      }
                       <input
                         id="dropzone-file"
                         type="file"
@@ -90,10 +112,57 @@ export function DialogAddAvaliation({ isOpen, onClose }: DialogAddAvaliation) {
                     <p className="font-heebo text-xs leading-[22px] text-complement absolute right-4 bottom-2">Máximo 240 caracteres</p>
                   </div>
 
-                  <div>
+                  <div className="flex items-center gap-3">
                     <h3 className="text-brand-orange font-medium font-heebo text-base leading-[26px]">Sua nota de 1 a 5</h3>
-                    <input type="range" className="appearance-none w-full h-2 bg-gray-300 rounded-full overflow-hidden" />
+                    <div className="relative w-[520px] h-12 rounded-t-[10px] rounded-b-[10px] flex items-center">
+                      <button
+                        className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-l-[10px] ${stars > 0 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                        onClick={() => setStars(1)}
+                      >
+                        {stars > 0 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                      </button>
+                      <button
+                        className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 1 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                        onClick={() => setStars(2)}
+                      >
+                        {stars > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                      </button>
+                      <button
+                        className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 2 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                        onClick={() => setStars(3)}
+                      >
+                        {stars > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                      </button>
+                      <button
+                        className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 3 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                        onClick={() => setStars(4)}
+                      >
+                        {stars > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                      </button>
+                      <button
+                        className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-r-[10px] ${stars > 4 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                        onClick={() => setStars(5)}
+                      >
+                        {stars > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                      </button>
+                    </div>
                   </div>
+
+                  <div className="flex h-[44px] items-center gap-6">
+                    <FiAlertCircle size={32} color="#F25D27" />
+                    <span className="font-regular font-heebo text-sm leading-[22px] text-text text-left">
+                      Sua avaliação será analisada <br />
+                      para poder ser publicada.
+                    </span>
+                  </div>
+
+                  <button
+                    className="flex h-12 w-[191px] items-center justify-center 
+                  rounded-[10px] bg-success font-heebo text-base font-medium leading-[26px] text-white ml-auto"
+                    type="submit"
+                  >
+                    Enviar avaliação
+                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
