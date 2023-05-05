@@ -53,6 +53,7 @@ export default function PlaceOnlyRead() {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
       })
+      console.log('placee', response.data)
       setPlace(response.data)
     } catch (error) {
       console.log(error)
@@ -70,10 +71,6 @@ export default function PlaceOnlyRead() {
 
   useEffect(() => {
     getPlace()
-
-    return () => {
-      getPlace()
-    }
   }, [])
 
   return (
@@ -311,7 +308,7 @@ export default function PlaceOnlyRead() {
 
       <DialogAvaliations isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
           
-      <DialogAddAvaliation isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
+      <DialogAddAvaliation place_id={id} city_id={place?.city_id} isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
     </>
   )
 }
