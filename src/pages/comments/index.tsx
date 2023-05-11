@@ -1,9 +1,6 @@
-import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { DialogAcceptOrDeclineAvaliation } from "../../components/Dialog/DialogAcceptOrDeclineAvaliation";
 import Nav from "../../components/Nav";
-import { useAuth } from "../../contexts/AuthContext";
 import { api } from "../../services/api";
 
 interface CommentData {
@@ -11,6 +8,7 @@ interface CommentData {
   name: string
   avatar?: string
   description?: string
+  avaliation?: number | null
   status: string
   city: CityData
   place: any
@@ -26,15 +24,7 @@ interface CityData {
 export default function Comments() {
   const [comments, setComments] = useState<CommentData[]>([])
   const [isOpen, setIsOpen] = useState(false)
-  const [placeNameComment, setPlaceNameComment] = useState('')
-  const [cityNameComment, setCityNameComment] = useState('')
-  const [categoryNameComment, setCategoryNameComment] = useState('')
-
-  const router = useRouter()
-
-  const cookies = parseCookies()
-
-  const { signOutApplication } = useAuth()
+  const [dataComment, setDataComment] = useState<CommentData>()
 
   function openDialogAcceptOrDeclineAvaliation() {
     setIsOpen(true)
@@ -56,7 +46,7 @@ export default function Comments() {
 
   useEffect(() => {
     getComments()
-  }, [])
+  }, [comments])
 
   return (
     <>
@@ -75,20 +65,24 @@ export default function Comments() {
 
         </header>
         <main className="ml-[208px] mt-12 flex items-center">
-          <table className="w-[1120px] border-separate border-spacing-y-2 max-h-[760px] overflow-y-scroll">
+          <table className="w-[1120px] border-separate border-spacing-y-2 max-h-[760px] overflow-y-scroll pb-10">
             {comments.map(comment => (
               <tr
                 key={comment.id}
-                className="w-full h-[88px] bg-shape border border-red-900">
-                <td className="pl-6 rounded-tl-2xl rounded-bl-2xl">
-                  <div className="flex items-center justify-center gap-6">
+                className={`w-full h-[88px] ${comment.status === 'novo' ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape' : 'bg-shape'}`}>
+                <td className="pl-6 rounded-tl-2xl rounded-bl-2xl" width="33%">
+                  <div className="flex items-center justify-start gap-6">
                     <img src="/caparao.jpg" alt="" className="object-cover w-14 h-14 rounded-[50%]" />
                     <h4>{comment.name}</h4>
                   </div>
                 </td>
                 <td width="7%">
                   <div className="bg-[#F3F3F3] rounded-[50%] h-6 w-6 flex items-center justify-center">
-                    <img src="/interrogation.svg" alt="" />
+                    {
+                      comment.status === 'novo' ? <img src="/interrogation.svg" alt="" /> :
+                      comment.status === 'accept' ? <img src="/accept.svg" alt="" /> :
+                      comment.status === 'decline' && <img src="/decline.svg" alt="" />
+                    }
                   </div>
                 </td>
                 <td>
@@ -114,9 +108,7 @@ export default function Comments() {
                 <td className="pr-[38px] rounded-tr-2xl rounded-br-2xl">
                   <button onClick={() => {
                     openDialogAcceptOrDeclineAvaliation()
-                    setCityNameComment(comment.city.name)
-                    setPlaceNameComment(comment.place.name)
-                    setCategoryNameComment(comment.place?.category.name)
+                    setDataComment(comment)
                   }
                   }>
                     <img src="/seta.svg" alt="" />
@@ -130,9 +122,7 @@ export default function Comments() {
       <DialogAcceptOrDeclineAvaliation
         isOpen={isOpen}
         onClose={closeDialogAcceptOrDeclineAvaliation}
-        city_name={cityNameComment}
-        place_name={placeNameComment}
-        category_name={categoryNameComment}
+        dataComment={dataComment}
       />
     </>
   )
