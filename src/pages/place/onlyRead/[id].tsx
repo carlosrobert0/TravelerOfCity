@@ -22,6 +22,8 @@ export default function PlaceOnlyRead() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenAddAvaliation, setIsOpenAddAvaliation] = useState(false)
 
+  const avaliationsAccept = place?.Depositions.filter((deposition: any) => deposition.status === 'accept')
+
   function closeModal() {
     setIsOpen(false)
   }
@@ -269,7 +271,7 @@ export default function PlaceOnlyRead() {
                 <div className="mt-1 flex gap-3">
                   <FaStar size={20} color="#F25D27" />
                   <h6 className="font-barlow text-xl font-semibold leading-5 text-brand-orange">
-                    {calculateAverageRatings(place?.Depositions)}
+                    {calculateAverageRatings(avaliationsAccept)}
                   </h6>
                 </div>
                 <div className="ml-[95px] mt-1 flex gap-4">
@@ -283,7 +285,7 @@ export default function PlaceOnlyRead() {
               </div>
               <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
               <div className="flex flex-col items-end gap-6">
-                {place?.Depositions.map((comment: any) => (
+                {avaliationsAccept.map((comment: any) => (
                   <>
                     <Comment image="/imgComment.png" description={comment?.description} name={comment?.name} avaliation={comment?.avaliation} key={comment?.id} />
                     <span className="h-[1px] w-[359px] bg-shape_secondary" />
@@ -308,7 +310,7 @@ export default function PlaceOnlyRead() {
         </div>
       </div>
 
-      <DialogAvaliations comments={place?.Depositions} isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
+      <DialogAvaliations comments={avaliationsAccept} isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
 
       <DialogAddAvaliation place_id={id} city_id={place?.city_id} isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
     </>
