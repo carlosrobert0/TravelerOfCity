@@ -10,6 +10,7 @@ import { Comment } from '../../../components/Comment'
 import { DialogAddAvaliation } from '../../../components/Dialog/DialogAddAvaliation'
 import { DialogAvaliations } from '../../../components/Dialog/DialogAvaliations'
 import { api } from '../../../services/api'
+import { calculateAverageRatings } from '../../../utils/calculateAverageRatings'
 import { renderIcon } from '../../../utils/renderIcon'
 import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
 
@@ -268,7 +269,7 @@ export default function PlaceOnlyRead() {
                 <div className="mt-1 flex gap-3">
                   <FaStar size={20} color="#F25D27" />
                   <h6 className="font-barlow text-xl font-semibold leading-5 text-brand-orange">
-                    4,5
+                    {calculateAverageRatings(place?.Depositions)}
                   </h6>
                 </div>
                 <div className="ml-[95px] mt-1 flex gap-4">
@@ -307,7 +308,7 @@ export default function PlaceOnlyRead() {
         </div>
       </div>
 
-      <DialogAvaliations isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
+      <DialogAvaliations comments={place?.Depositions} isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
 
       <DialogAddAvaliation place_id={id} city_id={place?.city_id} isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
     </>

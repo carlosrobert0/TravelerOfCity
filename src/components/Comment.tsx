@@ -21,23 +21,17 @@ export function Comment({
                 objectFit="contain"
                 className="rounded-full"
             />
-            <div className="ml-6 flex flex-col">
+            <div className="ml-6 flex flex-col flex-1">
                 <div className="flex">
                     <h4 className="font-barlow text-xl font-semibold leading-[26px] text-text">
                         {name}
                     </h4>
-                    <div className="ml-[65px] flex gap-2">
-                        {avaliation &&
-                            (
-                                <>
-                                    {avaliation > 0 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
-                                    {avaliation > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
-                                    {avaliation > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
-                                    {avaliation > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
-                                    {avaliation > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
-                                </>
-                            )
-                        }
+                    <div className="ml-auto flex gap-2">
+                        {avaliation > 0 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                        {avaliation > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                        {avaliation > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                        {avaliation > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                        {avaliation > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
                     </div>
                 </div>
                 <h4 className="font-regular mt-4 font-heebo text-base leading-[26px] text-text">

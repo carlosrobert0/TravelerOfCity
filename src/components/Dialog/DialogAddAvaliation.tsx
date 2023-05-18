@@ -32,7 +32,7 @@ interface FormData {
 }
 
 export function DialogAddAvaliation({ isOpen, onClose, city_id, place_id }: DialogAddAvaliation) {
-  const [stars, setStars] = useState(0)
+  const [avaliation, setAvaliation] = useState(0)
   const [imageData, setImageData] = useState('')
   const [isOpenAvaliationSent, setIsOpenAvaliationSent] = useState(false)
 
@@ -66,7 +66,6 @@ export function DialogAddAvaliation({ isOpen, onClose, city_id, place_id }: Dial
 
   async function handleCreateDeposition({
     name, avatar = imageData, description, status = 'novo',
-    avaliation = stars
   }: FormData) {
     try {
       await api.post('depositions', {
@@ -79,7 +78,7 @@ export function DialogAddAvaliation({ isOpen, onClose, city_id, place_id }: Dial
         place_id
       })
       setImageData('')
-      setStars(0)
+      setAvaliation(0)
       reset()
       onClose()
       openModalAvaliationSent()
@@ -183,35 +182,39 @@ export function DialogAddAvaliation({ isOpen, onClose, city_id, place_id }: Dial
                       <h3 className="text-brand-orange font-medium font-heebo text-base leading-[26px]">Sua nota de 1 a 5</h3>
                       <div className="relative w-[520px] h-12 rounded-t-[10px] rounded-b-[10px] flex items-center">
                         <button
-                          className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-l-[10px] ${stars > 0 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
-                          onClick={() => setStars(1)}
-                        >
-                          {stars > 0 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
-                        </button>
-                        <button
-                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 1 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
-                          onClick={() => setStars(2)}
-                        >
-                          {stars > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
-                        </button>
-                        <button
-                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 2 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
-                          onClick={() => setStars(3)}
-                        >
-                          {stars > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
-                        </button>
-                        <button
-                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${stars > 3 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
-                          onClick={() => setStars(4)}
-                        >
-                          {stars > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
-                        </button>
-                        <button
-                          className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-r-[10px] ${stars > 4 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
-                          onClick={() => setStars(5)}
+                          className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-l-[10px] ${avaliation > 0 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                          onClick={() => setAvaliation(1)}
                           type="button"
                         >
-                          {stars > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                          {avaliation > 0 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                        </button>
+                        <button
+                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${avaliation > 1 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                          onClick={() => setAvaliation(2)}
+                          type="button"
+                        >
+                          {avaliation > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                        </button>
+                        <button
+                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${avaliation > 2 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                          onClick={() => setAvaliation(3)}
+                          type="button"
+                        >
+                          {avaliation > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                        </button>
+                        <button
+                          className={`w-1/5 h-full flex items-center transition-all justify-center border ${avaliation > 3 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                          onClick={() => setAvaliation(4)}
+                          type="button"
+                        >
+                          {avaliation > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
+                        </button>
+                        <button
+                          className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-r-[10px] ${avaliation > 4 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
+                          onClick={() => setAvaliation(5)}
+                          type="button"
+                        >
+                          {avaliation > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
                         </button>
                       </div>
                     </div>
