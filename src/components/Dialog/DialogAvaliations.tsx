@@ -49,7 +49,7 @@ export function DialogAvaliations({ isOpen, onClose, openModalAddAvaliation, com
                     <h2 className='font-barlow font-semibold text-2xl leading-9 text-brand-orange'>Nota {calculateAverageRatings(comments)}</h2>
                     <div className='flex gap-[19px] items-center justify-between'>
                       <img src="/comment.svg" alt="" width={18} height={18} />
-                      <h3 className="font-barlow font-semibold text-text text-base leading-[26px]">{comments.length} comentários</h3>
+                      <h3 className="font-barlow font-semibold text-text text-base leading-[26px]">{comments?.length} comentários</h3>
                     </div>
                   </div>
                   <div className='flex gap-6 items-center justify-between'>
@@ -61,7 +61,7 @@ export function DialogAvaliations({ isOpen, onClose, openModalAddAvaliation, com
                 </header>
                 <div className='h-[564px] w-full px-10'>
                   <div className='h-full max-h-[524px] overflow-y-auto pt-8 flex flex-col gap-10'>
-                    {comments.map(comment => (
+                    {comments?.map(comment => (
                       <div key={comment.id} className="w-[626px] h-[118px] flex gap-6 items-start">
                         <Image
                           src="/imgComment.png"
