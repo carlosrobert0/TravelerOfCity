@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DialogAcceptOrDeclineAvaliation } from "../../components/Dialog/DialogAcceptOrDeclineAvaliation";
+import { DialogAvaliationDetails } from "../../components/Dialog/DialogAvaliationDetails";
 import Nav from "../../components/Nav";
 import { api } from "../../services/api";
 
@@ -24,6 +25,7 @@ interface CityData {
 export default function Comments() {
   const [comments, setComments] = useState<CommentData[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenAvaliationDetails, setIsOpenAvaliationsDetails] = useState(false)
   const [dataComment, setDataComment] = useState<CommentData>()
 
   function openDialogAcceptOrDeclineAvaliation() {
@@ -32,6 +34,14 @@ export default function Comments() {
 
   function closeDialogAcceptOrDeclineAvaliation() {
     setIsOpen(false)
+  }
+
+  function openAvaliationDetails() {
+    setIsOpenAvaliationsDetails(true)
+  }
+
+  function closeAvaliationDetails() {
+    setIsOpenAvaliationsDetails(false)
   }
 
   async function getComments() {
@@ -46,7 +56,7 @@ export default function Comments() {
 
   useEffect(() => {
     getComments()
-  }, [comments])
+  }, [])
 
   return (
     <>
@@ -65,18 +75,33 @@ export default function Comments() {
 
         </header>
         <main className="ml-[208px] mt-12 flex items-center">
-          <table className="w-[1120px] border-separate border-spacing-y-2 max-h-[760px] overflow-y-scroll pb-10">
-            {comments.map(comment => (
+          <table className="w-[1120px] border-separate border-spacing-y-2 max-h-[760px] overflow-y-auto pb-6">
+            {comments
+              .sort((a, b) => {
+                if (a.status === 'novo' && b.status !== 'novo') {
+                  return -1; 
+                } else if (a.status !== 'novo' && b.status === 'novo') {
+                  return 1; 
+                } else {
+                  return 0; 
+                }
+              })
+              .map(comment => (
               <tr
                 key={comment.id}
                 className={`w-full h-[88px] ${comment.status === 'novo' ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape' : 'bg-shape'}`}>
-                <td className="pl-6 rounded-tl-2xl rounded-bl-2xl" width="33%">
+                <td className={`pl-6 rounded-tl-2xl rounded-bl-2xl relative overflow-visible border-t border-b border-l ${comment.status === 'novo' ? 'border-[#FFDB93]' : 'border-shape_secondary'}`} width="33%">
                   <div className="flex items-center justify-start gap-6">
                     <img src="/caparao.jpg" alt="" className="object-cover w-14 h-14 rounded-[50%]" />
                     <h4>{comment.name}</h4>
                   </div>
+                  {comment.status === 'novo' && (
+                    <div
+                      className="w-14 h-[27px] bg-new_yellow border text-center border-yellow rounded-lg absolute font-heebo font-bold text-[10px] leading-[26px] text-shape top-[31px] -left-12"
+                    >NOVO</div>
+                  )}
                 </td>
-                <td width="7%">
+                <td width="7%" className="border-t border-b border-shape_secondary">
                   <div className="bg-[#F3F3F3] rounded-[50%] h-6 w-6 flex items-center justify-center">
                     {
                       comment.status === 'novo' ? <img src="/interrogation.svg" alt="" /> :
@@ -85,13 +110,13 @@ export default function Comments() {
                     }
                   </div>
                 </td>
-                <td>
+                <td className="border-t border-b border-shape_secondary">
                   <div className="flex flex-col">
                     <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">CATEGORIA</h4>
                     <h3 className="font-heebo font-medium text-base leading-6 text-text">{comment.place?.category.name}</h3>
                   </div>
                 </td>
-                <td>
+                <td className="border-t border-b border-shape_secondary">
                   <div className="flex flex-col">
                     <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">CIDADE</h4>
                     <h3 className="font-heebo font-medium text-base leading-6 text-text">
@@ -99,14 +124,16 @@ export default function Comments() {
                     </h3>
                   </div>
                 </td>
-                <td>
+                <td className="border-t border-b border-shape_secondary">
                   <div className="flex flex-col">
                     <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">LOCAL</h4>
                     <h3 className="font-heebo font-medium text-base leading-6 text-text">{comment.place.name}</h3>
                   </div>
                 </td>
-                <td className="pr-[38px] rounded-tr-2xl rounded-br-2xl">
+                <td className="pr-6 rounded-tr-2xl rounded-br-2xl border-t border-b border-r border-shape_secondary">
                   <button onClick={() => {
+                    comment.status !== 'novo' ? 
+                    openAvaliationDetails() : 
                     openDialogAcceptOrDeclineAvaliation()
                     setDataComment(comment)
                   }
@@ -123,6 +150,11 @@ export default function Comments() {
         isOpen={isOpen}
         onClose={closeDialogAcceptOrDeclineAvaliation}
         dataComment={dataComment}
+      />
+      <DialogAvaliationDetails 
+        isOpen={isOpenAvaliationDetails} 
+        dataComment={dataComment} 
+        onClose={closeAvaliationDetails}
       />
     </>
   )

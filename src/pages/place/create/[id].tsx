@@ -71,7 +71,7 @@ export default function Create() {
     try {
       const response = await api.post('/place', {
         ...place,
-        image: imageData.data,
+        image: '/caparao.png',
         address_id: addressId,
         city_id: id,
       })

@@ -209,6 +209,7 @@ export function DialogAddAvaliation({ isOpen, onClose, city_id, place_id }: Dial
                         <button
                           className={`w-1/5 h-full flex items-center transition-all justify-center border rounded-r-[10px] ${stars > 4 ? 'bg-orange_light border-orange_border' : 'border-background_secondary'}`}
                           onClick={() => setStars(5)}
+                          type="button"
                         >
                           {stars > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#A0ACB2" />}
                         </button>

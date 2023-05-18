@@ -22,12 +22,14 @@ module.exports = {
         shape_secondary: '#DCE2E5',
 
         attention: '#DE3838',
+        attention_light: '#FFE1E1',
         success: '#51B853',
         success_light: '#DCF5DD',
         blue_light: '#DDE9F0',
         orange_light: '#FEF7F5',
         orange_border: '#F1BEAC',
         yellow: '#EFB866',
+        new_yellow: '#F5A300',
         
         background: '#F5F8FA',
         background_secondary: '#DCE2E6',

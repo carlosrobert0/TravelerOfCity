@@ -2,54 +2,28 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from 'next/image';
 import { Fragment, useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { FiStar, FiX } from "react-icons/fi";
-import { api } from "../../services/api";
-import DialogAvaliationAccept from "./DialogAvaliationAccept";
-import DialogAvaliationDecline from "./DialogAvaliationDecline";
+import { FiStar, FiTrash, FiX } from "react-icons/fi";
+import DialogDeleteAvaliation from "./DialogDeleteAvaliation";
 
-interface DialogAcceptOrDeclineAvaliation {
+interface DialogAvaliationDetails {
   isOpen: boolean;
   onClose: () => void;
   dataComment: any
 }
 
-export function DialogAcceptOrDeclineAvaliation({
+export function DialogAvaliationDetails({
   isOpen,
   onClose,
   dataComment,
-}: DialogAcceptOrDeclineAvaliation) {
-  const [isOpenAvaliationAccept, setIsOpenAvaliationAccept] = useState(false)
-  const [isOpenAvaliationDecline, setIsOpenAvaliationDecline] = useState(false)
+}: DialogAvaliationDetails) {
+  const [isOpenAvaliationDelete, setIsOpenAvaliationDelete] = useState(false)
 
-  function openAvaliationAccept() {
-    setIsOpenAvaliationAccept(true)
+  function openAvaliationDelete() {
+    setIsOpenAvaliationDelete(true)
   }
 
-  function openAvaliationDecline() {
-    setIsOpenAvaliationDecline(true)
-  }
-
-  function closeAvaliationAccept() {
-    setIsOpenAvaliationAccept(false)
-  }
-
-  function closeAvaliationDecline() {
-    setIsOpenAvaliationDecline(false)
-  }
-
-  async function handleUpdateDeposition(newStatus: string) {
-    try {
-      await api.put(`depositions/${dataComment.id}`, {
-        ...dataComment,
-        status: newStatus
-      })
-      onClose()
-      newStatus === 'accept' ?
-      openAvaliationAccept() :
-      openAvaliationDecline()
-    } catch (error) {
-      console.log(error)
-    }
+  function closeAvaliationDelete() {
+    setIsOpenAvaliationDelete(true)
   }
 
   return (
@@ -79,16 +53,26 @@ export function DialogAcceptOrDeclineAvaliation({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="relative flex h-[465px] overflow-hidden w-[736px] 
+                <Dialog.Panel className="relative flex h-[366px] overflow-hidden w-[736px] 
           transform flex-col items-center justify-start transition-all bg-background rounded-[20px] mt-16"
                 >
                   <header
                     className="w-full h-[96px] bg-white overflow-hidden px-10 items-center justify-between flex rounded-t-[20px] border border-b-shape_secondary"
                   >
-                    <h2 className='font-barlow font-semibold text-2xl leading-9 text-brand-orange'>{dataComment?.avaliation ? `Nota ${dataComment?.avaliation}` : 'Sem avaliação'}</h2>
-                    <button onClick={onClose} className="w-10 h-10 rounded-[10px] bg-shape border border-shape_secondary flex items-center justify-center">
-                      <FiX size={20} color="#AOACB2" />
-                    </button>
+                    <div className="flex gap-8 items-center">
+                      <h2 className='font-barlow font-semibold text-2xl leading-9 text-brand-orange'>{dataComment?.avaliation ? `Nota ${dataComment?.avaliation}` : 'Sem avaliação'}</h2>
+                      {dataComment?.status === 'accept' ? <img src="/accept.svg" alt="" /> :
+                        dataComment?.status === 'decline' && <img src="/decline.svg" alt="" />}
+                    </div>
+                    <div className="flex gap-4 items-center">
+                      <button onClick={openAvaliationDelete} className="rounded-[10px] w-[102px] h-10 bg-attention_light flex items-center justify-center gap-[10px]">
+                        <FiTrash size={20} color="#DE3838"/>
+                        <p className="font-heebo text-base leading-[26px] text-attention">Excluir</p>
+                      </button>
+                      <button onClick={onClose} className="w-10 h-10 rounded-[10px] bg-shape border border-shape_secondary flex items-center justify-center">
+                        <FiX size={20} color="#AOACB2" />
+                      </button>
+                    </div>
                   </header>
                   <div
                     // onSubmit={handleSubmit(handleCreateDeposition)} 
@@ -132,26 +116,13 @@ export function DialogAcceptOrDeclineAvaliation({
                       </div>
                     </div>
                   </div>
-                  <footer
-                    className="w-full mt-auto h-[96px] bg-white overflow-hidden px-10 items-center justify-between flex rounded-b-[20px] border border-b-shape_secondary"
-                  >
-                    <div className="flex gap-2 ml-auto">
-                      <button onClick={() => handleUpdateDeposition('decline')} className="w-[123px] h-12 rounded-[10px] bg-attention font-heebo font-medium text-base leading-[26px] text-shape flex items-center justify-center">
-                        Recusar
-                      </button>
-                      <button onClick={() => handleUpdateDeposition('accept')} className="w-[123px] h-12 rounded-[10px] bg-success font-heebo font-medium text-base leading-[26px] text-shape flex items-center justify-center">
-                        Aceitar
-                      </button>
-                    </div>
-                  </footer>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
         </Dialog>
       </Transition>
-      <DialogAvaliationAccept isOpen={isOpenAvaliationAccept} onCloseDialog={closeAvaliationAccept} />
-      <DialogAvaliationDecline isOpen={isOpenAvaliationDecline} onCloseDialog={closeAvaliationDecline} />
+      <DialogDeleteAvaliation isOpen={isOpenAvaliationDelete} onCloseDialog={closeAvaliationDelete} dataComment={dataComment}/>
     </>
   )
 }

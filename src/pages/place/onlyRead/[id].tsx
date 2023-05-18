@@ -60,14 +60,14 @@ export default function PlaceOnlyRead() {
     }
   }
 
-  async function onDeletePlace(placeId: string) {
-    try {
-      await api.delete(`places/${placeId}`)
-      router.back()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // async function onDeletePlace(placeId: string) {
+  //   try {
+  //     await api.delete(`places/${placeId}`)
+  //     router.back()
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   useEffect(() => {
     getPlace()
@@ -282,11 +282,12 @@ export default function PlaceOnlyRead() {
               </div>
               <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
               <div className="flex flex-col items-end gap-6">
-                <Comment />
-                <span className="h-[1px] w-[359px] bg-shape_secondary" />
-                <Comment />
-                <span className="h-[1px] w-[359px] bg-shape_secondary" />
-                <Comment />
+                {place?.Depositions.map((comment: any) => (
+                  <>
+                    <Comment image="/imgComment.png" description={comment?.description} name={comment?.name} avaliation={comment?.avaliation} key={comment?.id} />
+                    <span className="h-[1px] w-[359px] bg-shape_secondary" />
+                  </>
+                ))}
               </div>
             </div>
           </section>
@@ -307,7 +308,7 @@ export default function PlaceOnlyRead() {
       </div>
 
       <DialogAvaliations isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
-          
+
       <DialogAddAvaliation place_id={id} city_id={place?.city_id} isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
     </>
   )
