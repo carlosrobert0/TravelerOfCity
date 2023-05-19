@@ -98,7 +98,7 @@ export default function Login() {
             <aside className="flex w-full max-w-[736px] flex-col items-start justify-between px-[160px]">
                 <div className="absolute top-9 text-complement">
                     <Link href="/">
-                        <FiArrowLeft size={24} />
+                        <FiArrowLeft size={24} className="cursor-pointer" />
                     </Link>
                 </div>
                 <form onSubmit={handleSubmit(handleLogin)}>

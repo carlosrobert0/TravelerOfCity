@@ -71,7 +71,7 @@ export default function ListCities() {
           {
             search !== '' && (
               <div className="absolute inset-y-0 right-0 flex items-center pr-[16px]">
-                <FiX size={20} color="#A0ACB2" onClick={() => setSearch('')} />
+                <FiX size={20} color="#A0ACB2" onClick={() => setSearch('')} className="cursor-pointer" />
               </div>
             )
           }

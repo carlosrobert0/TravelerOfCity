@@ -88,7 +88,7 @@ export default function PlaceOnlyRead() {
             <div className="flex gap-[34px] items-center">
               <img src="/traveler.svg" alt="" width={126} height={26} />
               <div className="w-10 h-10 rounded-[10px] border border-shape_secondary flex justify-center items-center">
-                <FiArrowLeft size={24} onClick={handleGoBack} color="#A0ACB2" />
+                <FiArrowLeft size={24} onClick={handleGoBack} color="#A0ACB2" className="cursor-pointer" />
               </div>
             </div>
           </header>
@@ -285,7 +285,7 @@ export default function PlaceOnlyRead() {
               </div>
               <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
               <div className="flex flex-col items-end gap-6">
-                {avaliationsAccept.map((comment: any) => (
+                {avaliationsAccept?.map((comment: any) => (
                   <>
                     <Comment image="/imgComment.png" description={comment?.description} name={comment?.name} avaliation={comment?.avaliation} key={comment?.id} />
                     <span className="h-[1px] w-[359px] bg-shape_secondary" />

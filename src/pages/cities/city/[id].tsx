@@ -12,12 +12,11 @@ import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCat
 import { CityFormData } from './../create'
 
 export default function CityRead() {
-  const [city, setCity] = useState<CityFormData | null>()
-  const [places, setPlaces] = useState([])
+  const [city, setCity] = useState<CityFormData | null | any>()
   const [categories, setCategories] = useState([])
   const router = useRouter()
 
-  const [hasProminence, setHasProminence] = useState(false)
+  const [hasProminence] = useState(false)
 
   const { id } = router.query
 
@@ -31,12 +30,6 @@ export default function CityRead() {
     setCity(response.data)
   }
 
-  async function getPlaces() {
-    const response = await api.get('/places')
-    console.log(response.data)
-    setPlaces(response.data)
-  }
-
   async function getCategories() {
     const response = await api.get('/categories')
     console.log(response.data)
@@ -45,24 +38,28 @@ export default function CityRead() {
 
   useEffect(() => {
     getCategories()
-    getPlaces()
     getCity()
   }, [])
 
-  const placesByCityId = places.filter((place: any) => place.city_id === id)
-
   return (
     <div className="flex flex-col">
-      <header className="flex justify-between items-center h-24 bg-shape px-[160px]">
-        <div className="flex gap-[34px] items-center">
+      <header className="flex h-24 items-center justify-between bg-shape px-[160px]">
+        <div className="flex items-center gap-[34px]">
           <img src="/traveler.svg" alt="" width={126} height={26} />
-          <div className="w-10 h-10 rounded-[10px] border border-shape_secondary flex justify-center items-center">
-            <FiArrowLeft size={24} onClick={handleGoBack} color="#A0ACB2" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary">
+            <FiArrowLeft
+              size={24}
+              onClick={handleGoBack}
+              color="#A0ACB2"
+              className="cursor-pointer"
+            />
           </div>
         </div>
-        <h2 className="font-barlow font-medium text-xl leading-[30px] text-complement">{city?.name}</h2>
+        <h2 className="font-barlow text-xl font-medium leading-[30px] text-complement">
+          {city?.name}
+        </h2>
         <Link href="/login">
-          <button className="w-[174px] h-12 bg-blue_light rounded-[10px] font-heebo font-medium text-brand-blue text-base leading-[26px] hover:opacity-90">
+          <button className="h-12 w-[174px] rounded-[10px] bg-blue_light font-heebo text-base font-medium leading-[26px] text-brand-blue hover:opacity-90">
             Acesso restrito
           </button>
         </Link>
@@ -88,12 +85,14 @@ export default function CityRead() {
           </div>
           <div className="flex gap-4">
             {categories.map((category: any) => {
-              const places = category.Places.filter((place: any) => place.city_id === id);
-              const count = places.length;
+              const places = category.Places.filter(
+                (place: any) => place.city_id === id,
+              )
+              const count = places.length
               return (
                 <CardCountPlacesByCategory
                   key={category.id}
-                  count={(count > 0 && count < 9) ? `0${count}` : `${count}`}
+                  count={count > 0 && count < 9 ? `0${count}` : `${count}`}
                   title={category.name}
                   icon={renderIconNameByCategoryName(category.name)}
                 />
@@ -102,79 +101,84 @@ export default function CityRead() {
           </div>
         </section>
 
-        <section className="px-[160px] mt-[120px] flex flex-col gap-8">
+        <section className="mt-[120px] flex flex-col gap-8 px-[160px]">
           <h3 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
             Top avaliados
           </h3>
           <div className="flex justify-start gap-8">
-            {
-              placesByCityId.slice(0, 4).map((placeByCityId: any) => {
-                return (
-                  <CardPlace
-                    key={placeByCityId.id}
-                    name={placeByCityId.name}
-                    avaliation="5,5"
-                    category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
-                    category_id={
-                      placeByCityId.category_id
-                    }
-                    place_id={
-                      placeByCityId.id
-                    }
-                    image="/caparao.jpg"
-                    onlyReading
-                  />
-                )
-              })
-            }
+            {city?.places.slice(0, 4).map((placeByCityId: any) => {
+              return (
+                <CardPlace
+                  key={placeByCityId.id}
+                  name={placeByCityId.name}
+                  avaliation="5,5"
+                  category_name={renderIconNameByCategoryName(
+                    placeByCityId?.category?.name,
+                  )}
+                  category_id={placeByCityId.category_id}
+                  place_id={placeByCityId.id}
+                  image="/caparao.jpg"
+                  onlyReading
+                />
+              )
+            })}
           </div>
         </section>
 
-        {
-          hasProminence ? (
-            <section className="relative mb-20 mt-20 mx-[160px] flex h-[286px] 
+        {hasProminence ? (
+          <section
+            className="relative mx-[160px] mb-20 mt-20 flex h-[286px] 
                 w-[1120px] items-center justify-center overflow-hidden rounded-2xl 
                 border-2 border-dashed border-shape_secondary bg-shape"
-            >
-              <h1 className="text-center font-heebo text-base leading-[26px] text-brand-orange">
-                Crie um destaque arrastando um card aqui
-              </h1>
-            </section>
-          ) : (
-            <section className="w-[1120px] h-[286px] overflow-hidden mb-20 
-                mt-20 bg-shape border border-shape_secondary rounded-2xl flex justify-between mx-[160px] relative"
-            >
-              <div className="flex flex-col w-[560px] h-[194px] mt-[43px] ml-16 mr-[60px] justify-between">
-                <div className="flex justify-between items-center">
-                  <span className="w-[119px] gap-2 flex rounded-2xl h-8 bg-brand-orange text-shape 
-                      items-center justify-center"
-                  >
-                    <FiAlertCircle size={20} />
-                    <h6 className="font-barlow font-semibold text-sm leading-4">Destaque</h6>
-                  </span>
-                  <div className="w-[200px] flex h-[26px] gap-6">
-                    <FiCamera size={24} color="#F25D27" />
-                    <h4 className="font-barlow font-medium text-base leading-[26px] text-text">
-                      Pontos turísticos
-                    </h4>
-                  </div>
+          >
+            <h1 className="text-center font-heebo text-base leading-[26px] text-brand-orange">
+              Crie um destaque arrastando um card aqui
+            </h1>
+          </section>
+        ) : (
+          <section
+            className="relative mx-[160px] mb-20 mt-20 
+                flex h-[286px] w-[1120px] justify-between overflow-hidden rounded-2xl border border-shape_secondary bg-shape"
+          >
+            <div className="mt-[43px] ml-16 mr-[60px] flex h-[194px] w-[560px] flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span
+                  className="flex h-8 w-[119px] items-center justify-center gap-2 rounded-2xl 
+                      bg-brand-orange text-shape"
+                >
+                  <FiAlertCircle size={20} />
+                  <h6 className="font-barlow text-sm font-semibold leading-4">
+                    Destaque
+                  </h6>
+                </span>
+                <div className="flex h-[26px] w-[200px] gap-6">
+                  <FiCamera size={24} color="#F25D27" />
+                  <h4 className="font-barlow text-base font-medium leading-[26px] text-text">
+                    Pontos turísticos
+                  </h4>
                 </div>
-                <h1 className="font-barlow font-semibold text-4xl leading-9 text-title mt-8 mb-4">
-                  Praia dos Ingleses
-                </h1>
-                <h4 className="font-heebo font-regular text-base leading-[26px] text-text">
-                  Uma parte do paraíso na terra. Frequentemente com águas
-                  claras em tons verdes e azuis. Um dos locais mais preferidos
-                  por turistas e viajantes.
-                </h4>
               </div>
-              <Image src="/imgDestaque.png" objectFit="cover" width="650px" height="286px" className="ml-10" />
-            </section>
-          )
-        }
+              <h1 className="mt-8 mb-4 font-barlow text-4xl font-semibold leading-9 text-title">
+                Praia dos Ingleses
+              </h1>
+              <h4 className="font-regular font-heebo text-base leading-[26px] text-text">
+                Uma parte do paraíso na terra. Frequentemente com águas claras
+                em tons verdes e azuis. Um dos locais mais preferidos por
+                turistas e viajantes.
+              </h4>
+            </div>
+            <Image
+              src="/imgDestaque.png"
+              objectFit="cover"
+              width="650px"
+              height="286px"
+              className="ml-10"
+            />
+          </section>
+        )}
 
-        <section className="px-[160px] flex h-[756px] w-full flex-col">
-          <div className="mb-12 flex items-end justify-between w-[1120px]">
+        <section className="flex h-[756px] w-full flex-col px-[160px]">
+          <div className="mb-12 flex w-[1120px] items-end justify-between">
             <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
               Conheça todos
             </h1>
@@ -183,26 +187,22 @@ export default function CityRead() {
             </div>
           </div>
           <div className="flex flex-wrap gap-8">
-            {
-              placesByCityId.map((placeByCityId: any) => {
-                return (
-                  <CardPlace
-                    key={placeByCityId.id}
-                    name={placeByCityId.name}
-                    avaliation="5,5"
-                    category_name={renderIconNameByCategoryName(placeByCityId.category.name)}
-                    category_id={
-                      placeByCityId.category_id
-                    }
-                    place_id={
-                      placeByCityId.id
-                    }
-                    image="/caparao.jpg"
-                    onlyReading
-                  />
-                )
-              })
-            }
+            {city?.places.map((placeByCityId: any) => {
+              return (
+                <CardPlace
+                  key={placeByCityId.id}
+                  name={placeByCityId.name}
+                  avaliation="5,5"
+                  category_name={renderIconNameByCategoryName(
+                    placeByCityId?.category?.name,
+                  )}
+                  category_id={placeByCityId.category_id}
+                  place_id={placeByCityId.id}
+                  image="/caparao.jpg"
+                  onlyReading
+                />
+              )
+            })}
           </div>
         </section>
       </main>

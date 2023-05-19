@@ -4,6 +4,7 @@ export function calculateAverageRatings(data: any) {
   }
 
   const sumRatings = data?.reduce((accumulator: any, item: any) => accumulator + item.avaliation, 0);
+  
   const average = sumRatings / data?.length;
 
   const averageFormatted = average.toFixed(1).toString().replace('.', ',');

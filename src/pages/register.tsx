@@ -1,11 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { BsCheckLg } from 'react-icons/bs'
-import { FiArrowLeft, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi'
+import { FiAlertCircle, FiArrowLeft, FiEye, FiEyeOff } from 'react-icons/fi'
 import * as yup from 'yup'
 
 import { api } from '../services/api'
@@ -82,7 +80,7 @@ export default function Register() {
       </article>
       <aside className="relative flex max-h-[820px] w-full max-w-[736px] flex-col items-start justify-center px-[160px]">
         <div className="absolute top-9 cursor-pointer text-complement">
-          <FiArrowLeft size={24} onClick={handleGoBack} />
+          <FiArrowLeft size={24} onClick={handleGoBack} className="cursor-pointer" />
         </div>
         <form onSubmit={handleSubmit(handleCreateUser)}>
           <div className="absolute top-[186px] flex h-[495px] w-[416px] flex-col items-start justify-between">
