@@ -32,13 +32,13 @@ export interface ImageData {
 }
 
 const weekDays = [
-  "Domingo",
-  "Segunda",
-  "Terça",
-  "Quarta",
-  "Quinta",
-  "Sexta",
-  "Sábado"
+  'Domingo',
+  'Segunda',
+  'Terça',
+  'Quarta',
+  'Quinta',
+  'Sexta',
+  'Sábado',
 ]
 
 export default function Create() {
@@ -48,7 +48,7 @@ export default function Create() {
   const [imageData, setImageData] = useState<ImageData>({
     id: '',
     name: '',
-    data: ''
+    data: '',
   })
 
   const { register, handleSubmit, getValues, watch } = useForm()
@@ -81,8 +81,8 @@ export default function Create() {
         query: {
           cityId: id,
           categoryId: getValues('category_id'),
-          placeName: response.data.name
-        }
+          placeName: response.data.name,
+        },
       })
     } catch (error) {
       console.log(error)
@@ -103,13 +103,14 @@ export default function Create() {
       id: v4(),
       name: v4(),
       data: imageBase64,
-    });
-  };
+    })
+  }
 
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
       <Nav />
-      <main className="absolute ml-24 flex w-full flex-col items-center justify-around 
+      <main
+        className="absolute ml-24 flex w-full flex-col items-center justify-around 
         overflow-x-hidden overflow-y-scroll"
       >
         <header
@@ -128,10 +129,7 @@ export default function Create() {
             <h2 className="font-roboto text-xs font-semibold text-complement">
               -
             </h2>
-            <h2 className="font-roboto text-xs font-semibold text-text">
-              {' '}
-              02
-            </h2>
+            <h2 className="font-roboto text-xs font-semibold text-text"> 02</h2>
           </div>
         </header>
         <span className="w-[1443px] border-[1px] text-shape_secondary" />
@@ -190,21 +188,19 @@ export default function Create() {
               <div className="flex gap-4">
                 {categories.map((category) => {
                   return (
-                    <div key={category.id} className="flex h-[204px] w-[213px] flex-col justify-around rounded-[10px] border-[1px] border-shape_secondary bg-background">
+                    <div
+                      key={category.id}
+                      className="flex h-[204px] w-[213px] flex-col justify-around rounded-[10px] border-[1px] border-shape_secondary bg-background"
+                    >
                       <div className="flex justify-between px-[22px]">
-                        <FiCamera
-                          size={40}
-                          color="#F25D27"
-                        />
+                        <FiCamera size={40} color="#F25D27" />
                         <label htmlFor={category.id}>
                           <input
                             type="radio"
                             id={category.id}
                             name="category_id"
                             value={category.id}
-                            {...register(
-                              'category_id'
-                            )}
+                            {...register('category_id')}
                           />
                         </label>
                       </div>
@@ -380,10 +376,9 @@ export default function Create() {
                 </button>
               </div>
             </div>
-
           </form>
         </div>
-      </main >
-    </div >
+      </main>
+    </div>
   )
 }

@@ -45,7 +45,7 @@ export default function CityRead() {
     <div className="flex flex-col">
       <header className="flex h-24 items-center justify-between bg-shape px-[160px]">
         <div className="flex items-center gap-[34px]">
-          <img src="/traveler.svg" alt="" width={126} height={26} />
+          <Image src="/traveler.svg" alt="" width={126} height={26} />
           <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary">
             <FiArrowLeft
               size={24}
@@ -67,6 +67,7 @@ export default function CityRead() {
       <hr className="border bg-shape_secondary" />
       <main className="relative flex w-full flex-col">
         <Image
+          alt=""
           src="/caparao.jpg"
           objectFit="cover"
           width={1440}
@@ -168,6 +169,7 @@ export default function CityRead() {
               </h4>
             </div>
             <Image
+              alt=""
               src="/imgDestaque.png"
               objectFit="cover"
               width="650px"

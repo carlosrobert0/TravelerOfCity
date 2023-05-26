@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { FaStar } from 'react-icons/fa'
 import { FiArrowLeft } from 'react-icons/fi'
 
+import axios from 'axios'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { Comment } from '../../../components/Comment'
@@ -17,12 +18,20 @@ import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCat
 export default function PlaceOnlyRead() {
   const [place, setPlace] = useState<any>()
   const router = useRouter()
+  const [latitude, setLatitude] = useState(null)
+  const [longitude, setLongitude] = useState(null)
   const { id } = router.query
+
+  const address = `${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood} ${place?.address?.zip_code}`
+
+  const mapSrc = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14506.328260665005!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sbr!4v1685052331201!5m2!1spt-BR!2sbr&t=m`
 
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenAddAvaliation, setIsOpenAddAvaliation] = useState(false)
 
-  const avaliationsAccept = place?.Depositions.filter((deposition: any) => deposition.status === 'accept')
+  const avaliationsAccept = place?.Depositions.filter(
+    (deposition: any) => deposition.status === 'accept',
+  )
 
   function closeModal() {
     setIsOpen(false)
@@ -63,32 +72,49 @@ export default function PlaceOnlyRead() {
     }
   }
 
-  // async function onDeletePlace(placeId: string) {
-  //   try {
-  //     await api.delete(`places/${placeId}`)
-  //     router.back()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const fetchDataMaps = async () => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          address,
+        )}&key=${process.env.NEXT_PUBLIC_CHAVE_API_MAPS}`,
+      )
+
+      const { results } = response.data
+      if (results && results.length > 0) {
+        const { lat, lng } = results[0].geometry.location
+        setLatitude(lat)
+        setLongitude(lng)
+      }
+    } catch (error) {
+      console.log('Erro ao obter as coordenadas:', error)
+    }
+  }
 
   useEffect(() => {
     getPlace()
-  }, [])
+  }, [id])
+
+  useEffect(() => {
+    fetchDataMaps()
+  }, [address])
 
   return (
     <>
       <div className="relative flex h-full w-full justify-between">
-        <main className="relative flex w-[698px] flex-col">
+        <main className="relative flex h-screen w-[698px] flex-col pb-20">
           <header
-            className={
-              'flex h-[96px] w-full items-center bg-shape px-28'
-            }
+            className={'flex min-h-[96px] w-full items-center bg-shape px-28'}
           >
-            <div className="flex gap-[34px] items-center">
-              <img src="/traveler.svg" alt="" width={126} height={26} />
-              <div className="w-10 h-10 rounded-[10px] border border-shape_secondary flex justify-center items-center">
-                <FiArrowLeft size={24} onClick={handleGoBack} color="#A0ACB2" className="cursor-pointer" />
+            <div className="flex items-center gap-[34px]">
+              <Image src="/traveler.svg" alt="" width={126} height={26} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary">
+                <FiArrowLeft
+                  size={24}
+                  onClick={handleGoBack}
+                  color="#A0ACB2"
+                  className="cursor-pointer"
+                />
               </div>
             </div>
           </header>
@@ -106,14 +132,15 @@ export default function PlaceOnlyRead() {
               </h3>
             </div>
 
-            {place?.category_id === "6467006b-2c17-4800-9e7e-5dfcb8e27ad9" &&
+            {place?.category_id === '6467006b-2c17-4800-9e7e-5dfcb8e27ad9' && (
               <div className="mt-20 flex flex-col">
                 <h2 className="font-barlow text-[24px] font-semibold leading-[34px] text-title">
                   Atendimento
                 </h2>
                 <span className="mt-4 mb-8 h-[1px] w-[448px] bg-shape_secondary" />
                 <div className="flex w-[448px] flex-wrap gap-2">
-                  <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start justify-center 
                                 rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -123,7 +150,8 @@ export default function PlaceOnlyRead() {
                       Fechado
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col items-start 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start 
                                 justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -133,7 +161,8 @@ export default function PlaceOnlyRead() {
                       Fechado
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col items-start 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start 
                                 justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -143,7 +172,8 @@ export default function PlaceOnlyRead() {
                       Fechado
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start justify-center 
                                 rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -153,7 +183,8 @@ export default function PlaceOnlyRead() {
                       8h-19h
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col items-start justify-center 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start justify-center 
                                 rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -163,7 +194,8 @@ export default function PlaceOnlyRead() {
                       Fechado
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col items-start 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col items-start 
                                 justify-center rounded-[10px] border-[1px] border-shape_secondary bg-shape p-4"
                   >
                     <h6 className="font-regular font-barlow text-base leading-[26px] text-title">
@@ -173,7 +205,8 @@ export default function PlaceOnlyRead() {
                       8h-19h
                     </h6>
                   </div>
-                  <div className="flex h-[84px] w-[104px] flex-col 
+                  <div
+                    className="flex h-[84px] w-[104px] flex-col 
                                 items-start justify-center rounded-[10px] border-[1px] 
                               border-shape_secondary bg-shape p-4"
                   >
@@ -206,11 +239,7 @@ export default function PlaceOnlyRead() {
                       </g>
                       <defs>
                         <clipPath id="clip0_680_8060">
-                          <rect
-                            width="20"
-                            height="20"
-                            fill="white"
-                          />
+                          <rect width="20" height="20" fill="white" />
                         </clipPath>
                       </defs>
                     </svg>
@@ -229,35 +258,49 @@ export default function PlaceOnlyRead() {
                   </div>
                 </div>
               </div>
-            }
+            )}
 
-            {
-              place?.category_id === '6f811e72-39bc-41e3-98aa-e180d73762d1' &&
-              <h2 className='font-barlow font-semibold text-2xl leading-[34px] text-title'>
+            {place?.category_id === '6f811e72-39bc-41e3-98aa-e180d73762d1' && (
+              <h2 className="font-barlow text-2xl font-semibold leading-[34px] text-title">
                 Próxima edição em <br />
                 Dias 14,15 e 16 de agosto de 2020
               </h2>
-            }
+            )}
 
             <div className="mt-20 flex flex-col">
               <div className="flex items-end justify-between">
                 <h2 className="font-barlow text-[24px] font-semibold leading-[34px] text-title">
                   Endereço
                 </h2>
-                <h6 className="font-heebo text-sm font-medium leading-6 text-complement">
-                  Ver no Google Maps
-                </h6>
+                <Link
+                  href={`https://www.google.com/maps/@${longitude},${latitude}},14790m/data=!3m1!1e3?hl=pt-BR&entry=ttu`}
+                >
+                  <h6 className="cursor-pointer font-heebo text-sm font-medium leading-6 text-complement">
+                    Ver no Google Maps
+                  </h6>
+                </Link>
               </div>
               <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
               <div className="flex w-[448px] flex-wrap gap-6">
-                <Image
+                <iframe
+                  src={mapSrc}
+                  width="448"
+                  height="200"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  className="h-[164px] overflow-hidden rounded-2xl"
+                ></iframe>
+                {/* <Image
+                  alt=""
                   src="/imgMap.png"
                   objectFit="cover"
                   width={450}
                   height={164}
-                />
+                /> */}
                 <h4 className="font-regular w-[295px] font-heebo text-base leading-[26px] text-text">
-                  {`${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood}`}<br />
+                  {`${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood}`}
+                  <br />
                   {`${place?.address?.zip_code}`}
                 </h4>
               </div>
@@ -275,19 +318,31 @@ export default function PlaceOnlyRead() {
                   </h6>
                 </div>
                 <div className="ml-[95px] mt-1 flex gap-4">
-                  <button onClick={openModalAddAvaliation} className="font-heebo text-sm font-medium leading-6 text-complement">
+                  <button
+                    onClick={openModalAddAvaliation}
+                    className="font-heebo text-sm font-medium leading-6 text-complement"
+                  >
                     Adicionar
                   </button>
-                  <button onClick={openModal} className="font-heebo text-sm font-medium leading-6 text-complement">
+                  <button
+                    onClick={openModal}
+                    className="font-heebo text-sm font-medium leading-6 text-complement"
+                  >
                     Ver todas
                   </button>
                 </div>
               </div>
               <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
               <div className="flex flex-col items-end gap-6">
-                {avaliationsAccept?.map((comment: any) => (
+                {avaliationsAccept?.slice(0, 3)?.map((comment: any) => (
                   <>
-                    <Comment image="/imgComment.png" description={comment?.description} name={comment?.name} avaliation={comment?.avaliation} key={comment?.id} />
+                    <Comment
+                      image="/imgComment.png"
+                      description={comment?.description}
+                      name={comment?.name}
+                      avaliation={comment?.avaliation}
+                      key={comment?.id}
+                    />
                     <span className="h-[1px] w-[359px] bg-shape_secondary" />
                   </>
                 ))}
@@ -296,23 +351,38 @@ export default function PlaceOnlyRead() {
           </section>
         </main>
 
-        <div className="flex-1 relative">
+        <div className="relative flex-1">
           <Image
-            src={"/caparao.jpg"}
+            alt=""
+            src={'/caparao.jpg'}
             objectFit="cover"
-            sizes='fill'
+            sizes="fill"
             width={704}
             height={821}
           />
-          <div className="absolute flex items-center justify-center top-[55px] right-[160px] bg-shape border border-shape_secondary w-16 h-16 rounded-2xl">
-            {renderIcon(renderIconNameByCategoryName(place?.category?.name), 32, '')}
+          <div className="absolute top-[55px] right-[160px] flex h-16 w-16 items-center justify-center rounded-2xl border border-shape_secondary bg-shape">
+            {renderIcon(
+              renderIconNameByCategoryName(place?.category?.name),
+              32,
+              '',
+            )}
           </div>
         </div>
       </div>
 
-      <DialogAvaliations comments={avaliationsAccept} isOpen={isOpen} onClose={closeModal} openModalAddAvaliation={openModalAddAvaliation} />
+      <DialogAvaliations
+        comments={avaliationsAccept}
+        isOpen={isOpen}
+        onClose={closeModal}
+        openModalAddAvaliation={openModalAddAvaliation}
+      />
 
-      <DialogAddAvaliation place_id={id} city_id={place?.city_id} isOpen={isOpenAddAvaliation} onClose={closeModalAddAvaliation} />
+      <DialogAddAvaliation
+        place_id={id}
+        city_id={place?.city_id}
+        isOpen={isOpenAddAvaliation}
+        onClose={closeModalAddAvaliation}
+      />
     </>
   )
 }
