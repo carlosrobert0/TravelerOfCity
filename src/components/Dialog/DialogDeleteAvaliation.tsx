@@ -1,28 +1,27 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { api } from "../../services/api";
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
+import { api } from '../../services/api'
 
-interface DialogDeleteAvaliation {
-  isOpen: boolean;
-  onCloseDialog: () => void;
+interface DialogDeleteAvaliationProps {
+  isOpen: boolean
+  onCloseDialog: () => void
   dataComment: any
 }
 
 export default function DialogDeleteAvaliation({
   isOpen,
   onCloseDialog,
-  dataComment
-}: DialogDeleteAvaliation) {
+  dataComment,
+}: DialogDeleteAvaliationProps) {
   async function handleDeleteDeposition() {
     try {
-      console.log(dataComment.id)
       await api.delete(`depositions/${dataComment?.id}`)
       onCloseDialog()
     } catch (error) {
       console.log(error)
     }
   }
-  
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onCloseDialog}>
@@ -50,7 +49,7 @@ export default function DialogDeleteAvaliation({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="relative flex h-screen w-full transform transition-all">
-                <main className="absolute top-[93px] flex h-[508px] w-full justify-center items-center">
+                <main className="absolute top-[93px] flex h-[508px] w-full items-center justify-center">
                   <div className="relative flex h-[546px] w-[337px] flex-col items-center justify-between">
                     <svg
                       width="380"
@@ -106,13 +105,16 @@ export default function DialogDeleteAvaliation({
                         </svg>
                       </div>
 
-                      <h1 className="mt-[61px] text-center font-heebo text-[54px] 
+                      <h1
+                        className="mt-[61px] text-center font-heebo text-[54px] 
                             font-medium leading-[58px] text-shape"
                       >
-                        Excluir cidade
+                        Excluir depoimento
                       </h1>
                       <h2 className="mt-6 text-center font-heebo text-base leading-[26px] text-complement">
-                        Tem certeza que quer excluir o depoimento de {dataComment?.name} do local {dataComment?.place?.name} da cidade {dataComment?.city?.name}?
+                        Tem certeza que quer excluir o depoimento de{' '}
+                        {dataComment?.name} do local {dataComment?.place?.name}{' '}
+                        da cidade {dataComment?.city?.name}?
                       </h2>
                       <div className="flex gap-2">
                         <button
