@@ -17,9 +17,10 @@ import { CityFormData } from './create'
 export default function City() {
   const [city, setCity] = useState<CityFormData | null | any>()
   const [categories, setCategories] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState('')
   const router = useRouter()
 
-  const [hasProminence, setHasProminence] = useState(true)
+  const [hasProminence] = useState(true)
 
   const { id } = router.query
 
@@ -199,26 +200,36 @@ export default function City() {
                 Conheça todos
               </h1>
               <div className="flex flex-col">
-                <NavCategories />
+                <NavCategories
+                  categories={categories}
+                  handleSelectedCategory={setSelectedCategory}
+                  selectedCategory={selectedCategory}
+                />
               </div>
             </div>
             <div>
               <div className="flex flex-wrap gap-8">
-                {city?.places.map((placeByCityId: any) => {
-                  return (
-                    <CardPlace
-                      key={placeByCityId.id}
-                      name={placeByCityId.name}
-                      category_name={renderIconNameByCategoryName(
-                        placeByCityId?.category?.name,
-                      )}
-                      avaliation="5,5"
-                      category_id={placeByCityId.category_id}
-                      place_id={placeByCityId.id}
-                      image="/caparao.jpg"
-                    />
+                {city?.places
+                  .filter(
+                    (placeByCityId: any) =>
+                      selectedCategory === '' ||
+                      placeByCityId.category_id === selectedCategory,
                   )
-                })}
+                  .map((placeByCityId: any) => {
+                    return (
+                      <CardPlace
+                        key={placeByCityId.id}
+                        name={placeByCityId.name}
+                        category_name={renderIconNameByCategoryName(
+                          placeByCityId?.category?.name,
+                        )}
+                        avaliation="5,5"
+                        category_id={placeByCityId.category_id}
+                        place_id={placeByCityId.id}
+                        image="/caparao.jpg"
+                      />
+                    )
+                  })}
               </div>
             </div>
           </section>

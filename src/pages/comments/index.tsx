@@ -1,9 +1,16 @@
-import { useEffect, useState } from "react";
-import { DialogAcceptOrDeclineAvaliation } from "../../components/Dialog/DialogAcceptOrDeclineAvaliation";
-import { DialogAvaliationDetails } from "../../components/Dialog/DialogAvaliationDetails";
-import Nav from "../../components/Nav";
-import { api } from "../../services/api";
+import { useEffect, useState } from 'react'
+import { DialogAcceptOrDeclineAvaliation } from '../../components/Dialog/DialogAcceptOrDeclineAvaliation'
+import { DialogAvaliationDetails } from '../../components/Dialog/DialogAvaliationDetails'
+import Nav from '../../components/Nav'
+import { NavComments } from '../../components/NavComments'
+import { api } from '../../services/api'
 
+interface CityData {
+  id: string
+  name: string
+  image?: string
+  description?: string
+}
 interface CommentData {
   id: string
   name: string
@@ -15,18 +22,12 @@ interface CommentData {
   place: any
 }
 
-interface CityData {
-  id: string
-  name: string
-  image?: string
-  description?: string
-}
-
 export default function Comments() {
   const [comments, setComments] = useState<CommentData[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenAvaliationDetails, setIsOpenAvaliationsDetails] = useState(false)
   const [dataComment, setDataComment] = useState<CommentData>()
+  const [selectedStatusComment, setSelectedStatusComment] = useState('')
 
   function openDialogAcceptOrDeclineAvaliation() {
     setIsOpen(true)
@@ -54,95 +55,154 @@ export default function Comments() {
     }
   }
 
+  const statusComments = [
+    {
+      name: 'Recentes',
+      status: 'new',
+    },
+    {
+      name: 'Aceitos',
+      status: 'accept',
+    },
+    {
+      name: 'Recusados',
+      status: 'decline',
+    },
+  ]
+
   useEffect(() => {
     getComments()
+  }, [])
+
+  useEffect(() => {
+    console.log(comments)
   }, [])
 
   return (
     <>
       <div className="relative">
         <Nav />
-        <header className="ml-24 bg-shape h-24 w-full flex items-center justify-between px-28">
-          <h1 className="font-barlow text-4xl leading-[46px] text-title font-semibold">Comentários</h1>
+        <header className="ml-24 flex h-24 w-full items-center justify-between bg-shape px-28">
+          <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
+            Comentários
+          </h1>
 
-          <ul className="flex gap-8 mr-24 text-complement text-base leading-[26px] font-roboto">
-            <li className="text-title font-bold border-b-2 border-brand-orange">Todos</li>
-            <li>Recentes</li>
-            <li>Velhos</li>
-            <li>Aceitos</li>
-            <li>Recusados</li>
-          </ul>
-
+          <div className="mr-28 flex flex-col">
+            <NavComments
+              comments={statusComments}
+              handleSelectedStatusComment={setSelectedStatusComment}
+              selectedStatusComment={selectedStatusComment}
+            />
+          </div>
         </header>
         <main className="ml-[208px] mt-12 flex items-center">
-          <table className="w-[1120px] border-separate border-spacing-y-2 max-h-[760px] overflow-y-auto pb-6">
+          <table className="max-h-[760px] w-[1120px] border-separate border-spacing-y-2 overflow-y-auto pb-6">
             {comments
+              .filter(
+                (comment: any) =>
+                  selectedStatusComment === '' ||
+                  comment.status === selectedStatusComment,
+              )
               .sort((a, b) => {
-                if (a.status === 'novo' && b.status !== 'novo') {
-                  return -1; 
-                } else if (a.status !== 'novo' && b.status === 'novo') {
-                  return 1; 
+                if (a.status === 'new' && b.status !== 'new') {
+                  return -1
+                } else if (a.status !== 'new' && b.status === 'new') {
+                  return 1
                 } else {
-                  return 0; 
+                  return 0
                 }
               })
-              .map(comment => (
-              <tr
-                key={comment.id}
-                className={`w-full h-[88px] ${comment.status === 'novo' ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape' : 'bg-shape'}`}>
-                <td className={`pl-6 rounded-tl-2xl rounded-bl-2xl relative overflow-visible border-t border-b border-l ${comment.status === 'novo' ? 'border-[#FFDB93]' : 'border-shape_secondary'}`} width="33%">
-                  <div className="flex items-center justify-start gap-6">
-                    <img src="/caparao.jpg" alt="" className="object-cover w-14 h-14 rounded-[50%]" />
-                    <h4>{comment.name}</h4>
-                  </div>
-                  {comment.status === 'novo' && (
-                    <div
-                      className="w-14 h-[27px] bg-new_yellow border text-center border-yellow rounded-lg absolute font-heebo font-bold text-[10px] leading-[26px] text-shape top-[31px] -left-12"
-                    >NOVO</div>
-                  )}
-                </td>
-                <td width="7%" className="border-t border-b border-shape_secondary">
-                  <div className="bg-[#F3F3F3] rounded-[50%] h-6 w-6 flex items-center justify-center">
-                    {
-                      comment.status === 'novo' ? <img src="/interrogation.svg" alt="" /> :
-                      comment.status === 'accept' ? <img src="/accept.svg" alt="" /> :
-                      comment.status === 'decline' && <img src="/decline.svg" alt="" />
-                    }
-                  </div>
-                </td>
-                <td className="border-t border-b border-shape_secondary">
-                  <div className="flex flex-col">
-                    <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">CATEGORIA</h4>
-                    <h3 className="font-heebo font-medium text-base leading-6 text-text">{comment.place?.category.name}</h3>
-                  </div>
-                </td>
-                <td className="border-t border-b border-shape_secondary">
-                  <div className="flex flex-col">
-                    <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">CIDADE</h4>
-                    <h3 className="font-heebo font-medium text-base leading-6 text-text">
-                      {comment.city.name}
-                    </h3>
-                  </div>
-                </td>
-                <td className="border-t border-b border-shape_secondary">
-                  <div className="flex flex-col">
-                    <h4 className="font-heebo font-medium text-[10px] leading-[22px] text-complement">LOCAL</h4>
-                    <h3 className="font-heebo font-medium text-base leading-6 text-text">{comment.place.name}</h3>
-                  </div>
-                </td>
-                <td className="pr-6 rounded-tr-2xl rounded-br-2xl border-t border-b border-r border-shape_secondary">
-                  <button onClick={() => {
-                    comment.status !== 'novo' ? 
-                    openAvaliationDetails() : 
-                    openDialogAcceptOrDeclineAvaliation()
-                    setDataComment(comment)
-                  }
-                  }>
-                    <img src="/seta.svg" alt="" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+              .map((comment) => (
+                <tr
+                  key={comment.id}
+                  className={`h-[88px] w-full ${
+                    comment.status === 'new'
+                      ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape'
+                      : 'bg-shape'
+                  }`}
+                >
+                  <td
+                    className={`relative overflow-visible rounded-tl-2xl rounded-bl-2xl border-t border-b border-l pl-6 ${
+                      comment.status === 'new'
+                        ? 'border-[#FFDB93]'
+                        : 'border-shape_secondary'
+                    }`}
+                    width="33%"
+                  >
+                    <div className="flex items-center justify-start gap-6">
+                      <img
+                        src="/caparao.jpg"
+                        alt=""
+                        className="h-14 w-14 rounded-[50%] object-cover"
+                      />
+                      <h4>{comment.name}</h4>
+                    </div>
+                    {comment.status === 'new' && (
+                      <div className="absolute top-[31px] -left-12 h-[27px] w-14 rounded-lg border border-yellow bg-new_yellow text-center font-heebo text-[10px] font-bold leading-[26px] text-shape">
+                        NOVO
+                      </div>
+                    )}
+                  </td>
+                  <td
+                    width="7%"
+                    className="border-t border-b border-shape_secondary"
+                  >
+                    <div className="flex h-6 w-6 items-center justify-center rounded-[50%] bg-[#F3F3F3]">
+                      {comment.status === 'new' ? (
+                        <img src="/interrogation.svg" alt="" />
+                      ) : comment.status === 'accept' ? (
+                        <img src="/accept.svg" alt="" />
+                      ) : (
+                        comment.status === 'decline' && (
+                          <img src="/decline.svg" alt="" />
+                        )
+                      )}
+                    </div>
+                  </td>
+                  <td className="border-t border-b border-shape_secondary">
+                    <div className="flex flex-col">
+                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                        CATEGORIA
+                      </h4>
+                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                        {comment.place?.category.name}
+                      </h3>
+                    </div>
+                  </td>
+                  <td className="border-t border-b border-shape_secondary">
+                    <div className="flex flex-col">
+                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                        CIDADE
+                      </h4>
+                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                        {comment.city.name}
+                      </h3>
+                    </div>
+                  </td>
+                  <td className="border-t border-b border-shape_secondary">
+                    <div className="flex flex-col">
+                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                        LOCAL
+                      </h4>
+                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                        {comment.place.name}
+                      </h3>
+                    </div>
+                  </td>
+                  <td className="rounded-tr-2xl rounded-br-2xl border-t border-b border-r border-shape_secondary pr-6">
+                    <button
+                      onClick={() => {
+                        comment.status !== 'new'
+                          ? openAvaliationDetails()
+                          : openDialogAcceptOrDeclineAvaliation()
+                        setDataComment(comment)
+                      }}
+                    >
+                      <img src="/seta.svg" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </table>
         </main>
       </div>
@@ -151,9 +211,9 @@ export default function Comments() {
         onClose={closeDialogAcceptOrDeclineAvaliation}
         dataComment={dataComment}
       />
-      <DialogAvaliationDetails 
-        isOpen={isOpenAvaliationDetails} 
-        dataComment={dataComment} 
+      <DialogAvaliationDetails
+        isOpen={isOpenAvaliationDetails}
+        dataComment={dataComment}
         onClose={closeAvaliationDetails}
       />
     </>

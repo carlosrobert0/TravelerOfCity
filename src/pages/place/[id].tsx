@@ -79,7 +79,7 @@ export default function Place() {
 
   useEffect(() => {
     getPlace()
-  }, [])
+  }, [id])
 
   useEffect(() => {
     fetchDataMaps()
@@ -89,8 +89,10 @@ export default function Place() {
     <div className="relative flex h-[1828px] w-full justify-between overflow-hidden">
       <Nav />
 
-      <main className="relative ml-24 flex w-[698px] flex-col">
-        <header className={'flex h-[96px] w-full items-center bg-shape px-28'}>
+      <main className="relative ml-24 flex h-screen w-[698px] flex-col">
+        <header
+          className={'flex min-h-[96px] w-full items-center bg-shape px-28'}
+        >
           <BsArrowLeft
             onClick={handleGoBack}
             className="w-[128px] font-barlow text-4xl font-semibold leading-10 text-complement"
@@ -256,9 +258,13 @@ export default function Place() {
               <h2 className="font-barlow text-[24px] font-semibold leading-[34px] text-title">
                 Endereço
               </h2>
-              <h6 className="font-heebo text-sm font-medium leading-6 text-complement">
-                Ver no Google Maps
-              </h6>
+              <Link
+                href={`https://www.google.com/maps/@${longitude},${latitude}},14790m/data=!3m1!1e3?hl=pt-BR&entry=ttu`}
+              >
+                <h6 className="cursor-pointer font-heebo text-sm font-medium leading-6 text-complement">
+                  Ver no Google Maps
+                </h6>
+              </Link>
             </div>
             <span className="mt-4 mb-8 h-[1px] w-full bg-shape_secondary" />
             <div className="flex w-[448px] flex-wrap gap-6">

@@ -14,6 +14,7 @@ import { CityFormData } from './../create'
 export default function CityRead() {
   const [city, setCity] = useState<CityFormData | null | any>()
   const [categories, setCategories] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState('')
   const router = useRouter()
 
   const [hasProminence] = useState(false)
@@ -185,26 +186,36 @@ export default function CityRead() {
               Conheça todos
             </h1>
             <div className="flex flex-col">
-              <NavCategories />
+              <NavCategories
+                categories={categories}
+                handleSelectedCategory={setSelectedCategory}
+                selectedCategory={selectedCategory}
+              />
             </div>
           </div>
           <div className="flex flex-wrap gap-8">
-            {city?.places.map((placeByCityId: any) => {
-              return (
-                <CardPlace
-                  key={placeByCityId.id}
-                  name={placeByCityId.name}
-                  avaliation="5,5"
-                  category_name={renderIconNameByCategoryName(
-                    placeByCityId?.category?.name,
-                  )}
-                  category_id={placeByCityId.category_id}
-                  place_id={placeByCityId.id}
-                  image="/caparao.jpg"
-                  onlyReading
-                />
+            {city?.places
+              .filter(
+                (placeByCityId: any) =>
+                  selectedCategory === '' ||
+                  placeByCityId.category_id === selectedCategory,
               )
-            })}
+              .map((placeByCityId: any) => {
+                return (
+                  <CardPlace
+                    key={placeByCityId.id}
+                    name={placeByCityId.name}
+                    avaliation="5,5"
+                    category_name={renderIconNameByCategoryName(
+                      placeByCityId?.category?.name,
+                    )}
+                    category_id={placeByCityId.category_id}
+                    place_id={placeByCityId.id}
+                    image="/caparao.jpg"
+                    onlyReading
+                  />
+                )
+              })}
           </div>
         </section>
       </main>
