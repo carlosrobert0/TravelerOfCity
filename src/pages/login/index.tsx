@@ -52,12 +52,13 @@ export default function Login() {
     }
   }
 
-  async function handleSignInWithGoogle() {
+  async function handleSignInWithGoogle(event: FormEvent) {
     event.preventDefault()
 
     try {
       // setIsLoading(true)
-      await signInWithGoogle()
+      const response = await signInWithGoogle()
+      console.log(response)
       router.push('/cities')
     } catch (error) {
       console.log(error)
@@ -88,6 +89,7 @@ export default function Login() {
           height="820px"
           objectFit="cover"
           layout="fixed"
+          alt=""
         />
       </article>
       <aside className="flex w-full max-w-[736px] flex-col items-start justify-between px-[160px]">

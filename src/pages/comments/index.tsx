@@ -74,15 +74,11 @@ export default function Comments() {
     getComments()
   }, [])
 
-  useEffect(() => {
-    console.log(comments)
-  }, [])
-
   return (
     <>
       <div className="relative">
         <Nav />
-        <header className="ml-24 flex h-24 w-full items-center justify-between bg-shape px-28">
+        <header className="ml-24 flex h-24 flex-1 items-center justify-between bg-shape px-28">
           <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
             Comentários
           </h1>
