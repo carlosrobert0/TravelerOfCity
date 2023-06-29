@@ -53,7 +53,7 @@ export default function Register() {
       })
 
       setLoading(false)
-      router.push('/')
+      router.push('/login')
     } catch (error) {
       console.log(error)
       setLoading(false)
@@ -80,7 +80,11 @@ export default function Register() {
       </article>
       <aside className="relative flex max-h-[820px] w-full max-w-[736px] flex-col items-start justify-center px-[160px]">
         <div className="absolute top-9 cursor-pointer text-complement">
-          <FiArrowLeft size={24} onClick={handleGoBack} className="cursor-pointer" />
+          <FiArrowLeft
+            size={24}
+            onClick={handleGoBack}
+            className="cursor-pointer"
+          />
         </div>
         <form onSubmit={handleSubmit(handleCreateUser)}>
           <div className="absolute top-[186px] flex h-[495px] w-[416px] flex-col items-start justify-between">
