@@ -3,12 +3,10 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle } from 'react-icons/fi'
-import { v4 } from 'uuid'
 
 import { ImageUploader } from '../../components/ImageUploader'
 import Nav from '../../components/Nav'
 import { api } from '../../services/api'
-import { ImageData } from '../place/create/[id]'
 
 export interface CityFormData {
   id?: string
@@ -18,31 +16,15 @@ export interface CityFormData {
 }
 
 export default function Create() {
-  const [imageData, setImageData] = useState<ImageData>({
-    id: '',
-    name: '',
-    data: ''
-  })
-
+  const [imageURL, setImageURL] = useState('')
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
 
-  const handleImageChange = (imageBase64: string) => {
-    setImageData({
-      id: v4(),
-      name: v4(),
-      data: imageBase64,
-    });
-  };
-
-  async function handleCreateCity({
-    name,
-    description,
-  }: CityFormData) {
+  async function handleCreateCity({ name, description }: CityFormData) {
     try {
       const { data } = await api.post('city', {
         name,
-        image: imageData?.data,
+        image: imageURL,
         description,
       })
       router.push(`/place/create/${data.id}`)
@@ -55,11 +37,17 @@ export default function Create() {
     router.back()
   }
 
+  function handleImageURLChange(url: any) {
+    setImageURL(url)
+  }
+
   return (
     <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
       <Nav />
-      <main className="absolute ml-24 flex w-full flex-col items-center justify-around 
-      overflow-x-hidden overflow-y-scroll">
+      <main
+        className="absolute ml-24 flex w-full flex-col items-center justify-around 
+      overflow-x-hidden overflow-y-scroll"
+      >
         <header
           className={`flex h-[96px] w-full items-center justify-between bg-shape px-28`}
         >
@@ -71,9 +59,7 @@ export default function Create() {
             Adicionar um perfil
           </h2>
           <div className="flex items-center gap-2">
-            <h2 className="font-roboto text-xs font-semibold text-text">
-              01
-            </h2>
+            <h2 className="font-roboto text-xs font-semibold text-text">01</h2>
             <h2 className="font-roboto text-xs font-semibold text-complement">
               -
             </h2>
@@ -118,7 +104,7 @@ export default function Create() {
                 Foto da cidade
               </label>
 
-              <ImageUploader onImageChange={handleImageChange}/>
+              <ImageUploader onImageURLChange={handleImageURLChange} />
 
               <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                 Descrição da cidade
@@ -132,8 +118,7 @@ export default function Create() {
                 <div className="mr-10 flex items-center">
                   <FiAlertCircle size={32} color="#F25D27" />
                   <span className="font-regular ml-6 font-heebo text-sm leading-[22px] text-text">
-                    Preencha todos os <br /> dados com
-                    cuidado.
+                    Preencha todos os <br /> dados com cuidado.
                   </span>
                 </div>
                 <button

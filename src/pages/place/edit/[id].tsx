@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle } from 'react-icons/fi'
+import { ImageUploader } from '../../../components/ImageUploader'
 
 import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
@@ -16,7 +17,7 @@ export interface CityFormData {
 }
 
 export default function Edit() {
-  const [imagePreview, setImagePreview] = useState(null)
+  const [imageURL, setImageURL] = useState('')
   const [city, setCity] = useState<any>()
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
@@ -38,12 +39,27 @@ export default function Edit() {
     setCity(response.data)
   }
 
-  async function handleEditCity({ name, image, description }: CityFormData) {
-    openModal()
+  async function handleEditPlace({ name, image, description }: CityFormData) {
+    try {
+      const { data } = await api.post('city', {
+        name,
+        image: imageURL,
+        description,
+      })
+
+      router.push(`/place/edit/${data.id}`)
+      openModal()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function handleGoBack() {
     router.back()
+  }
+
+  function handleImageURLChange(url: any) {
+    setImageURL(url)
   }
 
   useEffect(() => {
@@ -58,8 +74,10 @@ export default function Edit() {
     <>
       <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
         <Nav />
-        <main className="absolute ml-24 flex w-full flex-col items-center 
-        justify-around overflow-x-hidden overflow-y-scroll">
+        <main
+          className="absolute ml-24 flex w-full flex-col items-center 
+        justify-around overflow-x-hidden overflow-y-scroll"
+        >
           <header
             className={`flex h-[96px] w-full items-center justify-between bg-shape px-28`}
           >
@@ -76,8 +94,10 @@ export default function Edit() {
           </header>
           <span className="w-[1443px] border-[1px] text-shape_secondary" />
           <div className="mb-28 mt-4 flex h-full w-[800px] flex-col rounded-2xl bg-shape">
-            <div className="flex h-[143px] w-[766px] items-center justify-start 
-            rounded-r-2xl bg-gradient-to-r from-[#FEF7F5] to-[#FFF]">
+            <div
+              className="flex h-[143px] w-[766px] items-center justify-start 
+            rounded-r-2xl bg-gradient-to-r from-[#FEF7F5] to-[#FFF]"
+            >
               <h1 className="ml-10 font-barlow text-4xl font-semibold leading-[34px] text-brand-orange">
                 Editar cidade
               </h1>
@@ -89,7 +109,7 @@ export default function Edit() {
               </h2>
               <span className="mt-4 h-[1px] w-[673px] bg-shape_secondary" />
               <form
-                onSubmit={handleSubmit(handleEditCity)}
+                onSubmit={handleSubmit(handleEditPlace)}
                 className="flex flex-col gap-2"
               >
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
@@ -103,42 +123,10 @@ export default function Edit() {
                 />
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
-                  Foto da cidade
+                  Foto do local
                 </label>
 
-                {imagePreview ? (
-                  <img
-                    src={imagePreview[0].name}
-                    className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
-                    flex-col items-center justify-center rounded-lg border-2 border-dashed 
-                    border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 
-                    dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  />
-                ) : (
-                  <div className="flex w-full items-center justify-center">
-                    <label
-                      htmlFor="dropzone-file"
-                      className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer 
-                      flex-col items-center justify-center rounded-lg border-2 border-dashed 
-                      border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 
-                      dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                    >
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span className="font-heebo text-base text-brand-orange">
-                            + Adicionar uma foto
-                          </span>
-                        </p>
-                      </div>
-                      <input
-                        id="dropzone-file"
-                        type="file"
-                        className="hidden"
-                        {...register('image')}
-                      />
-                    </label>
-                  </div>
-                )}
+                <ImageUploader onImageURLChange={handleImageURLChange} />
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Descrição da cidade
@@ -148,16 +136,12 @@ export default function Edit() {
                   border-shape_secondary bg-background pl-6 pt-[15px] text-left font-heebo text-lg text-title"
                   {...register('description')}
                   value={`${city?.description}`}
-                  />
+                />
                 <div className="mt-[56px] mb-[50px] flex h-[44px] w-full items-center justify-between">
                   <div className="mr-10 flex items-center">
-                    <FiAlertCircle
-                      size={32}
-                      color="#F25D27"
-                    />
+                    <FiAlertCircle size={32} color="#F25D27" />
                     <span className="font-regular ml-6 font-heebo text-sm leading-[22px] text-text">
-                      Preencha todos os <br /> dados com
-                      cuidado.
+                      Preencha todos os <br /> dados com cuidado.
                     </span>
                   </div>
                   <button
@@ -199,7 +183,8 @@ export default function Edit() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="relative flex h-[406px] w-[380px] 
+                <Dialog.Panel
+                  className="relative flex h-[406px] w-[380px] 
                   transform flex-col items-center justify-between transition-all"
                 >
                   <svg
@@ -258,7 +243,8 @@ export default function Edit() {
                       </svg>
                     </div>
 
-                    <h1 className=" mt-12 w-[261px] text-center font-heebo 
+                    <h1
+                      className=" mt-12 w-[261px] text-center font-heebo 
                       text-[54px] font-medium leading-[64px] text-shape"
                     >
                       Alterações salvas!

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiCamera } from 'react-icons/fi'
-import { v4 } from 'uuid'
 import { ImageUploader } from '../../../components/ImageUploader'
 
 import Nav from '../../../components/Nav'
@@ -45,11 +44,7 @@ export default function Create() {
   const router = useRouter()
   const { id } = router.query
   const [categories, setCategories] = useState([])
-  const [imageData, setImageData] = useState<ImageData>({
-    id: '',
-    name: '',
-    data: '',
-  })
+  const [imageURL, setImageURL] = useState('')
 
   const { register, handleSubmit, getValues, watch } = useForm()
 
@@ -71,7 +66,7 @@ export default function Create() {
     try {
       const response = await api.post('/place', {
         ...place,
-        image: '/caparao.png',
+        image: imageURL,
         address_id: addressId,
         city_id: id,
       })
@@ -98,12 +93,8 @@ export default function Create() {
     getCategories()
   }, [])
 
-  const handleImageChange = (imageBase64: string) => {
-    setImageData({
-      id: v4(),
-      name: v4(),
-      data: imageBase64,
-    })
+  function handleImageURLChange(url: any) {
+    setImageURL(url)
   }
 
   return (
@@ -166,7 +157,7 @@ export default function Create() {
               Foto do local
             </label>
 
-            <ImageUploader onImageChange={handleImageChange} />
+            <ImageUploader onImageURLChange={handleImageURLChange} />
 
             <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
               Descrição do local

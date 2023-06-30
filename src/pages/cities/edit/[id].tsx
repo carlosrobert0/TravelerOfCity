@@ -4,12 +4,10 @@ import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle } from 'react-icons/fi'
-import { v4 } from 'uuid'
 
 import { ImageUploader } from '../../../components/ImageUploader'
 import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
-import { ImageData } from '../../place/create/[id]'
 
 export interface CityFormData {
   id?: string
@@ -20,13 +18,9 @@ export interface CityFormData {
 
 export default function Edit() {
   const [city, setCity] = useState<any>()
-  
-  const [imageData, setImageData] = useState<ImageData>({
-    id: '',
-    name: '',
-    data: ''
-  })
-  
+
+  const [imageURL, setImageURL] = useState('')
+
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
   const { id } = router.query as any
@@ -48,34 +42,28 @@ export default function Edit() {
   }
 
   async function handleEditCity({ name, image, description }: CityFormData) {
-    openModal()
-    // try {
-    //   const { data } = await api.post('city', {
-    //     name,
-    //     image: image[0].name,
-    //     description
-    //   })
+    try {
+      const { data } = await api.post('city', {
+        name,
+        image: imageURL,
+        description,
+      })
 
-    //   console.log(image)
-    //   setImagePreview(image)
-    //   router.push(`/place/edit/${data.id}`)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+      router.push(`/city/edit/${data.id}`)
+      openModal()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function handleGoBack() {
     router.back()
   }
 
-  const handleImageChange = (imageBase64: string) => {
-    setImageData({
-      id: v4(),
-      name: v4(),
-      data: imageBase64,
-    });
-  };
-  
+  function handleImageURLChange(url: any) {
+    setImageURL(url)
+  }
+
   useEffect(() => {
     getCity(id)
   }, [])
@@ -84,7 +72,8 @@ export default function Edit() {
     <>
       <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
         <Nav />
-        <main className="absolute ml-24 flex w-full flex-col items-center 
+        <main
+          className="absolute ml-24 flex w-full flex-col items-center 
           justify-around overflow-x-hidden overflow-y-scroll"
         >
           <header
@@ -103,7 +92,8 @@ export default function Edit() {
           </header>
           <span className="w-[1443px] border-[1px] text-shape_secondary" />
           <div className="mb-28 mt-4 flex h-full w-[800px] flex-col rounded-2xl bg-shape">
-            <div className="flex h-[143px] w-[766px] items-center justify-start 
+            <div
+              className="flex h-[143px] w-[766px] items-center justify-start 
               rounded-r-2xl bg-gradient-to-r from-[#FEF7F5] to-[#FFF]"
             >
               <h1 className="ml-10 font-barlow text-4xl font-semibold leading-[34px] text-brand-orange">
@@ -134,7 +124,7 @@ export default function Edit() {
                   Foto da cidade
                 </label>
 
-                <ImageUploader onImageChange={handleImageChange} imageData={city?.image} />
+                <ImageUploader onImageURLChange={handleImageURLChange} />
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Descrição da cidade
@@ -144,16 +134,12 @@ export default function Edit() {
                   bg-background pl-6 pt-[15px] text-left font-heebo text-lg text-title"
                   {...register('description')}
                   value={`${city?.description}`}
-                  />
+                />
                 <div className="mt-[56px] mb-[50px] flex h-[44px] w-full items-center justify-between">
                   <div className="mr-10 flex items-center">
-                    <FiAlertCircle
-                      size={32}
-                      color="#F25D27"
-                    />
+                    <FiAlertCircle size={32} color="#F25D27" />
                     <span className="font-regular ml-6 font-heebo text-sm leading-[22px] text-text">
-                      Preencha todos os <br /> dados com
-                      cuidado.
+                      Preencha todos os <br /> dados com cuidado.
                     </span>
                   </div>
                   <button

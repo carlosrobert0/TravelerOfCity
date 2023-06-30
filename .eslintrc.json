@@ -14,6 +14,7 @@
           "stroke-linejoin"
         ]
       }
-    ]
+    ],
+    "@next/next/no-img-element": "disabled"
   }
 }
