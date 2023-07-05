@@ -59,6 +59,7 @@ export function CardPlace({
           height="160px"
           objectFit="cover"
           className="rounded-t-2xl"
+          alt="Imagem do lugar"
         />
 
         <div className="flex h-[147px] flex-col items-start">

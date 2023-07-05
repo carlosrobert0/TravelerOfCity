@@ -1,17 +1,17 @@
 import {
-    GoogleAuthProvider,
-    onAuthStateChanged,
-    signInWithPopup,
-    signOut
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { destroyCookie, setCookie } from 'nookies'
 import {
-    createContext,
-    ReactNode,
-    useContext,
-    useEffect,
-    useState
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
 } from 'react'
 
 import { api } from '../services/api'
@@ -59,8 +59,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         maxAge: 60 * 60 * 24 * 30,
         path: '/',
       })
-
-      api.defaults.headers.Authorization = `Bearer ${response.data}`
 
       router.push('/cities')
     } catch (error) {

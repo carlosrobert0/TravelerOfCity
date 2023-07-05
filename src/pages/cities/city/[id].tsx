@@ -69,7 +69,7 @@ export default function CityRead() {
       <main className="relative flex w-full flex-col">
         <Image
           alt=""
-          src="/caparao.jpg"
+          src={city?.image}
           objectFit="cover"
           width={1440}
           height={340}
@@ -119,7 +119,7 @@ export default function CityRead() {
                   )}
                   category_id={placeByCityId.category_id}
                   place_id={placeByCityId.id}
-                  image="/caparao.jpg"
+                  image={placeByCityId.image}
                   onlyReading
                 />
               )
@@ -211,7 +211,7 @@ export default function CityRead() {
                     )}
                     category_id={placeByCityId.category_id}
                     place_id={placeByCityId.id}
-                    image="/caparao.jpg"
+                    image={placeByCityId.image}
                     onlyReading
                   />
                 )
