@@ -4,12 +4,9 @@ import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FiAlertCircle } from 'react-icons/fi'
-import { v4 } from 'uuid'
-import { ImageUploader } from '../../components/ImageUploader'
 
 import Nav from '../../components/Nav'
 import { api } from '../../services/api'
-import { ImageData } from '../place/create/[id]'
 
 export interface CategoryFormData {
   id?: string
@@ -18,11 +15,11 @@ export interface CategoryFormData {
 }
 
 export default function Create() {
-  const [imageData, setImageData] = useState<ImageData>({
-    id: '',
-    name: '',
-    data: ''
-  })
+  // const [imageData, setImageData] = useState<ImageData>({
+  //   id: '',
+  //   name: '',
+  //   data: '',
+  // })
   const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -36,22 +33,19 @@ export default function Create() {
   const { register, handleSubmit } = useForm()
   const router = useRouter()
 
-  const handleImageChange = (imageBase64: string) => {
-    setImageData({
-      id: v4(),
-      name: v4(),
-      data: imageBase64,
-    });
-  };
+  // const handleImageChange = (imageBase64: string) => {
+  //   setImageData({
+  //     id: v4(),
+  //     name: v4(),
+  //     data: imageBase64,
+  //   })
+  // }
 
-  async function handleCreateCategory({
-    name,
-    image
-  }: CategoryFormData) {
+  async function handleCreateCategory({ name, image }: CategoryFormData) {
     try {
       await api.post('category', {
         name,
-        image: imageData?.data
+        // image: imageData?.data,
       })
       openModal()
     } catch (error) {
@@ -67,8 +61,10 @@ export default function Create() {
     <>
       <div className="relative flex h-[1192px] w-full justify-between overflow-x-hidden">
         <Nav />
-        <main className="absolute ml-24 flex w-full flex-col items-center justify-around 
-      overflow-x-hidden overflow-y-scroll">
+        <main
+          className="absolute ml-24 flex w-full flex-col items-center justify-around 
+      overflow-x-hidden overflow-y-scroll"
+        >
           <header
             className={`flex h-[96px] w-full items-center justify-start bg-shape px-28`}
           >
@@ -76,13 +72,13 @@ export default function Create() {
               onClick={handleGoBack}
               className="my-6 w-[128px] font-barlow text-4xl font-semibold leading-10 text-complement"
             />
-            <h2 className="font-barlow text-xl font-medium leading-[30px] text-complement ml-[413px]">
+            <h2 className="ml-[413px] font-barlow text-xl font-medium leading-[30px] text-complement">
               Adicionar uma categoria
             </h2>
           </header>
           <span className="w-[1443px] border-[1px] text-shape_secondary" />
           <div className="mt-[49px] flex h-full w-[800px] flex-col rounded-2xl bg-shape">
-            <div className="h-[143px] w-full flex items-center justify-start bg-gradient-to-l from-[#FEF7F5] to-[#dcf5dd] rounded-tr-2xl rounded-tl-2xl">
+            <div className="flex h-[143px] w-full items-center justify-start rounded-tr-2xl rounded-tl-2xl bg-gradient-to-l from-[#FEF7F5] to-[#dcf5dd]">
               <h1 className="ml-10 font-barlow text-4xl font-semibold leading-[34px] text-success">
                 Adicione uma categoria
               </h1>
@@ -97,13 +93,13 @@ export default function Create() {
                 onSubmit={handleSubmit(handleCreateCategory)}
                 className="flex flex-col gap-2"
               >
-                <div className='flex mt-6 gap-10 items-center'>
+                <div className="mt-6 flex items-center gap-10">
                   <div>
                     <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                       Ícone
                     </label>
-                    
-                    <ImageUploader onImageChange={handleImageChange} hasIcon/>
+
+                    {/* <ImageUploader onImageChange={handleImageChange} hasIcon /> */}
                   </div>
 
                   <div>
@@ -112,8 +108,8 @@ export default function Create() {
                     </label>
                     <input
                       {...register('name')}
-                      className="h-[56px] w-[512px] rounded-[10px] border-[1px] 
-                border-shape_secondary bg-background p-4 text-left font-heebo text-lg mt-2"
+                      className="mt-2 h-[56px] w-[512px] rounded-[10px] 
+                border-[1px] border-shape_secondary bg-background p-4 text-left font-heebo text-lg"
                     />
                   </div>
                 </div>
@@ -122,8 +118,7 @@ export default function Create() {
                   <div className="mr-10 flex items-center">
                     <FiAlertCircle size={32} color="#F25D27" />
                     <span className="font-regular ml-6 font-heebo text-sm leading-[22px] text-text">
-                      Preencha todos os <br /> dados com
-                      cuidado.
+                      Preencha todos os <br /> dados com cuidado.
                     </span>
                   </div>
                   <button
@@ -139,7 +134,7 @@ export default function Create() {
           </div>
         </main>
       </div>
-      
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

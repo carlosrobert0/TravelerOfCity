@@ -19,7 +19,6 @@ export function ImageUploader({
   hasIcon = false,
 }: ImageUploaderProps) {
   const [imageURL, setImageURL] = useState('')
-  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     onImageURLChange(imageURL)
