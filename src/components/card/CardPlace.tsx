@@ -54,7 +54,7 @@ export function CardPlace({
 				border border-shape_secondary bg-shape"
       >
         <Image
-          src="/imgPlace.png"
+          src={image}
           width="256px"
           height="160px"
           objectFit="cover"

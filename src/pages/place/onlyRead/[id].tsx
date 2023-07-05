@@ -227,7 +227,7 @@ export default function PlaceOnlyRead() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_680_8060)">
+                      <g clipPath="url(#clip0_680_8060)">
                         <path
                           d="M10.0025 0H9.9975C4.48375 0 0 4.485 0 10C0 12.1875 0.705 14.215 1.90375 15.8613L0.6575 19.5763L4.50125 18.3475C6.0825 19.395 7.96875 20 10.0025 20C15.5162 20 20 15.5137 20 10C20 4.48625 15.5162 0 10.0025 0Z"
                           fill="#449C47"

@@ -93,8 +93,8 @@ export default function Comments() {
         </header>
         <main className="ml-[208px] mt-12 flex items-center">
           <table className="max-h-[760px] w-[1120px] border-separate border-spacing-y-2 overflow-y-auto pb-6">
-            {comments
-              .filter(
+            {comments.length > 0 ?
+              comments.filter(
                 (comment: any) =>
                   selectedStatusComment === '' ||
                   comment.status === selectedStatusComment,
@@ -198,7 +198,11 @@ export default function Comments() {
                     </button>
                   </td>
                 </tr>
-              ))}
+              )) : 
+                <div className="flex items-center justify-center mt-12">
+                  <h4 className="font-heebo text-lg leading-6 text-text">Sem comentários</h4>
+                </div>
+              }
           </table>
         </main>
       </div>

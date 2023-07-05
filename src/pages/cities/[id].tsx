@@ -82,8 +82,8 @@ export default function City() {
         <hr className="w-[1344px] border bg-shape_secondary" />
         <div className="h-[862px] w-full flex-1">
           <Image
-            alt=""
-            src="/caparao.jpg"
+            alt={city?.name}
+            src={city?.image}
             objectFit="cover"
             width={1440}
             height={340}
@@ -132,7 +132,7 @@ export default function City() {
                     avaliation="5,5"
                     category_id={placeByCityId.category_id}
                     place_id={placeByCityId.id}
-                    image="/caparao.jpg"
+                    image={placeByCityId.image}
                   />
                 )
               })}
@@ -194,6 +194,7 @@ export default function City() {
               </div>
             </section>
           )}
+          
           <section className="ml-28 flex h-[756px] w-full flex-col">
             <div className="mb-12 flex w-[1120px] items-end justify-between">
               <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
@@ -226,7 +227,7 @@ export default function City() {
                         avaliation="5,5"
                         category_id={placeByCityId.category_id}
                         place_id={placeByCityId.id}
-                        image="/caparao.jpg"
+                        image={placeByCityId.image}
                       />
                     )
                   })}
