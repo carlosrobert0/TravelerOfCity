@@ -41,7 +41,7 @@ export default function Created() {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
       })
-      
+
       setCity(response.data)
     } catch (error) {
       if (error.response.status === 401) {
@@ -122,8 +122,8 @@ export default function Created() {
               Perfil cadastrado!
             </h1>
             <h2 className="mt-6 text-center font-heebo text-base leading-[26px] text-text">
-              Você tem uma nova cidade e um novo ponto cadastrado.
-              Continue sempre adicionando locais incríveis.
+              Você tem uma nova cidade e um novo ponto cadastrado. Continue
+              sempre adicionando locais incríveis.
             </h2>
             <button
               onClick={() => router.push(`/cities/${cityId}`)}

@@ -93,116 +93,120 @@ export default function Comments() {
         </header>
         <main className="ml-[208px] mt-12 flex items-center">
           <table className="max-h-[760px] w-[1120px] border-separate border-spacing-y-2 overflow-y-auto pb-6">
-            {comments.length > 0 ?
-              comments.filter(
-                (comment: any) =>
-                  selectedStatusComment === '' ||
-                  comment.status === selectedStatusComment,
-              )
-              .sort((a, b) => {
-                if (a.status === 'new' && b.status !== 'new') {
-                  return -1
-                } else if (a.status !== 'new' && b.status === 'new') {
-                  return 1
-                } else {
-                  return 0
-                }
-              })
-              .map((comment) => (
-                <tr
-                  key={comment.id}
-                  className={`h-[88px] w-full ${
-                    comment.status === 'new'
-                      ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape'
-                      : 'bg-shape'
-                  }`}
-                >
-                  <td
-                    className={`relative overflow-visible rounded-tl-2xl rounded-bl-2xl border-t border-b border-l pl-6 ${
+            {comments.length > 0 ? (
+              comments
+                .filter(
+                  (comment: any) =>
+                    selectedStatusComment === '' ||
+                    comment.status === selectedStatusComment,
+                )
+                .sort((a, b) => {
+                  if (a.status === 'new' && b.status !== 'new') {
+                    return -1
+                  } else if (a.status !== 'new' && b.status === 'new') {
+                    return 1
+                  } else {
+                    return 0
+                  }
+                })
+                .map((comment) => (
+                  <tr
+                    key={comment.id}
+                    className={`h-[88px] w-full ${
                       comment.status === 'new'
-                        ? 'border-[#FFDB93]'
-                        : 'border-shape_secondary'
+                        ? 'bg-gradient-to-r from-[#FFDB93]/30 to-shape'
+                        : 'bg-shape'
                     }`}
-                    width="33%"
                   >
-                    <div className="flex items-center justify-start gap-6">
-                      <img
-                        src="/caparao.jpg"
-                        alt=""
-                        className="h-14 w-14 rounded-[50%] object-cover"
-                      />
-                      <h4>{comment.name}</h4>
-                    </div>
-                    {comment.status === 'new' && (
-                      <div className="absolute top-[31px] -left-12 h-[27px] w-14 rounded-lg border border-yellow bg-new_yellow text-center font-heebo text-[10px] font-bold leading-[26px] text-shape">
-                        NOVO
-                      </div>
-                    )}
-                  </td>
-                  <td
-                    width="7%"
-                    className="border-t border-b border-shape_secondary"
-                  >
-                    <div className="flex h-6 w-6 items-center justify-center rounded-[50%] bg-[#F3F3F3]">
-                      {comment.status === 'new' ? (
-                        <img src="/interrogation.svg" alt="" />
-                      ) : comment.status === 'accept' ? (
-                        <img src="/accept.svg" alt="" />
-                      ) : (
-                        comment.status === 'decline' && (
-                          <img src="/decline.svg" alt="" />
-                        )
-                      )}
-                    </div>
-                  </td>
-                  <td className="border-t border-b border-shape_secondary">
-                    <div className="flex flex-col">
-                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
-                        CATEGORIA
-                      </h4>
-                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
-                        {comment.place?.category.name}
-                      </h3>
-                    </div>
-                  </td>
-                  <td className="border-t border-b border-shape_secondary">
-                    <div className="flex flex-col">
-                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
-                        CIDADE
-                      </h4>
-                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
-                        {comment.city.name}
-                      </h3>
-                    </div>
-                  </td>
-                  <td className="border-t border-b border-shape_secondary">
-                    <div className="flex flex-col">
-                      <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
-                        LOCAL
-                      </h4>
-                      <h3 className="font-heebo text-base font-medium leading-6 text-text">
-                        {comment.place.name}
-                      </h3>
-                    </div>
-                  </td>
-                  <td className="rounded-tr-2xl rounded-br-2xl border-t border-b border-r border-shape_secondary pr-6">
-                    <button
-                      onClick={() => {
-                        comment.status !== 'new'
-                          ? openAvaliationDetails()
-                          : openDialogAcceptOrDeclineAvaliation()
-                        setDataComment(comment)
-                      }}
+                    <td
+                      className={`relative overflow-visible rounded-tl-2xl rounded-bl-2xl border-t border-b border-l pl-6 ${
+                        comment.status === 'new'
+                          ? 'border-[#FFDB93]'
+                          : 'border-shape_secondary'
+                      }`}
+                      width="33%"
                     >
-                      <img src="/seta.svg" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              )) : 
-                <div className="flex items-center justify-center mt-12">
-                  <h4 className="font-heebo text-lg leading-6 text-text">Sem comentários</h4>
-                </div>
-              }
+                      <div className="flex items-center justify-start gap-6">
+                        <img
+                          src="/caparao.jpg"
+                          alt=""
+                          className="h-14 w-14 rounded-[50%] object-cover"
+                        />
+                        <h4>{comment.name}</h4>
+                      </div>
+                      {comment.status === 'new' && (
+                        <div className="absolute top-[31px] -left-12 h-[27px] w-14 rounded-lg border border-yellow bg-new_yellow text-center font-heebo text-[10px] font-bold leading-[26px] text-shape">
+                          NOVO
+                        </div>
+                      )}
+                    </td>
+                    <td
+                      width="7%"
+                      className="border-t border-b border-shape_secondary"
+                    >
+                      <div className="flex h-6 w-6 items-center justify-center rounded-[50%] bg-[#F3F3F3]">
+                        {comment.status === 'new' ? (
+                          <img src="/interrogation.svg" alt="" />
+                        ) : comment.status === 'accept' ? (
+                          <img src="/accept.svg" alt="" />
+                        ) : (
+                          comment.status === 'decline' && (
+                            <img src="/decline.svg" alt="" />
+                          )
+                        )}
+                      </div>
+                    </td>
+                    <td className="border-t border-b border-shape_secondary">
+                      <div className="flex flex-col">
+                        <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                          CATEGORIA
+                        </h4>
+                        <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                          {comment.place?.category.name}
+                        </h3>
+                      </div>
+                    </td>
+                    <td className="border-t border-b border-shape_secondary">
+                      <div className="flex flex-col">
+                        <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                          CIDADE
+                        </h4>
+                        <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                          {comment.city.name}
+                        </h3>
+                      </div>
+                    </td>
+                    <td className="border-t border-b border-shape_secondary">
+                      <div className="flex flex-col">
+                        <h4 className="font-heebo text-[10px] font-medium leading-[22px] text-complement">
+                          LOCAL
+                        </h4>
+                        <h3 className="font-heebo text-base font-medium leading-6 text-text">
+                          {comment.place.name}
+                        </h3>
+                      </div>
+                    </td>
+                    <td className="rounded-tr-2xl rounded-br-2xl border-t border-b border-r border-shape_secondary pr-6">
+                      <button
+                        onClick={() => {
+                          comment.status !== 'new'
+                            ? openAvaliationDetails()
+                            : openDialogAcceptOrDeclineAvaliation()
+                          setDataComment(comment)
+                        }}
+                      >
+                        <img src="/seta.svg" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+            ) : (
+              <div className="mt-12 flex items-center justify-center">
+                <h4 className="font-heebo text-lg leading-6 text-text">
+                  Sem comentários
+                </h4>
+              </div>
+            )}
           </table>
         </main>
       </div>

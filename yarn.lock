@@ -4749,7 +4749,7 @@
     "eslint-plugin-react" "^7.29.4"
     "eslint-plugin-react-hooks" "^4.5.0"
 
-"eslint-config-prettier@^8.5.0":
+"eslint-config-prettier@^8.5.0", "eslint-config-prettier@^8.8.0":
   "integrity" "sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA=="
   "resolved" "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz"
   "version" "8.8.0"
@@ -4880,7 +4880,7 @@
     "resolve" "^1.22.1"
     "semver" "^7.3.8"
 
-"eslint-plugin-prettier@^4.0.0":
+"eslint-plugin-prettier@^4.0.0", "eslint-plugin-prettier@^4.2.1":
   "integrity" "sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ=="
   "resolved" "https://registry.npmjs.org/eslint-plugin-prettier/-/eslint-plugin-prettier-4.2.1.tgz"
   "version" "4.2.1"

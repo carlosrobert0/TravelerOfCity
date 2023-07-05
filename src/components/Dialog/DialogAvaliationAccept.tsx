@@ -1,14 +1,14 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
 
 interface DialogAvaliationAcceptProps {
-  isOpen: boolean;
-  onCloseDialog: () => void;
+  isOpen: boolean
+  onCloseDialog: () => void
 }
 
 export default function DialogAvaliationAccept({
   isOpen,
-  onCloseDialog
+  onCloseDialog,
 }: DialogAvaliationAcceptProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>

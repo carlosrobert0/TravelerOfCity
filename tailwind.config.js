@@ -1,17 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.tsx"],
+  content: ['./src/**/*.tsx'],
   theme: {
     extend: {
       fontFamily: {
         barlow: 'Barlow, sans-serif',
         heebo: 'Heebo, sans-serif',
-        roboto: 'Roboto, sans-serif'
+        roboto: 'Roboto, sans-serif',
       },
       colors: {
         brand: {
           blue: '#115D8C',
-          orange: '#F25D27'
+          orange: '#F25D27',
         },
 
         title: '#123952',
@@ -30,7 +30,7 @@ module.exports = {
         orange_border: '#F1BEAC',
         yellow: '#EFB866',
         new_yellow: '#F5A300',
-        
+
         background: '#F5F8FA',
         background_secondary: '#DCE2E6',
         background_dark: '#120e0e',

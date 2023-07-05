@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { api } from '../../services/api'
 import { DialogAvaliationSent } from './DialogAvaliationSent'
 
-interface DialogAddAvaliation {
+interface IDialogAddAvaliation {
   isOpen: boolean
   onClose: () => void
   place_id: string | string[]
@@ -36,7 +36,7 @@ export function DialogAddAvaliation({
   onClose,
   city_id,
   place_id,
-}: DialogAddAvaliation) {
+}: IDialogAddAvaliation) {
   const [avaliation, setAvaliation] = useState(0)
   const [imageData, setImageData] = useState('')
   const [isOpenAvaliationSent, setIsOpenAvaliationSent] = useState(false)

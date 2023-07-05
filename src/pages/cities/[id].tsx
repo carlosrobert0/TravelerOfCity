@@ -194,7 +194,7 @@ export default function City() {
               </div>
             </section>
           )}
-          
+
           <section className="ml-28 flex h-[756px] w-full flex-col">
             <div className="mb-12 flex w-[1120px] items-end justify-between">
               <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
