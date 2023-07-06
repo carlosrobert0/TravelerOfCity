@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export default function HeaderCategory() {
-  const router = useRouter()
+  const router = useRouter();
   function handleCreateCategory() {
-    router.push('/categories/create')
+    router.push('/categories/create');
   }
 
   return (
@@ -26,5 +26,5 @@ export default function HeaderCategory() {
         + Adicionar uma categoria
       </button>
     </header>
-  )
+  );
 }

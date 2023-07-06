@@ -1,13 +1,13 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Fragment, useState } from 'react'
-import { CgLogOff } from 'react-icons/cg'
-import { FiGrid, FiMapPin, FiMessageSquare } from 'react-icons/fi'
-import DialogSignOutApplication from './Dialog/DialogSignOutApplication'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import { CgLogOff } from 'react-icons/cg';
+import { FiGrid, FiMapPin, FiMessageSquare } from 'react-icons/fi';
+import DialogSignOutApplication from './Dialog/DialogSignOutApplication';
 
 export default function Nav() {
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
   const navLink = [
     {
@@ -22,7 +22,7 @@ export default function Nav() {
       name: 'comments',
       link: '/comments',
     },
-  ]
+  ];
 
   return (
     <>
@@ -82,7 +82,7 @@ export default function Nav() {
                   </Link>
                 )}
               </Fragment>
-            )
+            );
           })}
         </div>
 
@@ -100,5 +100,5 @@ export default function Nav() {
         />
       </nav>
     </>
-  )
+  );
 }

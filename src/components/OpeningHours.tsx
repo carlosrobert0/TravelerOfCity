@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface OpeningHoursProps {
-  weekDay: string
+  weekDay: string;
 }
 
 export function OpeningHours({ weekDay }: OpeningHoursProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="mb-6 flex w-full items-center justify-between gap-6">
@@ -74,5 +74,5 @@ export function OpeningHours({ weekDay }: OpeningHoursProps) {
         </label>
       </div>
     </div>
-  )
+  );
 }

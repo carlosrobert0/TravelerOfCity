@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export default function HeaderCity() {
-  const router = useRouter()
+  const router = useRouter();
   function handleCreateCity() {
-    router.push('/cities/create')
+    router.push('/cities/create');
   }
 
   return (
@@ -21,5 +21,5 @@ export default function HeaderCity() {
         </button>
       </>
     </header>
-  )
+  );
 }

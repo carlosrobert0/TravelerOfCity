@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
-import { FiEdit3, FiTrash } from 'react-icons/fi'
+import { useRouter } from 'next/router';
+import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 export function IconsHandleCard({ id, module }) {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className="flex gap-1">
@@ -23,5 +23,5 @@ export function IconsHandleCard({ id, module }) {
         <FiTrash size={20} />
       </button>
     </div>
-  )
+  );
 }

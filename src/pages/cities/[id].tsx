@@ -1,48 +1,48 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { BsArrowLeft } from 'react-icons/bs'
-import { FiAlertCircle, FiCamera, FiEdit3, FiTrash } from 'react-icons/fi'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { BsArrowLeft } from 'react-icons/bs';
+import { FiAlertCircle, FiCamera, FiEdit3, FiTrash } from 'react-icons/fi';
 
-import CardCountPlacesByCategory from '../../components/card/CardCountPlacesByCategory'
-import { CardPlace } from '../../components/card/CardPlace'
-import { IconsHandleCard } from '../../components/IconsHandleCard'
-import Nav from '../../components/Nav'
-import { NavCategories } from '../../components/NavCategories'
-import { api } from '../../services/api'
-import { renderIconNameByCategoryName } from '../../utils/renderIconNameByCategoryName'
-import { CityFormData } from './create'
+import CardCountPlacesByCategory from '../../components/card/CardCountPlacesByCategory';
+import { CardPlace } from '../../components/card/CardPlace';
+import { IconsHandleCard } from '../../components/IconsHandleCard';
+import Nav from '../../components/Nav';
+import { NavCategories } from '../../components/NavCategories';
+import { api } from '../../services/api';
+import { renderIconNameByCategoryName } from '../../utils/renderIconNameByCategoryName';
+import { CityFormData } from './create';
 
 export default function City() {
-  const [city, setCity] = useState<CityFormData | null | any>()
-  const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const router = useRouter()
+  const [city, setCity] = useState<CityFormData | null | any>();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const router = useRouter();
 
-  const [hasProminence] = useState(true)
+  const [hasProminence] = useState(true);
 
-  const { id } = router.query
+  const { id } = router.query;
 
   function handleGoBack() {
-    router.back()
+    router.back();
   }
 
   async function getCity() {
-    const response = await api.get(`/cities/${id}`)
-    setCity(response.data)
+    const response = await api.get(`/cities/${id}`);
+    setCity(response.data);
   }
 
   async function getCategories() {
-    const response = await api.get('/categories')
-    console.log(response.data)
-    setCategories(response.data)
+    const response = await api.get('/categories');
+    console.log(response.data);
+    setCategories(response.data);
   }
 
   useEffect(() => {
-    getCategories()
-    getCity()
-  }, [])
+    getCategories();
+    getCity();
+  }, []);
 
   return (
     <div className="flex h-[2000px] w-screen justify-between overflow-hidden overflow-x-hidden">
@@ -101,9 +101,9 @@ export default function City() {
             <div className="flex gap-4">
               {categories?.map((category: any) => {
                 const places = category?.Places.filter(
-                  (place: any) => place.city_id === id,
-                )
-                const count = places?.length
+                  (place: any) => place.city_id === id
+                );
+                const count = places?.length;
                 return (
                   <CardCountPlacesByCategory
                     key={category.id}
@@ -111,7 +111,7 @@ export default function City() {
                     title={category.name}
                     icon={renderIconNameByCategoryName(category.name)}
                   />
-                )
+                );
               })}
             </div>
           </section>
@@ -127,14 +127,14 @@ export default function City() {
                     key={placeByCityId?.id}
                     name={placeByCityId?.name}
                     category_name={renderIconNameByCategoryName(
-                      placeByCityId?.category?.name,
+                      placeByCityId?.category?.name
                     )}
                     avaliation="5,5"
                     category_id={placeByCityId.category_id}
                     place_id={placeByCityId.id}
                     image={placeByCityId.image}
                   />
-                )
+                );
               })}
             </div>
           </section>
@@ -214,7 +214,7 @@ export default function City() {
                   .filter(
                     (placeByCityId: any) =>
                       selectedCategory === '' ||
-                      placeByCityId.category_id === selectedCategory,
+                      placeByCityId.category_id === selectedCategory
                   )
                   .map((placeByCityId: any) => {
                     return (
@@ -222,14 +222,14 @@ export default function City() {
                         key={placeByCityId.id}
                         name={placeByCityId.name}
                         category_name={renderIconNameByCategoryName(
-                          placeByCityId?.category?.name,
+                          placeByCityId?.category?.name
                         )}
                         avaliation="5,5"
                         category_id={placeByCityId.category_id}
                         place_id={placeByCityId.id}
                         image={placeByCityId.image}
                       />
-                    )
+                    );
                   })}
               </div>
             </div>
@@ -237,5 +237,5 @@ export default function City() {
         </div>
       </main>
     </div>
-  )
+  );
 }

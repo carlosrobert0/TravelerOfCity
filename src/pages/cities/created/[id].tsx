@@ -1,23 +1,23 @@
-import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
+import { useEffect, useState } from 'react';
 
-import { CardCity } from '../../../components/card/CardCity'
-import { CardPlace } from '../../../components/card/CardPlace'
-import { useAuth } from '../../../contexts/AuthContext'
-import { api } from '../../../services/api'
-import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
+import { CardCity } from '../../../components/card/CardCity';
+import { CardPlace } from '../../../components/card/CardPlace';
+import { useAuth } from '../../../contexts/AuthContext';
+import { api } from '../../../services/api';
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName';
 
 export default function Created() {
-  const [city, setCity] = useState<any>()
-  const [place, setPlace] = useState<any>()
+  const [city, setCity] = useState<any>();
+  const [place, setPlace] = useState<any>();
 
-  const cookies = parseCookies()
+  const cookies = parseCookies();
 
-  const router = useRouter()
-  const { placeName, cityId, categoryId } = router.query
+  const router = useRouter();
+  const { placeName, cityId, categoryId } = router.query;
 
-  const { signOutApplication } = useAuth()
+  const { signOutApplication } = useAuth();
 
   async function getPlace() {
     try {
@@ -25,11 +25,11 @@ export default function Created() {
         headers: {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
-      })
-      setPlace(response.data)
+      });
+      setPlace(response.data);
     } catch (error) {
       if (error.response.status === 401) {
-        signOutApplication(router)
+        signOutApplication(router);
       }
     }
   }
@@ -40,24 +40,24 @@ export default function Created() {
         headers: {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
-      })
+      });
 
-      setCity(response.data)
+      setCity(response.data);
     } catch (error) {
       if (error.response.status === 401) {
-        signOutApplication(router)
+        signOutApplication(router);
       }
     }
   }
 
   useEffect(() => {
-    getCity()
-    getPlace()
+    getCity();
+    getPlace();
 
     return () => {
-      getCity(), getPlace()
-    }
-  }, [])
+      getCity(), getPlace();
+    };
+  }, []);
 
   return (
     <div className="flex h-[820px] w-full items-center justify-center">
@@ -152,5 +152,5 @@ export default function Created() {
         </div>
       </main>
     </div>
-  )
+  );
 }

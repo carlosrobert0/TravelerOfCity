@@ -1,68 +1,68 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { FaStar } from 'react-icons/fa'
-import { FiArrowLeft } from 'react-icons/fi'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FaStar } from 'react-icons/fa';
+import { FiArrowLeft } from 'react-icons/fi';
 
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Comment } from '../../../components/Comment'
-import { DialogAddAvaliation } from '../../../components/Dialog/DialogAddAvaliation'
-import { DialogAvaliations } from '../../../components/Dialog/DialogAvaliations'
-import { api } from '../../../services/api'
-import { calculateAverageRatings } from '../../../utils/calculateAverageRatings'
-import { renderIcon } from '../../../utils/renderIcon'
-import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Comment } from '../../../components/Comment';
+import { DialogAddAvaliation } from '../../../components/Dialog/DialogAddAvaliation';
+import { DialogAvaliations } from '../../../components/Dialog/DialogAvaliations';
+import { api } from '../../../services/api';
+import { calculateAverageRatings } from '../../../utils/calculateAverageRatings';
+import { renderIcon } from '../../../utils/renderIcon';
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName';
 
 export default function PlaceOnlyRead() {
-  const [place, setPlace] = useState<any>()
-  const router = useRouter()
-  const [latitude, setLatitude] = useState(null)
-  const [longitude, setLongitude] = useState(null)
-  const id = router.query
+  const [place, setPlace] = useState<any>();
+  const router = useRouter();
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const id = router.query;
 
-  const address = `${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood} ${place?.address?.zip_code}`
+  const address = `${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood} ${place?.address?.zip_code}`;
 
-  const mapSrc = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14506.328260665005!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sbr!4v1685052331201!5m2!1spt-BR!2sbr&t=m`
+  const mapSrc = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14506.328260665005!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sbr!4v1685052331201!5m2!1spt-BR!2sbr&t=m`;
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [isOpenAddAvaliation, setIsOpenAddAvaliation] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAddAvaliation, setIsOpenAddAvaliation] = useState(false);
 
   const avaliationsAccept = place?.Depositions.filter(
-    (deposition: any) => deposition.status === 'accept',
-  )
+    (deposition: any) => deposition.status === 'accept'
+  );
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   function closeModalAddAvaliation() {
-    setIsOpenAddAvaliation(false)
+    setIsOpenAddAvaliation(false);
   }
 
   function openModalAddAvaliation() {
     if (isOpen) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-    setIsOpenAddAvaliation(true)
+    setIsOpenAddAvaliation(true);
   }
 
   function handleGoBack() {
-    router.back()
+    router.back();
   }
 
   async function getPlace() {
     try {
-      const response = await api.get(`places/${id}`)
-      console.log(id)
-      console.log('placee', response.data)
-      setPlace(response.data)
+      const response = await api.get(`places/${id}`);
+      console.log(id);
+      console.log('placee', response.data);
+      setPlace(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -70,28 +70,28 @@ export default function PlaceOnlyRead() {
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-          address,
-        )}&key=${process.env.NEXT_PUBLIC_CHAVE_API_MAPS}`,
-      )
+          address
+        )}&key=${process.env.NEXT_PUBLIC_CHAVE_API_MAPS}`
+      );
 
-      const { results } = response.data
+      const { results } = response.data;
       if (results && results.length > 0) {
-        const { lat, lng } = results[0].geometry.location
-        setLatitude(lat)
-        setLongitude(lng)
+        const { lat, lng } = results[0].geometry.location;
+        setLatitude(lat);
+        setLongitude(lng);
       }
     } catch (error) {
-      console.log('Erro ao obter as coordenadas:', error)
+      console.log('Erro ao obter as coordenadas:', error);
     }
-  }
+  };
 
   useEffect(() => {
-    getPlace()
-  }, [id])
+    getPlace();
+  }, [id]);
 
   useEffect(() => {
-    fetchDataMaps()
-  }, [address])
+    fetchDataMaps();
+  }, [address]);
 
   return (
     <>
@@ -358,7 +358,7 @@ export default function PlaceOnlyRead() {
             {renderIcon(
               renderIconNameByCategoryName(place?.category?.name),
               32,
-              '',
+              ''
             )}
           </div>
         </div>
@@ -378,5 +378,5 @@ export default function PlaceOnlyRead() {
         onClose={closeModalAddAvaliation}
       />
     </>
-  )
+  );
 }

@@ -1,20 +1,20 @@
-import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
+import { useEffect, useState } from 'react';
 
-import { useAuth } from '../../../contexts/AuthContext'
-import { api } from '../../../services/api'
+import { useAuth } from '../../../contexts/AuthContext';
+import { api } from '../../../services/api';
 
 export default function Delete() {
-  const [city, setCity] = useState<any>()
-  const [countPlaces, setCountPlaces] = useState(0)
+  const [city, setCity] = useState<any>();
+  const [countPlaces, setCountPlaces] = useState(0);
 
-  const cookies = parseCookies()
+  const cookies = parseCookies();
 
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
-  const { signOutApplication } = useAuth()
+  const { signOutApplication } = useAuth();
 
   async function getCity() {
     try {
@@ -22,30 +22,30 @@ export default function Delete() {
         headers: {
           Authorization: `Bearer ${cookies['caparao.token']}`,
         },
-      })
-      setCity(response.data)
-      setCountPlaces(response.data?.places.length)
+      });
+      setCity(response.data);
+      setCountPlaces(response.data?.places.length);
     } catch (error) {
       if (error.response.status === 401) {
-        signOutApplication(router)
+        signOutApplication(router);
       }
     }
   }
 
   useEffect(() => {
-    getCity()
+    getCity();
 
     return () => {
-      getCity()
-    }
-  }, [])
+      getCity();
+    };
+  }, []);
 
   async function handleDeleteCity() {
     try {
-      await api.delete(`cities/${id}`)
-      router.push('/cities')
+      await api.delete(`cities/${id}`);
+      router.push('/cities');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -139,5 +139,5 @@ export default function Delete() {
         </div>
       </main>
     </div>
-  )
+  );
 }

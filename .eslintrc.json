@@ -20,7 +20,7 @@
       {
         "singleQuote": true,
         "parser": "flow"
-      }
+      },
     ],
     "camelcase": "off",
     "@next/next/no-img-element": "off"

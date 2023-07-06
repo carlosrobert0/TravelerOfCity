@@ -1,46 +1,46 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { FiAlertCircle, FiArrowLeft, FiCamera } from 'react-icons/fi'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { FiAlertCircle, FiArrowLeft, FiCamera } from 'react-icons/fi';
 
-import CardCountPlacesByCategory from '../../../components/card/CardCountPlacesByCategory'
-import { CardPlace } from '../../../components/card/CardPlace'
-import { NavCategories } from '../../../components/NavCategories'
-import { api } from '../../../services/api'
-import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
-import { CityFormData } from './../create'
+import CardCountPlacesByCategory from '../../../components/card/CardCountPlacesByCategory';
+import { CardPlace } from '../../../components/card/CardPlace';
+import { NavCategories } from '../../../components/NavCategories';
+import { api } from '../../../services/api';
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName';
+import { CityFormData } from './../create';
 
 export default function CityRead() {
-  const [city, setCity] = useState<CityFormData | null | any>()
-  const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const router = useRouter()
+  const [city, setCity] = useState<CityFormData | null | any>();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const router = useRouter();
 
-  const [hasProminence] = useState(false)
+  const [hasProminence] = useState(false);
 
-  const { id } = router.query
+  const { id } = router.query;
 
   function handleGoBack() {
-    router.back()
+    router.back();
   }
 
   async function getCity() {
-    const response = await api.get(`/cities/${id}`)
-    console.log(response)
-    setCity(response.data)
+    const response = await api.get(`/cities/${id}`);
+    console.log(response);
+    setCity(response.data);
   }
 
   async function getCategories() {
-    const response = await api.get('/categories')
-    console.log(response.data)
-    setCategories(response.data)
+    const response = await api.get('/categories');
+    console.log(response.data);
+    setCategories(response.data);
   }
 
   useEffect(() => {
-    getCategories()
-    getCity()
-  }, [])
+    getCategories();
+    getCity();
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -88,9 +88,9 @@ export default function CityRead() {
           <div className="flex gap-4">
             {categories.map((category: any) => {
               const places = category.Places.filter(
-                (place: any) => place.city_id === id,
-              )
-              const count = places.length
+                (place: any) => place.city_id === id
+              );
+              const count = places.length;
               return (
                 <CardCountPlacesByCategory
                   key={category.id}
@@ -98,7 +98,7 @@ export default function CityRead() {
                   title={category.name}
                   icon={renderIconNameByCategoryName(category.name)}
                 />
-              )
+              );
             })}
           </div>
         </section>
@@ -115,14 +115,14 @@ export default function CityRead() {
                   name={placeByCityId.name}
                   avaliation="5,5"
                   category_name={renderIconNameByCategoryName(
-                    placeByCityId?.category?.name,
+                    placeByCityId?.category?.name
                   )}
                   category_id={placeByCityId.category_id}
                   place_id={placeByCityId.id}
                   image={placeByCityId.image}
                   onlyReading
                 />
-              )
+              );
             })}
           </div>
         </section>
@@ -198,7 +198,7 @@ export default function CityRead() {
               .filter(
                 (placeByCityId: any) =>
                   selectedCategory === '' ||
-                  placeByCityId.category_id === selectedCategory,
+                  placeByCityId.category_id === selectedCategory
               )
               .map((placeByCityId: any) => {
                 return (
@@ -207,18 +207,18 @@ export default function CityRead() {
                     name={placeByCityId.name}
                     avaliation="5,5"
                     category_name={renderIconNameByCategoryName(
-                      placeByCityId?.category?.name,
+                      placeByCityId?.category?.name
                     )}
                     category_id={placeByCityId.category_id}
                     place_id={placeByCityId.id}
                     image={placeByCityId.image}
                     onlyReading
                   />
-                )
+                );
               })}
           </div>
         </section>
       </main>
     </div>
-  )
+  );
 }

@@ -2,7 +2,7 @@ import {
   deleteObject,
   getDownloadURL,
   ref,
-  uploadBytesResumable,
+  uploadBytesResumable
 } from 'firebase/storage'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { FiTrash } from 'react-icons/fi'
