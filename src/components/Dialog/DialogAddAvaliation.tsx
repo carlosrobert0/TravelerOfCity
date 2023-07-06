@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ParsedUrlQuery } from 'querystring'
 import { ChangeEvent, Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaStar } from 'react-icons/fa'
@@ -11,7 +12,7 @@ import { DialogAvaliationSent } from './DialogAvaliationSent'
 interface IDialogAddAvaliation {
   isOpen: boolean
   onClose: () => void
-  place_id: string | string[]
+  place_id: ParsedUrlQuery
   city_id: string | null
 }
 

@@ -5,7 +5,6 @@ import { FaStar } from 'react-icons/fa'
 import { FiArrowLeft } from 'react-icons/fi'
 
 import axios from 'axios'
-import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { Comment } from '../../../components/Comment'
 import { DialogAddAvaliation } from '../../../components/Dialog/DialogAddAvaliation'
@@ -20,7 +19,7 @@ export default function PlaceOnlyRead() {
   const router = useRouter()
   const [latitude, setLatitude] = useState(null)
   const [longitude, setLongitude] = useState(null)
-  const { id } = router.query
+  const id = router.query
 
   const address = `${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood} ${place?.address?.zip_code}`
 
@@ -56,15 +55,10 @@ export default function PlaceOnlyRead() {
     router.back()
   }
 
-  const cookies = parseCookies()
-
   async function getPlace() {
     try {
-      const response = await api.get(`places/${id}`, {
-        headers: {
-          Authorization: `Bearer ${cookies['caparao.token']}`,
-        },
-      })
+      const response = await api.get(`places/${id}`)
+      console.log(id)
       console.log('placee', response.data)
       setPlace(response.data)
     } catch (error) {
