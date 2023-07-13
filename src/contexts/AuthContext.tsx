@@ -60,6 +60,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         path: '/',
       })
 
+      api.defaults.headers['Authorization'] = `Bearer ${response.data}`
       router.push('/cities')
     } catch (error) {
       console.log(error)
@@ -76,6 +77,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       const token = credential.accessToken
       // console.log(token)
       // The signed-in user info.
+      api.defaults.headers['Authorization'] = `Bearer ${token}`
       setUser(result.user)
     } catch (error) {
       // Handle Errors here.
