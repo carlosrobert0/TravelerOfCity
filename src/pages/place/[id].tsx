@@ -24,7 +24,7 @@ export default function Place() {
 
   const mapSrc = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14506.328260665005!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sbr!4v1685052331201!5m2!1spt-BR!2sbr&t=m`
 
-  const avaliationsAccept = place?.Depositions.filter(
+  const avaliationsAccept = place?.Depositions?.filter(
     (deposition: any) => deposition.status === 'accept',
   )
 
@@ -300,7 +300,7 @@ export default function Place() {
               <div className="mt-1 flex gap-3">
                 <FaStar size={20} color="#F25D27" />
                 <h6 className="font-barlow text-xl font-semibold leading-5 text-brand-orange">
-                  {calculateAverageRatings(avaliationsAccept)}
+                  {avaliationsAccept ? calculateAverageRatings(avaliationsAccept) : 0}
                 </h6>
               </div>
               <div className="ml-[95px] mt-1 flex gap-4">
@@ -333,8 +333,8 @@ export default function Place() {
 
       <div className="flex-1">
         <Image
-          src={'/caparao.jpg'}
-          objectFit="cover"
+          src={place?.image}
+          className="object-cover"
           sizes="fill"
           width={704}
           height={821}

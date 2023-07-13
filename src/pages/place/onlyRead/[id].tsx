@@ -19,7 +19,7 @@ export default function PlaceOnlyRead() {
   const router = useRouter();
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const id = router.query;
+  const { id } = router.query;
 
   const address = `${place?.address?.street}, ${place?.address?.number} - ${place?.address?.neighborhood} ${place?.address?.zip_code}`;
 
@@ -28,7 +28,7 @@ export default function PlaceOnlyRead() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenAddAvaliation, setIsOpenAddAvaliation] = useState(false);
 
-  const avaliationsAccept = place?.Depositions.filter(
+  const avaliationsAccept = place?.Depositions?.filter(
     (deposition: any) => deposition.status === 'accept'
   );
 
@@ -58,6 +58,7 @@ export default function PlaceOnlyRead() {
   async function getPlace() {
     try {
       const response = await api.get(`places/${id}`);
+      console.log(response)
       console.log(id);
       console.log('placee', response.data);
       setPlace(response.data);
@@ -102,14 +103,16 @@ export default function PlaceOnlyRead() {
           >
             <div className="flex items-center gap-[34px]">
               <Image src="/traveler.svg" alt="" width={126} height={26} />
-              <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary">
+              <button 
+                className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary"
+                onClick={handleGoBack}
+              >
                 <FiArrowLeft
                   size={24}
-                  onClick={handleGoBack}
                   color="#A0ACB2"
                   className="cursor-pointer"
                 />
-              </div>
+              </button>
             </div>
           </header>
           <hr className="border text-shape_secondary" />
@@ -308,7 +311,7 @@ export default function PlaceOnlyRead() {
                 <div className="mt-1 flex gap-3">
                   <FaStar size={20} color="#F25D27" />
                   <h6 className="font-barlow text-xl font-semibold leading-5 text-brand-orange">
-                    {calculateAverageRatings(avaliationsAccept)}
+                    {avaliationsAccept ? calculateAverageRatings(avaliationsAccept) : 0}
                   </h6>
                 </div>
                 <div className="ml-[95px] mt-1 flex gap-4">
@@ -348,9 +351,9 @@ export default function PlaceOnlyRead() {
         <div className="relative flex-1">
           <Image
             alt=""
-            src={'/caparao.jpg'}
-            objectFit="cover"
-            sizes="fill"
+            src={place?.image}
+            layout="fill"
+            className="object-cover"
             width={704}
             height={821}
           />
