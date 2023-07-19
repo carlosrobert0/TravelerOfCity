@@ -1,63 +1,32 @@
 import { useRouter } from 'next/router';
-import { parseCookies } from 'nookies';
 import { useEffect, useState } from 'react';
 
 import { CardCity } from '../../../components/card/CardCity';
 import { CardPlace } from '../../../components/card/CardPlace';
-import { useAuth } from '../../../contexts/AuthContext';
 import { api } from '../../../services/api';
 import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName';
 
 export default function Created() {
   const [city, setCity] = useState<any>();
-  const [place, setPlace] = useState<any>();
 
-  const cookies = parseCookies();
-
+  const place = city?.places[city?.places?.length - 1]
   const router = useRouter();
-  const { placeName, cityId, categoryId } = router.query;
 
-  const { signOutApplication } = useAuth();
-
-  async function getPlace() {
-    try {
-      const response = await api.get(`places/${placeName}`, {
-        headers: {
-          Authorization: `Bearer ${cookies['caparao.token']}`,
-        },
-      });
-      setPlace(response.data);
-    } catch (error) {
-      if (error.response.status === 401) {
-        signOutApplication(router);
-      }
-    }
-  }
+  const {id} = router.query;
 
   async function getCity() {
     try {
-      const response = await api.get(`cities/${cityId}`, {
-        headers: {
-          Authorization: `Bearer ${cookies['caparao.token']}`,
-        },
-      });
+      const response = await api.get(`cities/${id}`);
 
       setCity(response.data);
     } catch (error) {
-      if (error.response.status === 401) {
-        signOutApplication(router);
-      }
+      console.log(error)
     }
   }
 
   useEffect(() => {
     getCity();
-    getPlace();
-
-    return () => {
-      getCity(), getPlace();
-    };
-  }, []);
+  }, [id]);
 
   return (
     <div className="flex h-[820px] w-full items-center justify-center">
@@ -137,17 +106,18 @@ export default function Created() {
 
         <div className="ml-[115px] flex flex-col gap-10">
           <CardCity
-            name={`${city?.name}`}
-            id={`${city?.id}`}
-            image="/caparao.jpg"
-            countPlaces={`${city?.places?.length}`}
+            name={city?.name}
+            id={city?.id}
+            image={city?.image}
+            countPlaces={city?.places?.length}
           />
           <CardPlace
-            name={`${place?.name}`}
-            category_name={renderIconNameByCategoryName(place?.category?.name)}
-            avaliation="4.5"
+            place_id={place?.id}
+            name={place?.name}
+            category_name={place?.category?.name}
+            icon={renderIconNameByCategoryName(place?.category?.name)}
+            avaliation={place?.Depositions}
             image={place?.image}
-            category_id={`${categoryId}`}
           />
         </div>
       </main>
