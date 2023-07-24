@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
-import { FiAlertCircle } from 'react-icons/fi'
+import { FiAlertCircle, FiTrash } from 'react-icons/fi'
 
 import { ImageUploader } from '../../../components/ImageUploader'
 import Nav from '../../../components/Nav'
@@ -18,10 +18,11 @@ export interface CityFormData {
 
 export default function Edit() {
   const [city, setCity] = useState<any>()
+  const [hasImage, setHasImage] = useState(false)
 
   const [imageURL, setImageURL] = useState('')
 
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, setValue } = useForm()
   const router = useRouter()
   const { id } = router.query as any
 
@@ -41,15 +42,15 @@ export default function Edit() {
     setCity(response.data)
   }
 
-  async function handleEditCity({ name, image, description }: CityFormData) {
+  async function handleEditCity({ id, name, image = imageURL, description }: CityFormData) {
     try {
-      const { data } = await api.post('city', {
+      await api.put(`cities/${id}`, {
         name,
-        image: imageURL,
+        image,
         description,
       })
 
-      router.push(`/city/edit/${data.id}`)
+      router.push(`/cities`)
       openModal()
     } catch (error) {
       console.log(error)
@@ -66,7 +67,12 @@ export default function Edit() {
 
   useEffect(() => {
     getCity(id)
-  }, [])
+    setValue("id", id)
+  }, [id])
+
+  useEffect(() => {
+    city?.image !== '' && setHasImage(true)
+  }, [city])
 
   return (
     <>
@@ -110,12 +116,13 @@ export default function Edit() {
                 onSubmit={handleSubmit(handleEditCity)}
                 className="flex flex-col gap-2"
               >
+                <input className='hidden' {...register('id')} />
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Nome da cidade
                 </label>
                 <input
-                  {...register('name')}
-                  value={`${city?.name}`}
+                  {...register('name', { required: true })}
+                  defaultValue={city?.name || ''}
                   className="h-[56px] w-[672px] rounded-[10px] border-[1px]
                    border-shape_secondary bg-background pl-6 text-left font-heebo text-lg text-title"
                 />
@@ -123,8 +130,27 @@ export default function Edit() {
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Foto da cidade
                 </label>
-
-                <ImageUploader onImageURLChange={handleImageURLChange} />
+                {
+                  hasImage ? (
+                    <div className="relative w-full">
+                      <img
+                        alt="Imagem da cidade ou local"
+                        src={city?.image}
+                        className="flex h-64 w-full
+                          flex-col rounded-lg object-none"
+                      />
+                      <div className="absolute top-4 right-4 flex gap-1">
+                        <button
+                          onClick={() => setHasImage(false)}
+                          className="top-4 right-4 flex h-10 w-10 items-center justify-center rounded border-[1px] border-shape_secondary bg-background text-text"
+                        >
+                          <FiTrash size={20} />
+                        </button>
+                      </div>
+                    </div>
+                  ) :
+                    <ImageUploader onImageURLChange={handleImageURLChange} />
+                }
 
                 <label className="font-regular mt-6 mb-[10px] font-heebo text-sm leading-[22px] text-text">
                   Descrição da cidade
@@ -132,8 +158,8 @@ export default function Edit() {
                 <textarea
                   className="h-[202px] w-[672px] rounded-[10px] border-[1px] border-shape_secondary 
                   bg-background pl-6 pt-[15px] text-left font-heebo text-lg text-title"
-                  {...register('description')}
-                  value={`${city?.description}`}
+                  {...register('description', { required: true })}
+                  defaultValue={city?.description || ''}
                 />
                 <div className="mt-[56px] mb-[50px] flex h-[44px] w-full items-center justify-between">
                   <div className="mr-10 flex items-center">

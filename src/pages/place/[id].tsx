@@ -49,13 +49,12 @@ export default function Place() {
     }
   }
 
-  async function onDeletePlace(placeId: string) {
-    try {
-      await api.delete(`places/${placeId}`)
-      router.back()
-    } catch (error) {
-      console.log(error)
-    }
+  function handleEditPlace(placeId: string) {
+    router.push(`/place/edit/${placeId}`)
+  }
+
+  function handleDeletePlace(placeId: string) {
+    router.push(`/place/delete/${placeId}`)
   }
 
   const fetchDataMaps = async () => {
@@ -99,13 +98,14 @@ export default function Place() {
           />
           <div className="ml-[308px] mr-6 flex gap-1">
             <button
+              onClick={() => handleEditPlace(place?.id as string)}
               className="top-4 right-16 flex h-10 w-10 items-center 
                             justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text"
             >
               <FiEdit3 size={20} />
             </button>
             <button
-              onClick={() => onDeletePlace(place?.id as string)}
+              onClick={() => handleDeletePlace(place?.id as string)}
               className="top-4 right-4 flex h-10 w-10 items-center justify-center 
                                 rounded-r-xl border-[1px] border-shape_secondary bg-shape text-text"
             >

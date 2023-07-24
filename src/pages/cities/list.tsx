@@ -149,7 +149,7 @@ export default function ListCities() {
                       <CardCity
                         key={city.id}
                         name={city.name}
-                        image={'/caparao.jpg'}
+                        image={city.image}
                         id={city.id}
                         countPlaces={city.places.length}
                         onlyReading

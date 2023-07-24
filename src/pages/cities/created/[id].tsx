@@ -95,7 +95,7 @@ export default function Created() {
               sempre adicionando locais incríveis.
             </h2>
             <button
-              onClick={() => router.push(`/cities/${cityId}`)}
+              onClick={() => router.push(`/cities/${city?.id}`)}
               className="mt-10 flex h-[48px] w-[100px] items-center justify-center 
               rounded-[10px] bg-brand-orange font-heebo text-base font-medium leading-[26px] text-white"
             >

@@ -63,7 +63,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers['Authorization'] = `Bearer ${response.data}`
       router.push('/cities')
     } catch (error) {
-      console.log(error)
+      throw new Error(error.request.response)
     }
   }
 

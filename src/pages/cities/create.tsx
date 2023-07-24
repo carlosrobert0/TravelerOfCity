@@ -19,7 +19,7 @@ export default function Create() {
   const [imageURL, setImageURL] = useState('')
   const { register, handleSubmit, watch } = useForm()
   const router = useRouter()
-
+  
   async function handleCreateCity({ name, description }: CityFormData) {
     try {
       const { data } = await api.post('city', {

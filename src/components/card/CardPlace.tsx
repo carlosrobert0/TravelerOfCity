@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { api } from '../../services/api'
 
 import { renderIcon } from '../../utils/renderIcon'
 import { IconsHandleCard } from '../IconsHandleCard'
@@ -9,7 +7,6 @@ import { IconsHandleCard } from '../IconsHandleCard'
 interface CardPlaceProps {
   name: string
   image: string
-  category_id: string
   category_name?: string
   city_id?: string
   place_id?: string
@@ -21,7 +18,6 @@ interface CardPlaceProps {
 export function CardPlace({
   name,
   image,
-  category_id,
   place_id,
   avaliation,
   category_name,
@@ -30,22 +26,12 @@ export function CardPlace({
   onlyReading = false,
 }: CardPlaceProps) {
   const router = useRouter()
-  const [categoryName, setCategoryName] = useState('')
 
   function handlePlace(place_id: string) {
     onlyReading
       ? router.push(`/place/onlyRead/${place_id}`)
       : router.push(`/place/${place_id}`)
   }
-
-  async function getCategoryNameByCategoryId(category_id: string) {
-    const response = await api.get(`/category/${category_id}`)
-    setCategoryName(response.data?.name)
-  }
-
-  useEffect(() => {
-    getCategoryNameByCategoryId(category_id)
-  }, [])
 
   return (
     <>
@@ -75,9 +61,9 @@ export function CardPlace({
 
           <div className="ml-6 mt-6 mb-3 flex w-[205px] flex-row justify-between">
             <h2 className="font-barlow text-base font-medium leading-[26px] text-text">
-              {categoryName}
+              {category_name}
             </h2>
-            {renderIcon(category_name, 24, 'ml-8')}
+            {renderIcon(icon, 24, 'ml-8')}
           </div>
         </div>
         {!onlyReading && (
@@ -107,7 +93,7 @@ export function CardPlace({
             />
           </svg>
           <h1 className="font-barlow text-xl font-semibold leading-[25px] text-background">
-            {avaliation}
+            {avaliation?.length === 0 && '0'}
           </h1>
         </div>
       </div>

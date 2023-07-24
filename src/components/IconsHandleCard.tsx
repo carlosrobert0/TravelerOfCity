@@ -7,7 +7,7 @@ export function IconsHandleCard({ id, module }) {
   return (
     <div className="flex gap-1">
       <button
-        onClick={() => router.push(`${module}/edit/${id}`)}
+        onClick={() => router.push(`/${module}/edit/${id}`)}
         disabled={module === 'categories'}
         className="flex h-10 w-10 items-center 
                 justify-center rounded-l-xl border-[1px] border-shape_secondary bg-shape text-text"

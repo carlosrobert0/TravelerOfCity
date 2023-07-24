@@ -39,22 +39,27 @@ export default function CityRead() {
 
   useEffect(() => {
     getCategories();
+  }, [])
+
+  useEffect(() => {
     getCity();
-  }, []);
+  }, [id]);
 
   return (
     <div className="flex flex-col">
       <header className="flex h-24 items-center justify-between bg-shape px-[160px]">
         <div className="flex items-center gap-[34px]">
           <Image src="/traveler.svg" alt="" width={126} height={26} />
-          <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary">
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-shape_secondary"
+            onClick={handleGoBack}
+          >
             <FiArrowLeft
               size={24}
-              onClick={handleGoBack}
               color="#A0ACB2"
               className="cursor-pointer"
             />
-          </div>
+          </button>
         </div>
         <h2 className="font-barlow text-xl font-medium leading-[30px] text-complement">
           {city?.name}
@@ -111,15 +116,13 @@ export default function CityRead() {
             {city?.places.slice(0, 4).map((placeByCityId: any) => {
               return (
                 <CardPlace
-                  key={placeByCityId.id}
-                  name={placeByCityId.name}
-                  avaliation="5,5"
-                  category_name={renderIconNameByCategoryName(
-                    placeByCityId?.category?.name
-                  )}
-                  category_id={placeByCityId.category_id}
-                  place_id={placeByCityId.id}
-                  image={placeByCityId.image}
+                  key={placeByCityId?.id}
+                  place_id={placeByCityId?.id}
+                  name={placeByCityId?.name}
+                  category_name={placeByCityId?.category?.name}
+                  icon={renderIconNameByCategoryName(placeByCityId?.category?.name)}
+                  avaliation={placeByCityId?.Depositions}
+                  image={placeByCityId?.image}
                   onlyReading
                 />
               );
@@ -203,15 +206,13 @@ export default function CityRead() {
               .map((placeByCityId: any) => {
                 return (
                   <CardPlace
-                    key={placeByCityId.id}
-                    name={placeByCityId.name}
-                    avaliation="5,5"
-                    category_name={renderIconNameByCategoryName(
-                      placeByCityId?.category?.name
-                    )}
-                    category_id={placeByCityId.category_id}
-                    place_id={placeByCityId.id}
-                    image={placeByCityId.image}
+                    key={placeByCityId?.id}
+                    place_id={placeByCityId?.id}
+                    name={placeByCityId?.name}
+                    category_name={placeByCityId?.category?.name}
+                    icon={renderIconNameByCategoryName(placeByCityId?.category?.name)}
+                    avaliation={placeByCityId?.Depositions}
+                    image={placeByCityId?.image}
                     onlyReading
                   />
                 );

@@ -17,17 +17,13 @@ interface ImageUploaderProps {
 export function ImageUploader({
   onImageURLChange,
   hasIcon = false,
+  imageData
 }: ImageUploaderProps) {
   const [imageURL, setImageURL] = useState('')
 
   useEffect(() => {
     onImageURLChange(imageURL)
   }, [imageURL, onImageURLChange])
-
-  useEffect(() => {
-    console.log('chegou')
-    console.log(imageURL)
-  }, [imageURL])
 
   const handleUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()

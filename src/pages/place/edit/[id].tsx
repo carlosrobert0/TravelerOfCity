@@ -39,7 +39,7 @@ export default function Edit() {
     setCity(response.data)
   }
 
-  async function handleEditPlace({ name, image, description }: CityFormData) {
+  async function handleEditPlace({ name, image = imageURL, description }: CityFormData) {
     try {
       const { data } = await api.post('city', {
         name,

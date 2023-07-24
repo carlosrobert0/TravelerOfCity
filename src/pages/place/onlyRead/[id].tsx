@@ -353,7 +353,7 @@ export default function PlaceOnlyRead() {
             alt=""
             src={place?.image}
             layout="fill"
-            className="object-cover"
+            className="object-cover ml-auto"
             width={704}
             height={821}
           />

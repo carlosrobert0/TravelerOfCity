@@ -125,14 +125,12 @@ export default function City() {
                 return (
                   <CardPlace
                     key={placeByCityId?.id}
+                    place_id={placeByCityId?.id}
                     name={placeByCityId?.name}
-                    category_name={renderIconNameByCategoryName(
-                      placeByCityId?.category?.name
-                    )}
-                    avaliation="5,5"
-                    category_id={placeByCityId.category_id}
-                    place_id={placeByCityId.id}
-                    image={placeByCityId.image}
+                    category_name={placeByCityId?.category?.name}
+                    icon={renderIconNameByCategoryName(placeByCityId?.category?.name)}
+                    avaliation={placeByCityId?.Depositions}
+                    image={placeByCityId?.image}
                   />
                 );
               })}
@@ -219,15 +217,13 @@ export default function City() {
                   .map((placeByCityId: any) => {
                     return (
                       <CardPlace
-                        key={placeByCityId.id}
-                        name={placeByCityId.name}
-                        category_name={renderIconNameByCategoryName(
-                          placeByCityId?.category?.name
-                        )}
-                        avaliation="5,5"
-                        category_id={placeByCityId.category_id}
-                        place_id={placeByCityId.id}
-                        image={placeByCityId.image}
+                        key={placeByCityId?.id}
+                        place_id={placeByCityId?.id}
+                        name={placeByCityId?.name}
+                        category_name={placeByCityId?.category?.name}
+                        icon={renderIconNameByCategoryName(placeByCityId?.category?.name)}
+                        avaliation={placeByCityId?.Depositions}
+                        image={placeByCityId?.image}
                       />
                     );
                   })}

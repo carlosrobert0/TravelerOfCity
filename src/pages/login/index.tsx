@@ -43,9 +43,8 @@ export default function Login() {
     setIsLoading(true)
     try {
       await signIn({ email, password })
-      router.push('/cities')
     } catch (error) {
-      console.log(error)
+      alert(error.message)
       setIsLoading(false)
     } finally {
       setIsLoading(false)

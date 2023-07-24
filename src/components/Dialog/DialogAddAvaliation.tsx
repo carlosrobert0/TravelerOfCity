@@ -12,7 +12,7 @@ import { DialogAvaliationSent } from './DialogAvaliationSent'
 interface IDialogAddAvaliation {
   isOpen: boolean
   onClose: () => void
-  place_id: ParsedUrlQuery
+  place_id: ParsedUrlQuery | any
   city_id: string | null
 }
 

@@ -2,11 +2,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsArrowLeft } from 'react-icons/bs'
-import { FiCamera } from 'react-icons/fi'
 import { ImageUploader } from '../../../components/ImageUploader'
 
 import Nav from '../../../components/Nav'
 import { api } from '../../../services/api'
+import { renderIcon } from '../../../utils/renderIcon'
+import { renderIconNameByCategoryName } from '../../../utils/renderIconNameByCategoryName'
 
 interface PlaceData extends AddressData {
   name: string
@@ -73,11 +74,6 @@ export default function Create() {
 
       router.push({
         pathname: `/cities/created/${id}`,
-        query: {
-          cityId: id,
-          categoryId: getValues('category_id'),
-          placeName: response.data.name,
-        },
       })
     } catch (error) {
       console.log(error)
@@ -184,7 +180,7 @@ export default function Create() {
                       className="flex h-[204px] w-[213px] flex-col justify-around rounded-[10px] border-[1px] border-shape_secondary bg-background"
                     >
                       <div className="flex justify-between px-[22px]">
-                        <FiCamera size={40} color="#F25D27" />
+                        {renderIcon(renderIconNameByCategoryName(category.name), 40)}
                         <label htmlFor={category.id}>
                           <input
                             type="radio"

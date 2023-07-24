@@ -1,48 +1,29 @@
 import { useRouter } from 'next/router';
-import { parseCookies } from 'nookies';
 import { useEffect, useState } from 'react';
-
-import { useAuth } from '../../../contexts/AuthContext';
 import { api } from '../../../services/api';
 
 export default function Delete() {
-  const [city, setCity] = useState<any>();
-  const [countPlaces, setCountPlaces] = useState(0);
-
-  const cookies = parseCookies();
-
+  const [place, setPlace] = useState<any>();
+  
   const router = useRouter();
   const { id } = router.query;
 
-  const { signOutApplication } = useAuth();
-
-  async function getCity() {
+  async function getPlace() {
     try {
-      const response = await api.get(`cities/${id}`, {
-        headers: {
-          Authorization: `Bearer ${cookies['caparao.token']}`,
-        },
-      });
-      setCity(response.data);
-      setCountPlaces(response.data?.places.length);
+      const response = await api.get(`places/${id}`);
+      setPlace(response.data);
     } catch (error) {
-      if (error.response.status === 401) {
-        signOutApplication(router);
-      }
+      console.log(error)
     }
   }
 
   useEffect(() => {
-    getCity();
-
-    return () => {
-      getCity();
-    };
+    getPlace();
   }, []);
 
-  async function handleDeleteCity() {
+  async function handleDeletePlace() {
     try {
-      await api.delete(`cities/${id}`);
+      await api.delete(`places/${id}`);
       router.back();
     } catch (error) {
       console.log(error);
@@ -111,11 +92,10 @@ export default function Delete() {
               className="mt-[61px] text-center font-heebo text-[54px] 
                     font-medium leading-[58px] text-shape"
             >
-              Excluir cidade
+              Excluir local
             </h1>
             <h2 className="mt-6 text-center font-heebo text-base leading-[26px] text-complement">
-              Tem certeza que quer excluir a cidade de {city?.name} e seus{' '}
-              {countPlaces} locais?
+              Tem certeza que quer excluir o local {place?.name} ?
             </h2>
             <div className="flex gap-2">
               <button
@@ -127,7 +107,7 @@ export default function Delete() {
                 Não
               </button>
               <button
-                onClick={handleDeleteCity}
+                onClick={handleDeletePlace}
                 className="mt-10 flex h-[48px] w-[100px] items-center 
                                 justify-center rounded-[10px] bg-success font-heebo 
                                 text-base font-medium leading-[26px] text-white"
