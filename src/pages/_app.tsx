@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Caparao Turismo</title>
+        <title>Traveler of City</title>
       </Head>
       <AuthProvider>
         <Component {...pageProps} />
