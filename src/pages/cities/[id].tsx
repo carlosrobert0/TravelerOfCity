@@ -121,7 +121,7 @@ export default function City() {
               Top avaliados
             </h3>
             <div className="flex justify-start gap-8">
-              {city?.places.map((placeByCityId: any) => {
+              {city?.places.slice(0, 4).map((placeByCityId: any) => {
                 return (
                   <CardPlace
                     key={placeByCityId?.id}
