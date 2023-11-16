@@ -115,11 +115,12 @@ export function DialogAcceptOrDeclineAvaliation({
                             {dataComment?.description}
                           </p>
                           <div className="flex gap-2">
-                            <FaStar size={20} color="#F25D27" />
-                            <FaStar size={20} color="#F25D27" />
-                            <FaStar size={20} color="#F25D27" />
-                            <FaStar size={20} color="#F25D27" />
-                            <FiStar size={20} color="#F25D27" />
+
+                            {dataComment?.avaliation > 1 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                            {dataComment?.avaliation > 2 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                            {dataComment?.avaliation > 3 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                            {dataComment?.avaliation > 4 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
+                            {dataComment?.avaliation >= 5 ? <FaStar size={20} color="#F25D27" /> : <FiStar size={20} color="#F25D27" />}
                           </div>
                         </div>
                       </div>
