@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FiSearch, FiX } from 'react-icons/fi'
-import { CardCity } from '../../components/card/CardCity'
 import { NavCities } from '../../components/NavCities'
+import { CardCity } from '../../components/card/CardCity'
 import { api } from '../../services/api'
 
 interface PlaceData {

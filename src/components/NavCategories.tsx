@@ -18,7 +18,7 @@ export function NavCategories({
       <nav className="flex h-[38px] w-full items-start justify-between gap-8">
         <button
           onClick={() => handleSelectedCategory('')}
-          className={`font-regular font-heebo text-base leading-[26px] text-text ${
+          className={`font-regular font-heebo text-2xl md:text-base leading-[26px] text-text ${
             selectedCategory === '' &&
             'font-hoboto font-bold text-title underline decoration-brand-orange underline-offset-[19px]'
           }`}
@@ -29,7 +29,7 @@ export function NavCategories({
           <button
             key={category.id}
             onClick={() => handleSelectedCategory(category.id)}
-            className={`font-regular font-heebo text-base leading-[26px] text-text ${
+            className={`font-regular font-heebo text-xl md:text-base leading-[26px] text-text ${
               selectedCategory === category.id &&
               'font-hoboto font-bold text-title underline decoration-brand-orange underline-offset-[19px]'
             }`}

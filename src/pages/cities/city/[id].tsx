@@ -46,8 +46,8 @@ export default function CityRead() {
   }, [id]);
 
   return (
-    <div className="flex flex-col">
-      <header className="flex h-24 items-center justify-between bg-shape px-[160px]">
+    <div className="flex flex-col w-fit md:w-full">
+      <header className="flex h-28 md:h-24 w-full items-center justify-between bg-shape px-[160px]">
         <div className="flex items-center gap-[34px]">
           <Image src="/traveler.svg" alt="" width={126} height={26} />
           <button
@@ -61,11 +61,11 @@ export default function CityRead() {
             />
           </button>
         </div>
-        <h2 className="font-barlow text-xl font-medium leading-[30px] text-complement">
+        <h2 className="font-barlow text-3xl md:text-xl font-medium leading-[30px] text-complement">
           {city?.name}
         </h2>
         <Link href="/login">
-          <button className="h-12 w-[174px] rounded-[10px] bg-blue_light font-heebo text-base font-medium leading-[26px] text-brand-blue hover:opacity-90">
+          <button className="h-12 w-[174px] rounded-[10px] bg-blue_light font-heebo text-xl md:text-base font-medium leading-[26px] text-brand-blue hover:opacity-90">
             Acesso restrito
           </button>
         </Link>
@@ -81,16 +81,16 @@ export default function CityRead() {
           layout="responsive"
         />
 
-        <section className="flex gap-[103px] px-[160px] pt-20">
+        <section className="flex flex-col md:flex-row items-center gap-14 md:gap-[103px] px-[160px] pt-20">
           <div className="flex flex-col">
-            <h1 className="mb-10 font-barlow text-[54px] font-semibold leading-[54px] text-title">
+            <h1 className="mb-10 font-barlow text-7xl md:text-[54px] font-semibold leading-relaxed text-title">
               {city?.name}
             </h1>
-            <h3 className="font-regular mb-8 w-[506px] font-heebo text-xl leading-[30px] text-title">
+            <h3 className="font-regular mb-8 w-full md:w-[506px] font-heebo text-5xl md:text-xl leading-relaxed md:leading-[30px] text-title">
               {city?.description}
             </h3>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-12 md:gap-4">
             {categories.map((category: any) => {
               const places = category.Places.filter(
                 (place: any) => place.city_id === id
@@ -108,11 +108,11 @@ export default function CityRead() {
           </div>
         </section>
 
-        <section className="mt-[120px] flex flex-col gap-8 px-[160px]">
-          <h3 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
+        <section className="mt-[120px] flex flex-col gap-10 px-[160px]">
+          <h3 className="font-barlow text-6xl md:text-4xl font-semibold leading-normal text-title">
             Top avaliados
           </h3>
-          <div className="flex justify-start gap-8">
+          <div className="flex flex-wrap justify-start gap-8">
             {city?.places.slice(0, 4).map((placeByCityId: any) => {
               return (
                 <CardPlace
@@ -158,23 +158,23 @@ export default function CityRead() {
                 </span>
                 <div className="flex h-[26px] w-[200px] gap-6">
                   <FiCamera size={24} color="#F25D27" />
-                  <h4 className="font-barlow text-base font-medium leading-[26px] text-text">
+                  <h4 className="font-barlow text-lg md:text-base font-medium leading-[26px] text-text">
                     Pontos turísticos
                   </h4>
                 </div>
               </div>
               <h1 className="mt-8 mb-4 font-barlow text-4xl font-semibold leading-9 text-title">
-                Praia dos Ingleses
+                Pico da Bandeira
               </h1>
-              <h4 className="font-regular font-heebo text-base leading-[26px] text-text">
-                Uma parte do paraíso na terra. Frequentemente com águas claras
-                em tons verdes e azuis. Um dos locais mais preferidos por
-                turistas e viajantes.
+              <h4 className="font-regular font-heebo text-lg md:text-base leading-[26px] text-text">
+                Uma parte do paraíso na terra. Um lugar de paisagens exuberantes e
+                de uma natureza sem igual. O povo hospitalar da região do caparaó,
+                recebe o ano todo muitos turistas e viajantes.
               </h4>
             </div>
             <Image
               alt=""
-              src="/imgDestaque.png"
+              src="/caparao.jpg"
               objectFit="cover"
               width="650px"
               height="286px"
@@ -185,7 +185,7 @@ export default function CityRead() {
 
         <section className="flex h-[756px] w-full flex-col px-[160px]">
           <div className="mb-12 flex w-[1120px] items-end justify-between">
-            <h1 className="font-barlow text-4xl font-semibold leading-[46px] text-title">
+            <h1 className="font-barlow text-5xl md:text-4xl font-semibold leading-normal text-title">
               Conheça todos
             </h1>
             <div className="flex flex-col">

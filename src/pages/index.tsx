@@ -57,7 +57,7 @@ export default function Home() {
             Minas Gerais e do Brasil.
           </h3>
           <Link href="/cities/list">
-            <button className="mt-6 hidden md:visible md:mt-2 h-[72px] w-[329px] mx-auto md:mx-0 rounded-[10px] bg-brand-orange font-heebo text-lg font-medium leading-[26px] text-shape">
+            <button className="mt-6 hidden md:block md:mt-2 h-[72px] w-[329px] mx-auto md:mx-0 rounded-[10px] bg-brand-orange font-heebo text-lg font-medium leading-[26px] text-shape">
               Descobrir todos os lugares
             </button>
           </Link>

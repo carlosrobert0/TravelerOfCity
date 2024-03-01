@@ -210,7 +210,7 @@ export default function Login() {
             />
           </div>
         </form>
-        <span className="font-regular mt-3 font-heebo text-sm leading-[22px] text-text">
+        <span className="font-regular hidden mt-3 font-heebo text-sm leading-[22px] text-text">
           Não tem uma conta ainda?
           <Link href="/register">
             <a href="#" className="font-medium text-brand-orange">

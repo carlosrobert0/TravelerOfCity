@@ -50,7 +50,7 @@ export function CardPlace({
 
         <div className="flex h-[147px] flex-col items-start">
           <h1
-            className="ml-6 mt-3 mb-6 cursor-pointer font-barlow text-xl 
+            className="ml-6 mt-3 mb-6 cursor-pointer font-barlow text-xl max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap
 						font-semibold leading-[30px] text-title"
             onClick={() => handlePlace(place_id)}
           >
